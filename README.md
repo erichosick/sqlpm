@@ -1,5 +1,15 @@
 # sqlpm
 
+A bare-bones `lerna` mono-repo project.
+
+* Tech stack:
+  * eslint
+  * jest + jsdom + unit/integration testing
+  * lerna (package-level versioning)
+  * typescript
+  * yarn
+  * webpack
+
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 ## Development
