@@ -4,7 +4,8 @@
   "description": "``@sqlpm/file-async-ts` is a typescript library applying the facade pattern to asynchronous file access.",
   "keywords": [
     "typescript",
-    "file read"
+    "file read",
+    "file access"
   ],
   "type": "module",
   "author": "Eric Hosick <erichosick@gmail.com>",
