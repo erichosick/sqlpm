@@ -3,6 +3,6 @@
     "postrun",
     "prerun",
     "sqlpm",
-    "sqlw"
+    "sqlpm"
   ]
 }
