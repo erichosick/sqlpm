@@ -205,6 +205,38 @@ expect(nodePackage).toEqual({
 });
 ```
 
+## **projectConfiguration** -
+
+The project's `package.json` and any parent `package.json` file may be used
+to determine how a project is built and where modules are located. For
+example, a parent `package.json` may contain a
+[yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/)
+configuration.
+
+* **@param childPath** - The absolute path to the child path containing
+ the first `package.json` file.
+* **@param [packageFileName=package.json]** - A node package file name
+to use in place of `package.json`.
+* **@throws** - An error is returned if any of the package.json files found
+are invalid. An error is returned if childPath resolves to a file.
+* **@returns** - An array of package.json objects: ordered as found from the
+child package to the parent package.
+Example usage:
+
+```typescript
+import {
+  dirname,
+} from 'node:path';
+import {
+  projectConfiguration,
+} from '@sqlpm/loader';
+(async () => {
+  const dir = dirname(__dirname);
+  const projConfig = await projectConfiguration(dir);
+  expect(projConfig[0].content.name).toBeDefined();
+})();
+```
+
 ## Intent
 
 * No Emitted Javascript - The intent is to import this typescript library into a typescript project: compiling to Javascript occurring within the project.

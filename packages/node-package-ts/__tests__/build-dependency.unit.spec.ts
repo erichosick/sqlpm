@@ -6,10 +6,6 @@ import {
   buildDependency,
 } from '../src/index';
 
-// import {
-//   buildDependencyTree,
-// } from '../src/build-dependency';
-
 describe('build', () => {
   describe('buildDependency', () => {
     it('should successfully build a dependency', async () => {
