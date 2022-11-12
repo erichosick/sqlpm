@@ -20,7 +20,7 @@ Builds a node package dependency tree starting at the child path.
 
 * **@param childPath** - The starting path of the dependency tree.
 * **@param [options]** - See **{@link FilterOptions}**,
-  **{@link CommonOptions}**
+  **{@link MessagingOptions}**
 * **@throws** - Errors if the `childPath` can not be resolved.
 * **@returns** A node package dependency tree starting at the `childPath`
 provided.

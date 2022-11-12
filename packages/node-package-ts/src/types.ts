@@ -2,7 +2,7 @@ import {
   JSONSchemaForNPMPackageJsonFiles,
 } from '@schemastore/package';
 import { ContentSource } from '@sqlpm/file-async-ts';
-import { CommonOptions } from '@sqlpm/types-ts';
+import { MessagingOptions } from '@sqlpm/types-ts';
 
 /**
  * Represents an object whose key is the source of some content, and value is
@@ -210,7 +210,7 @@ export type NodePackages = NodePackage[];
  * * **@members {@link FilterOptions.include}**
  * * **@members {@link FilterOptions.exclude}**
  */
-export interface FilterOptions extends CommonOptions {
+export interface FilterOptions extends MessagingOptions {
 
   /**
    * When provided, returns any node package dependencies that match the

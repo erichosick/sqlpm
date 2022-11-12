@@ -1,6 +1,8 @@
 // Unit tests only
 
-import type { Config } from 'jest';
+import type {
+  Config,
+} from 'jest';
 
 const unitTestConfig: Config = {
   preset: 'ts-jest',

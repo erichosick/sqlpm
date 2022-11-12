@@ -3,7 +3,7 @@ import {
 } from 'node:path';
 
 import {
-  CommonOptions,
+  MessagingOptions,
 } from '@sqlpm/types-ts';
 
 import {
@@ -67,7 +67,7 @@ const buildDependencyTree = async (
  * Builds a node package dependency tree starting at the child path.
  * * **@param childPath** - The starting path of the dependency tree.
  * * **@param [options]** - See **{@link FilterOptions}**,
- *   **{@link CommonOptions}**
+ *   **{@link MessagingOptions}**
  * * **@throws** - Errors if the `childPath` can not be resolved.
  * * **@returns** A node package dependency tree starting at the `childPath`
  * provided.
@@ -85,7 +85,7 @@ const buildDependencyTree = async (
 */
 export const buildDependency = async (
   childPath: string,
-  options?: FilterOptions & CommonOptions,
+  options?: FilterOptions & MessagingOptions,
 ): Promise<NodePackage | undefined> => {
   // Find all the package files starting at the child root and working our way
   // up the directory structure. We do this to find any workspace packages.

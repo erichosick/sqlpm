@@ -88,9 +88,9 @@ export interface StructuredMessenger {
  * Options that are common between all functions.
  *
  * **@interface**
- * * **@member [{@link CommonOptions.sendMsg}]**
+ * * **@member [{@link MessagingOptions.sendMsg}]**
  */
-export interface CommonOptions {
+export interface MessagingOptions {
 
   /**
    * One or more ways of sending a message, event, log, etc. Call one of the
