@@ -12,6 +12,43 @@ A bare-bones `lerna` mono-repo project.
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
+## How To Use These Libraries
+
+**README:** For consumers of node packages ([jest](https://jestjs.io/) and [ts-node](https://www.npmjs.com/package/ts-node) as examples), by default, a transformer will not be invoked on a typescript package in `node_modules`: though these same libraries will automatically transform your typescript packages if they are located in any other directory.
+
+The intent of packages in this mono-repo is to use the packages as a typescript libraries: compiling them to Javascript occurring within your project on release (using [tsc](https://www.typescriptlang.org/docs/handbook/compiler-options.html) for example). To use these libraries during development, you will need to enable transforming within the `node_modules` directory.
+
+### **Jest**
+
+To enable [jest transforming typescript](https://jestjs.io/docs/configuration#transformignorepatterns-arraystring) for `@sqlpm` projects in jest, add to your `jest.config.ts` the `transformIgnorePatterns: ['/node_modules/(?!(@sqlpm)/)']`. Your final config file should looks something like this:
+
+```typescript
+import type {
+  Config,
+} from 'jest';
+
+const config: Config = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  transformIgnorePatterns: ['/node_modules/(?!(@sqlpm)/)'],
+};
+
+export default config;
+```
+
+### **ts-node**
+
+See [ts-node transpilation options](https://github.com/TypeStrong/ts-node#transpilation-options) for details.
+
+```bash
+# run ts-node with the -skipIgnore option
+yarn ts-node --skipIgnore fails
+
+# or using an environment variable
+TS_NODE_SKIP_IGNORE=true yarn ts-node fail
+
+```
+
 ## Development
 
 Development requirements:
