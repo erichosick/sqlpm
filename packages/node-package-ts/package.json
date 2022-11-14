@@ -16,8 +16,6 @@
     "email": "erichosick@gmail.com"
   },
   "license": "MIT",
-  "module": ".src/index.ts",
-  "types": ".src/index.ts",
   "main": "./src/index.ts",
   "directories": {
     "lib": "lib",
