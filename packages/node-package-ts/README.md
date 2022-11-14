@@ -4,6 +4,8 @@
 
 This library is not a packager resolver.
 
+**README:** See [How to Use This Library](https://github.com/erichosick/sqlpm#how-to-use-these-libraries) to learn how to enable transpilation for local development or tools like [jest](https://jestjs.io/) or [ts-node](https://www.npmjs.com/package/ts-node) won't work.
+
 ## Features
 
 * 100% typescript.
@@ -240,6 +242,11 @@ import {
 ## Intent
 
 * No Emitted Javascript - The intent is to import this typescript library into a typescript project: compiling to Javascript occurring within the project.
+
+## <a name="runningpackage"></a>Running Typescript in node_modules
+
+* `ts
+* `jest`
 
 ## Development
 

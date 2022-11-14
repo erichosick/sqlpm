@@ -2,6 +2,8 @@
 
 `@sqlpm/pares-json-ts` is a typescript package that converts JSON text to a javascript object: optionally verifying and casting the object type.
 
+**README:** See [How to Use This Library](https://github.com/erichosick/sqlpm#how-to-use-these-libraries) to learn how to enable transpilation for local development or tools like [jest](https://jestjs.io/) or [ts-node](https://www.npmjs.com/package/ts-node) won't work.
+
 ## Features
 
 * 100% typescript.
