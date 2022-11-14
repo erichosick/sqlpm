@@ -30,7 +30,6 @@ describe('parseJson', () => {
 
   it('should throw an error when invalid json is provided', async () => {
     const json = '{"name": "Happy User", age": 23}';
-    expect(() => { parseJson(json); })
-      .toThrow('Unexpected token a in JSON at position 23');
+    expect(() => { parseJson(json); }).toThrowError();
   });
 });
