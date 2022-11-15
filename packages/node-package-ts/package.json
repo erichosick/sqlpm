@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/node-package-ts",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "`node-package-ts` is a typescript package that provides helper function for getting information about node packages.",
   "keywords": [
     "typescript",
