@@ -7,7 +7,11 @@ import {
 import { stat } from 'node:fs/promises';
 
 import { PathLike } from 'fs';
-import { FileHandle, readFile as fsReadFile } from 'fs/promises';
+import {
+  FileHandle,
+  readFile as fsReadFile,
+  readdir as fsReadDir,
+} from 'fs/promises';
 
 // -----------------------------------------------------------------------------
 
@@ -105,6 +109,55 @@ export const readFile: ReadFileSignature = async (
 ): Promise<Buffer | undefined> => {
   try {
     return await fsReadFile(path);
+  } catch (err) {
+    if (undefined === options?.required || options.required) {
+      throw (err);
+    }
+  }
+  return undefined;
+};
+
+// -----------------------------------------------------------------------------
+
+/**
+ * Given an absolute or relative path, asynchronously returns all of the file
+ * names in a directory.
+ *
+ * * **@param path** - The absolute or relative path to the file.
+ *
+ * * **@param [options]**
+ *   * **[options.required=true]** - When `true` or `undefined`, when the
+ *   directory is not found an exception is thrown. When `false`, no exception
+ *   is thrown and `undefined` is returned.
+ *
+ * * **@throws** - Errors if the directory is not found when
+ *   `options.required` is `true`.
+ * * **@returns** - An array of file names.
+ *
+ * **@example**
+ * Get the file names of all files in a given directory.
+ *
+ * ```typescript
+ * import {
+ *   readDirectory
+ * } from '@sqlpm/file-ts';
+ *
+ * (async () => {
+ *   const files: string[] | undefined = await readDirectory(__dirname);
+ *   if (files !== undefined) {
+ *     console.info(files);
+ *   } else {
+ *     console.log(`Directory ${__dirname} not found.`);
+ *   }
+ * })();
+ * ```
+*/
+export const readDirectory = async (
+  path: PathLike,
+  options?: ReadOptions,
+): Promise<string[] | undefined> => {
+  try {
+    return await fsReadDir(path);
   } catch (err) {
     if (undefined === options?.required || options.required) {
       throw (err);

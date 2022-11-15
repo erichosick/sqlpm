@@ -13,6 +13,7 @@
   * **fileExists** - Check if a file exists.
   * **readFile** - Read from a file returning a Buffer.
   * **readFileString** -Read from a file returning a string.
+  * **readDirectory** Returns a list of files from a directory.
   * **parentPaths** - Given a path, returns an array of all parent paths.
 
 ## Usage
@@ -135,6 +136,36 @@ import { readFileString } from '@sqlpm/file-async-ts';
   const dir = join(__dirname, 'read-file.unit.spec.ts');
   const content: string | undefined = await readFileString(dir);
   expect(content).toBeDefined();
+})();
+```
+
+## **readDirectory** - Return a List of Files Names From a Directory
+
+Given an absolute or relative path, asynchronously returns all of the file
+names in a directory.
+
+* **@param path** - The absolute or relative path to the file.
+* **@param [options]**
+  * **[options.required=true]** - When `true` or `undefined`, when the
+  directory is not found an exception is thrown. When `false`, no exception
+  is thrown and `undefined` is returned.
+* **@throws** - Errors if the directory is not found when
+  `options.required` is `true`.
+* **@returns** - An array of file names.
+**@example**
+Get the file names of all files in a given directory.
+
+```typescript
+import {
+  readDirectory
+} from '@sqlpm/file-ts';
+(async () => {
+  const files: string[] | undefined = await readDirectory(__dirname);
+  if (files !== undefined) {
+    console.info(files);
+  } else {
+    console.log(`Directory ${__dirname} not found.`);
+  }
 })();
 ```
 
