@@ -9,32 +9,30 @@ import {
 describe('build', () => {
   describe('buildDependency', () => {
     it('should successfully build a dependency', async () => {
-      const nodePackage = await buildDependency(__dirname);
-      const source = nodePackage?.source;
-      expect(source?.absolutePath).toContain('sqlpm/packages/node-package-ts');
-      expect(source?.fileName).toEqual('package.json');
-      expect(nodePackage?.package.name).toEqual('@sqlpm/node-package-ts');
-      expect(nodePackage?.package.version).toBeDefined();
+      const nodePackage = await buildDependency(
+        __dirname,
+      );
+      expect(nodePackage?.source).toEqual({
+        absolutePath: '/Users/erichosick/Projects/sql/sqlpm/packages/node-package-ts',
+        fileName: 'package.json',
+      });
 
-      // NOTE: This may change if the package changes in some way.
-      expect(nodePackage?.package.dependencies?.length).toEqual(6);
+      const packageDetails = nodePackage?.package;
 
-      expect(nodePackage?.package.dependencies).toBeDefined();
+      expect(packageDetails?.name).toEqual('@sqlpm/node-package-ts');
 
-      // checking if recursion is working
-      if (undefined !== nodePackage?.package.dependencies) {
-        let found = false;
-        for (const dependency of nodePackage.package.dependencies) {
-          if (dependency.package.name === 'glob-promise') {
-            if (
-              dependency.package.dependencies
-              && dependency.package.dependencies?.length > 0
-            ) {
-              found = true;
-            }
-          }
+      // It needs to be an absolute version: not something like ^1.4.6
+      expect(packageDetails?.version).not.toMatch('^');
+
+      const pkgDependencies = packageDetails?.dependencies;
+
+      expect(pkgDependencies?.length).toBeGreaterThan(1);
+
+      if (undefined !== pkgDependencies) {
+        for (const dependency of pkgDependencies) {
+          // version should have been resolved.
+          expect(dependency.package.version).not.toEqual('unknown');
         }
-        expect(found).toEqual(true);
       }
     });
 

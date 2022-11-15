@@ -161,11 +161,7 @@ import {
 } from '@sqlpm/file-ts';
 (async () => {
   const files: string[] | undefined = await readDirectory(__dirname);
-  if (files !== undefined) {
-    console.info(files);
-  } else {
-    console.log(`Directory ${__dirname} not found.`);
-  }
+  expect(files?.length).toBeGreaterThan(0);
 })();
 ```
 

@@ -15,7 +15,8 @@ import { nodePackagesFromDependency } from './node-package-from-dependency';
 /**
  * After loading a node package, convert the node package into an easy to
  * manipulate data object. During conversion, filter dependencies.
- * **@param contentSource** The source (file name) and package.json content.
+ * **@param contentSource {@link NodePackageContentSource }** Contains
+ * the source (file name) and package.json content.
  *
  * **@returns A {@link NodePackage} with, optionally, filtered dependencies.
  *
@@ -80,6 +81,7 @@ export const nodePackageFromSource = (
       name: content.name,
       version: content.version,
       dependencies: dependentNodePackages,
+      // add a database property if one exists
       ...(content.database && { database: content.database }),
     },
   };

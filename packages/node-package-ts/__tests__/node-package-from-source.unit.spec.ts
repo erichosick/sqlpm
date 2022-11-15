@@ -1,4 +1,5 @@
 import {
+  DatabasePlatform,
   NodePackage,
   NodePackageContentSource,
   nodePackageFromSource,
@@ -12,14 +13,14 @@ describe('nodePackageFromSource', () => {
         sourcePath: '/some/package.json',
         content: {
           name: '@sqlpm/types',
-          version: '^0.0.0',
+          version: '0.0.1',
         },
       };
 
       const nodePackage: NodePackage = nodePackageFromSource(source);
       expect(nodePackage).toEqual({
         source: { absolutePath: '/some', fileName: 'package.json' },
-        package: { name: '@sqlpm/types', version: '^0.0.0', dependencies: [] },
+        package: { name: '@sqlpm/types', version: '0.0.1', dependencies: [] },
       });
     });
 
@@ -30,14 +31,14 @@ describe('nodePackageFromSource', () => {
         sourcePath: '',
         content: {
           name: '@sqlpm/types',
-          version: '^0.0.0',
+          version: '0.0.2',
         },
       };
 
       const nodePackage: NodePackage = nodePackageFromSource(source);
       expect(nodePackage).toEqual({
         source: { absolutePath: '.', fileName: '' },
-        package: { name: '@sqlpm/types', version: '^0.0.0', dependencies: [] },
+        package: { name: '@sqlpm/types', version: '0.0.2', dependencies: [] },
       });
     });
   });
@@ -49,9 +50,9 @@ describe('nodePackageFromSource', () => {
         sourcePath: '/some/package.json',
         content: {
           name: '@sqlpm/types',
-          version: '^0.0.0',
+          version: '0.0.3',
           dependencies: {
-            '@sqlpm/types': '^0.0.0',
+            '@sqlpm/types': '^0.0.4',
           },
         },
       };
@@ -61,10 +62,10 @@ describe('nodePackageFromSource', () => {
         source: { absolutePath: '/some', fileName: 'package.json' },
         package: {
           name: '@sqlpm/types',
-          version: '^0.0.0',
+          version: '0.0.3',
           dependencies: [
             {
-              package: { name: '@sqlpm/types', version: '^0.0.0', dependencies: [] },
+              package: { name: '@sqlpm/types', version: 'unknown', dependencies: [] },
             },
           ],
         },
@@ -77,9 +78,9 @@ describe('nodePackageFromSource', () => {
         sourcePath: '/some/package.json',
         content: {
           name: '@sqlpm/types',
-          version: '^0.0.0',
+          version: '0.0.5',
           dependencies: {
-            '@sqlpm/types': '^0.0.0',
+            '@sqlpm/types': '^0.0.6',
           },
         },
       };
@@ -92,8 +93,41 @@ describe('nodePackageFromSource', () => {
         source: { absolutePath: '/some', fileName: 'package.json' },
         package: {
           name: '@sqlpm/types',
-          version: '^0.0.0',
+          version: '0.0.5',
           dependencies: [],
+        },
+      });
+    });
+
+    it(`should return pull out the database property if
+      one is provided`, () => {
+      const source: NodePackageContentSource = {
+        sourcePath: '/some/package.json',
+        content: {
+          name: '@sqlpm/types',
+          version: '0.0.8',
+          dependencies: {
+            '@sqlpm/types': '^0.0.9',
+          },
+          database: {
+            platform: DatabasePlatform.Postgresql,
+          },
+        },
+      };
+
+      const nodePackage: NodePackage = nodePackageFromSource(
+        source,
+        { exclude: /^@sqlpm\/[\S]/ },
+      );
+      expect(nodePackage).toEqual({
+        source: { absolutePath: '/some', fileName: 'package.json' },
+        package: {
+          name: '@sqlpm/types',
+          version: '0.0.8',
+          dependencies: [],
+          database: {
+            platform: 'postgresql',
+          },
         },
       });
     });

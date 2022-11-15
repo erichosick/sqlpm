@@ -42,14 +42,14 @@ describe('nodePackagesFromDependency', () => {
         package: {
           dependencies: [],
           name: '@schemastore/package',
-          version: '^0.0.6',
+          version: 'unknown',
         },
       },
       {
         package: {
           dependencies: [],
           name: '@sqlpm/file-async-ts',
-          version: '^1.0.1',
+          version: 'unknown',
         },
       },
     ]);

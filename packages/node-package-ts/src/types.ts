@@ -170,7 +170,7 @@ export interface NodePackageMetadata {
    * property in package.json. See {@link NodePackages}.
    */
   // eslint-disable-next-line no-use-before-define
-  dependencies?: NodePackages;
+  dependencies: NodePackages;
 
   /**
    * Database information {@link DatabaseInformation}

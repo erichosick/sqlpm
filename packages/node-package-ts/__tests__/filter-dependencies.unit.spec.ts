@@ -3,10 +3,10 @@ import {
 } from '../src/index';
 
 describe('filterDependencies', () => {
-  const nodeDependencies = [
-    { package: { name: '@schemastore/package', version: '^0.0.6' } },
-    { package: { name: 'sqlpm', version: '^100.45.3' } },
-    { package: { name: '@sqlpm/file-async-ts', version: '^1.3.0' } },
+  const nodeDependencies: NodePackages = [
+    { package: { name: '@schemastore/package', version: '0.0.6', dependencies: [] } },
+    { package: { name: 'sqlpm', version: '100.45.3', dependencies: [] } },
+    { package: { name: '@sqlpm/file-async-ts', version: '1.3.0', dependencies: [] } },
   ];
 
   it('should return an empty array when no dependencies are provided', () => {
@@ -25,19 +25,22 @@ describe('filterDependencies', () => {
       {
         package: {
           name: '@schemastore/package',
-          version: '^0.0.6',
+          version: '0.0.6',
+          dependencies: [],
         },
       },
       {
         package: {
           name: 'sqlpm',
-          version: '^100.45.3',
+          version: '100.45.3',
+          dependencies: [],
         },
       },
       {
         package: {
           name: '@sqlpm/file-async-ts',
-          version: '^1.3.0',
+          version: '1.3.0',
+          dependencies: [],
         },
       },
     ]);

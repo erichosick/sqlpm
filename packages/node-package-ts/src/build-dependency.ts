@@ -10,10 +10,22 @@ import {
   FilterOptions,
   NodePackage,
 } from './types';
-import { projectConfiguration } from './project-configuration';
-import { nodePackageFromSource } from './node-package-from-source';
-import { moduleLocations } from './module-locations';
-import { loadNodePackage } from './load-node-package';
+
+import {
+  projectConfiguration,
+} from './project-configuration';
+
+import {
+  nodePackageFromSource,
+} from './node-package-from-source';
+
+import {
+  moduleLocations,
+} from './module-locations';
+
+import {
+  loadNodePackage,
+} from './load-node-package';
 
 /**
  * Recursively build a dependency tree, loading sub-tree dependencies as needed.
@@ -26,38 +38,43 @@ const buildDependencyTree = async (
   pkg: NodePackage,
   locations: string[],
 ): Promise<NodePackage> => {
-  if (pkg.package.dependencies) {
-    for (const nodePackage of pkg.package.dependencies) {
-      if (!nodePackage.source) {
-        for (const location of locations) {
-          const finalLocation = location.match(/node_module/) ? join(location, nodePackage.package.name) : location;
-          // required false is there because a node package with sql in it will be
-          // in a workspaces directory with the platform name in the path. But
-          // projects that aren't sql centric may also show up. But we can't tell
-          // if they are sql centric until we can open the package and see if
-          // currentNode.package.database exists.
-          // eslint-disable-next-line no-await-in-loop
-          const localPackage = await loadNodePackage(join(finalLocation, 'package.json'), { required: false });
+  for (const nodePackage of pkg.package.dependencies) {
+    if (!nodePackage.source) {
+      for (const location of locations) {
+        const finalLocation = location.match(/node_module/) ? join(location, nodePackage.package.name) : location;
+        // required false is there because a node package with sql in it will be
+        // in a workspaces directory with the platform name in the path. But
+        // projects that aren't sql centric may also show up. But we can't tell
+        // if they are sql centric until we can open the package and see if
+        // currentNode.package.database exists.
+        // eslint-disable-next-line no-await-in-loop
+        const localPackage = await loadNodePackage(
+          join(finalLocation, 'package.json'),
+          {
+            required: false,
+          },
+        );
 
-          if (localPackage?.content.name === nodePackage.package.name) {
-            const packageDetail = nodePackageFromSource(localPackage);
-            nodePackage.source = packageDetail.source;
-            nodePackage.package.dependencies = packageDetail.package.dependencies;
-            nodePackage.package.database = packageDetail.package.database;
-            break;
-          }
+        if (localPackage?.content.name === nodePackage.package.name) {
+          const packageDetail = nodePackageFromSource(localPackage);
+          nodePackage.source = packageDetail.source;
+          // Pull the version out of the package itself
+          nodePackage.package.version = localPackage.content.version;
+          nodePackage.package.dependencies = packageDetail.package.dependencies;
+          nodePackage.package.database = packageDetail.package.database;
+          break;
         }
       }
-    }
+    } // else we already have the source information for the package so we
+  }
 
-    for (const childPackage of pkg.package.dependencies) {
-      if (childPackage.package.dependencies) {
-        if (childPackage.package.dependencies.length > 0) {
-          // eslint-disable-next-line no-await-in-loop
-          await buildDependencyTree(childPackage, locations);
-        } // else {} nothing to build
+  for (const childPackage of pkg.package.dependencies) {
+    if (childPackage.package.dependencies) {
+      if (childPackage.package.dependencies.length > 0) {
+        // eslint-disable-next-line no-await-in-loop
+        await buildDependencyTree(childPackage, locations);
       } // else {} nothing to build
-    }
+    } // else {} nothing to build
   }
 
   return pkg;

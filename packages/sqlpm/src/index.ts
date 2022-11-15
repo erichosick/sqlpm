@@ -1,6 +1,3 @@
-const sqlpm = () => {
-  // eslint-disable-next-line no-console
-  console.log('sqlpm');
-};
+const sqlpm = (): number => 1;
 
 export default sqlpm;

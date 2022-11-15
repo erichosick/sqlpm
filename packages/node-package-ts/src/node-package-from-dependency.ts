@@ -10,6 +10,12 @@ import {
  * Given a {@link Dependency} as defined in package.json, converts the
  * object key/value representation of { packageName: packageVersion } into
  * an array of {@link NodePackage}.
+ *
+ * **@remarks**
+ * For dependent packages, the version is marked as 'unknown' because the
+ * actual package may have a different version than the version defined in
+ * package.json
+ *
  * **@param dependencies** - The dependencies object as defined by
  * [package dependencies](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#dependencies).
  * Also see {@link Dependency}.
@@ -52,7 +58,11 @@ export const nodePackagesFromDependency = (
     .map((key: string) => ({
       package: {
         name: key,
-        version: Reflect.get(dependencies, key),
+        // version: Reflect.get(dependencies, key),
+        // The version listed in the dependency may not be the actual version
+        // installed. We will need to pull that version from the package.json
+        // file itself. In the mean time, we set the version to unknown.
+        version: 'unknown',
         dependencies: [],
       },
     }));
