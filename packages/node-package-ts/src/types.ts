@@ -37,7 +37,9 @@ export interface ContentSourceObject<ContentType> {
  * }
  * ```
  */
-export type DatabasePlatform = 'postgresql';
+export enum DatabasePlatform {
+  Postgresql = 'postgresql',
+}
 
 /**
   * Provides information about the database schemas defined in a module such
