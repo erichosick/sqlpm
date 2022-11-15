@@ -13,7 +13,7 @@
   * **fileExists** - Check if a file exists.
   * **readFile** - Read from a file returning a Buffer.
   * **readFileString** -Read from a file returning a string.
-  * **readDirectory** Returns a list of files from a directory.
+  * **dirRead** Returns a list of files from a directory.
   * **parentPaths** - Given a path, returns an array of all parent paths.
 
 ## Usage
@@ -139,7 +139,7 @@ import { readFileString } from '@sqlpm/file-async-ts';
 })();
 ```
 
-## **readDirectory** - Return a List of Files Names From a Directory
+## **dirRead** - Return a List of Files Names From a Directory
 
 Given an absolute or relative path, asynchronously returns all of the file
 names in a directory.
@@ -157,10 +157,10 @@ Get the file names of all files in a given directory.
 
 ```typescript
 import {
-  readDirectory
+  dirRead
 } from '@sqlpm/file-ts';
 (async () => {
-  const files: string[] | undefined = await readDirectory(__dirname);
+  const files: string[] | undefined = await dirRead(__dirname);
   expect(files?.length).toBeGreaterThan(0);
 })();
 ```
