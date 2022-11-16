@@ -23,8 +23,8 @@ describe('mutate directories', () => {
       const dir = join(__dirname, 'dir-test2');
       const subDir = join(dir, 'not-empty');
 
-      dirRemove(subDir);
-      dirRemove(dir);
+      await dirRemove(subDir);
+      await dirRemove(dir);
 
       await dirCreate(subDir); // recursively create the directory
 
@@ -40,8 +40,8 @@ describe('mutate directories', () => {
       const dir = join(__dirname, 'dir-test3');
       const subDir = join(dir, 'not-empty');
 
-      dirRemove(subDir);
-      dirRemove(dir);
+      await dirRemove(subDir);
+      await dirRemove(dir);
 
       await dirCreate(subDir); // recursively create the directory
 
@@ -49,8 +49,8 @@ describe('mutate directories', () => {
         .rejects
         .toThrow(/^ENOTEMPTY: directory not empty, rmdir '[\S]*dir-test3'$/);
 
-      dirRemove(subDir);
-      dirRemove(dir);
+      await dirRemove(subDir);
+      await dirRemove(dir);
     });
   });
 
@@ -58,7 +58,7 @@ describe('mutate directories', () => {
     it(`should not create or error if the directory
       already exists`, async () => {
       expect(await fileExists(__dirname)).toEqual(true);
-      dirCreate(__dirname);
+      await dirCreate(__dirname);
     });
 
     it(`should create the directory if it 
