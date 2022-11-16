@@ -20,7 +20,7 @@ describe('mutate directories', () => {
 
     it(`should support recursively deleting a directory if
       the recursive option is provided`, async () => {
-      const dir = join(__dirname, 'dir-test');
+      const dir = join(__dirname, 'dir-test2');
       const subDir = join(dir, 'not-empty');
 
       dirRemove(subDir);
@@ -30,14 +30,14 @@ describe('mutate directories', () => {
 
       await expect(dirRemove(dir, { recursive: false }))
         .rejects
-        .toThrow(/^ENOTEMPTY: directory not empty, rmdir '[\S]*dir-test'$/);
+        .toThrow(/^ENOTEMPTY: directory not empty, rmdir '[\S]*dir-test2'$/);
 
       expect(await dirRemove(dir, { recursive: true })).toEqual(true);
     });
 
     it(`should error if a directory is removed that
       has items in it`, async () => {
-      const dir = join(__dirname, 'dir-test');
+      const dir = join(__dirname, 'dir-test3');
       const subDir = join(dir, 'not-empty');
 
       dirRemove(subDir);
@@ -47,7 +47,7 @@ describe('mutate directories', () => {
 
       await expect(dirRemove(dir))
         .rejects
-        .toThrow(/^ENOTEMPTY: directory not empty, rmdir '[\S]*dir-test'$/);
+        .toThrow(/^ENOTEMPTY: directory not empty, rmdir '[\S]*dir-test3'$/);
 
       dirRemove(subDir);
       dirRemove(dir);
@@ -63,7 +63,7 @@ describe('mutate directories', () => {
 
     it(`should create the directory if it 
       does not exist`, async () => {
-      const dir = join(__dirname, 'dir-test');
+      const dir = join(__dirname, 'dir-test4');
 
       // clean up the test
       await dirRemove(dir);
@@ -74,7 +74,7 @@ describe('mutate directories', () => {
 
     it(`should create the directory recursively if it 
       does not exist`, async () => {
-      const dir01 = join(__dirname, 'dir-test');
+      const dir01 = join(__dirname, 'dir-test5');
       const dir02 = join(dir01, 'deep');
 
       // clean up the test
@@ -93,7 +93,7 @@ describe('mutate directories', () => {
   describe('dirsCreate', () => {
     it(`should create multiple directories under
       a root directory`, async () => {
-      const dir01 = join(__dirname, 'dir-test2');
+      const dir01 = join(__dirname, 'dir-test1');
       const runDir = join(dir01, 'run');
       const testDir = join(dir01, 'test');
 

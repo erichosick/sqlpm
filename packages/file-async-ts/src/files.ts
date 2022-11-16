@@ -16,6 +16,8 @@ import {
 import {
   FileHandle,
   readFile as fsReadFile,
+  writeFile,
+  rm,
 } from 'fs/promises';
 
 import {
@@ -23,6 +25,40 @@ import {
 } from './types';
 
 // -----------------------------------------------------------------------------
+
+/**
+ * TODO: Documentation
+ * @param path
+ * @param content
+ * @returns
+ */
+export const fileWrite = async (
+  path: string,
+  content: string,
+): Promise<boolean> => {
+  await writeFile(path, content, {
+  });
+
+  return true;
+};
+
+/**
+ * TODO: Documentation
+ * @param path
+ * @param content
+ * @returns
+ */
+export const fileRemove = async (
+  path: string,
+): Promise<boolean> => {
+  let result = true;
+  try {
+    await rm(path);
+  } catch {
+    result = false;
+  }
+  return result;
+};
 
 /**
  * `fileExists` function signature.
