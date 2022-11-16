@@ -5,6 +5,7 @@ import {
 
 import {
   PathLike,
+  RmDirOptions,
 } from 'fs';
 
 import {
@@ -38,10 +39,11 @@ export const dirCreate = async (
  */
 export const dirRemove = async (
   path: string,
+  options?: RmDirOptions,
 ): Promise<boolean> => {
   let removed = false;
   try {
-    await rmdir(path);
+    await rmdir(path, options);
     removed = true;
   } catch (err) {
     const error = err as Error;
