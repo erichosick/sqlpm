@@ -45,7 +45,7 @@ describe('file mutate', () => {
       await fileRemove(file);
     });
 
-    it.skip(`should not append or overwrite a file
+    it(`should not append or overwrite a file
     that alread exists`, async () => {
       const file = join(__dirname, 'somefile2.txt');
       const content = 'Hello. This is some text.';
@@ -59,13 +59,9 @@ describe('file mutate', () => {
       const result = await readFileString(file);
       expect(result).toEqual(content);
 
-      // TODO: This will, currently, overwrite the file. A feature
-      // should be added where the overwrite only happens if an option
-      // enables it.
-      await fileWrite(file, content2);
-
-      const result2 = await readFileString(file);
-      expect(result2).toEqual(content);
+      await expect(fileWrite(file, content2))
+        .rejects
+        .toThrow(/^EEXIST: file already exists, open '[\S]*__tests__\/somefile2.txt'$/);
 
       // clean up
       await fileRemove(file);

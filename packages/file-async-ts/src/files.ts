@@ -36,7 +36,15 @@ export const fileWrite = async (
   path: string,
   content: string,
 ): Promise<boolean> => {
-  await writeFile(path, content);
+  await writeFile(
+    path,
+    content,
+    {
+      // See https://nodejs.org/api/fs.html#file-system-flags
+      //  Open file for reading and appending and fails if the path exists.
+      flag: 'ax+',
+    },
+  );
 
   return true;
 };
