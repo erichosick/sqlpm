@@ -38,7 +38,6 @@ import {
 export const projectDirectories = (
   packageName: string,
   platform: DatabasePlatform,
-  description: string,
   purposes: DatabasePurpose[] = [DatabasePurpose.Readwrite],
   actions: RunActionDirectory[] = runActionDirectoryAsArray(),
   workspace: string = 'schemas',
@@ -64,6 +63,8 @@ export const projectPackageTemplate = (
   packageName: string,
   platform: DatabasePlatform,
   description: string,
+  author: string,
+  email: string,
 ): string => `{
   "name": "@sqlpm/${packageName}-${platform}",
   "version": "0.0.0",
@@ -74,11 +75,11 @@ export const projectPackageTemplate = (
     "database schema",
     "postgresql"
   ],
-  "author": "Eric Hosick <erichosick@gmail.com>",
+  "author": "${author} <${email}>",
   "homepage": "https://github.com/erichosick/sqlpm/tree/main/packages/schemas/${packageName}-${platform}",
   "bugs": {
     "url": "https://github.com/erichosick/sqlpm/issues",
-    "email": "erichosick@gmail.com"
+    "email": "${email}"
   },
   "license": "MIT",
   "publishConfig": {
@@ -98,8 +99,10 @@ export const projectPackageTemplate = (
 export const readmeTemplate = (
   packageName: string,
   platform: DatabasePlatform,
-
+  description: string,
 ): string => `# **${packageName}-${platform}**
+
+${description}
 
 ## Usage
 `;
@@ -132,9 +135,9 @@ COMMENT ON SCHEMA ${packageName} IS '${description}';
 
 `;
 
-export const licenseTemplate = (): string => `MIT License
+export const licenseTemplate = (author: string): string => `MIT License
 
-Copyright (c) 2022 Eric Hosick
+Copyright (c) 2022 ${author}
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -158,6 +161,8 @@ export const schemaProjectInit = async (
   packageName: string,
   platform: DatabasePlatform,
   description: string,
+  author: string,
+  email: string,
   purposes: DatabasePurpose[] = [DatabasePurpose.Readwrite],
   actions: RunActionDirectory[] = runActionDirectoryAsArray(),
   workspace: string = 'schemas',
@@ -165,7 +170,6 @@ export const schemaProjectInit = async (
   const directories = projectDirectories(
     packageName,
     platform,
-    description,
     purposes,
     actions,
     workspace,
@@ -180,17 +184,17 @@ export const schemaProjectInit = async (
 
   await fileWrite(
     join(packageDir, 'README.md'),
-    readmeTemplate(packageName, platform),
+    readmeTemplate(packageName, platform, description),
   );
 
   await fileWrite(
     join(packageDir, 'LICENSE.md'),
-    licenseTemplate(),
+    licenseTemplate(author),
   );
 
   await fileWrite(
     join(packageDir, 'package.json'),
-    projectPackageTemplate(packageName, platform, description),
+    projectPackageTemplate(packageName, platform, description, author, email),
   );
 
   const sqlFilePromises = [];

@@ -12,7 +12,6 @@ describe('projectDirectories', () => {
     const directories = projectDirectories(
       'persona',
       DatabasePlatform.Postgresql,
-      'project description',
     );
     expect(directories).toEqual(
       [
@@ -30,7 +29,6 @@ describe('projectDirectories', () => {
     const directories = projectDirectories(
       'persona',
       DatabasePlatform.Postgresql,
-      'project description',
       [DatabasePurpose.Readonly, DatabasePurpose.Readwrite],
       [RunActionDirectory.Run, RunActionDirectory.Seed],
     );

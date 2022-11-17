@@ -30,10 +30,14 @@ describe('schemaProjectInit', () => {
     const workspaceName = 'test-workspace01';
     const packageName = 'test-project';
     const description = 'A test package.';
+    const author = 'The Author';
+    const email = 'author@email.com';
     await schemaProjectInit(
       packageName,
       DatabasePlatform.Postgresql,
       description,
+      author,
+      email,
       [DatabasePurpose.Readwrite],
       [
         RunActionDirectory.Run,
@@ -57,7 +61,13 @@ describe('schemaProjectInit', () => {
 
     expect(await (readFileString(
       join(projectDir, 'README.md'),
-    ))).toEqual(readmeTemplate(packageName, DatabasePlatform.Postgresql));
+    ))).toEqual(
+      readmeTemplate(
+        packageName,
+        DatabasePlatform.Postgresql,
+        description,
+      ),
+    );
 
     expect(await (readFileString(
       join(projectDir, 'package.json'),
@@ -66,13 +76,15 @@ describe('schemaProjectInit', () => {
         packageName,
         DatabasePlatform.Postgresql,
         description,
+        author,
+        email,
       ),
     );
 
     expect(await (readFileString(
       join(projectDir, 'LICENSE.md'),
     ))).toEqual(
-      licenseTemplate(),
+      licenseTemplate(author),
     );
 
     expect(await (readFileString(
@@ -102,10 +114,14 @@ describe('schemaProjectInit', () => {
     const packageName = 'test-project2';
     const description = 'A test package.';
     const workspaceName = 'schemas';
+    const author = 'The Author';
+    const email = 'author@email.com';
     await schemaProjectInit(
       packageName,
       DatabasePlatform.Postgresql,
       description,
+      author,
+      email,
     );
 
     const projectDir = join(
