@@ -32,29 +32,6 @@ import {
  * @param content
  * @returns
  */
-export const fileWrite = async (
-  path: string,
-  content: string,
-): Promise<boolean> => {
-  await writeFile(
-    path,
-    content,
-    {
-      // See https://nodejs.org/api/fs.html#file-system-flags
-      //  Open file for reading and appending and fails if the path exists.
-      flag: 'ax+',
-    },
-  );
-
-  return true;
-};
-
-/**
- * TODO: Documentation
- * @param path
- * @param content
- * @returns
- */
 export const fileRemove = async (
   path: string,
 ): Promise<boolean> => {
@@ -100,6 +77,33 @@ export const fileExists = async (
 
 // -----------------------------------------------------------------------------
 
+/**
+ * TODO: Documentation
+ * @param path
+ * @param content
+ * @returns
+ */
+export const fileWrite = async (
+  path: string,
+  content: string,
+): Promise<boolean> => {
+  const fileStatus = await fileExists(path);
+  if (!fileStatus) {
+    await writeFile(
+      path,
+      content,
+      {
+      // See https://nodejs.org/api/fs.html#file-system-flags
+      //  Open file for reading and appending and fails if the path exists.
+        flag: 'ax+',
+      },
+    );
+    return true;
+  }
+  return false;
+};
+
+// -----------------------------------------------------------------------------
 /**
  * `readFile` function signature.
  */

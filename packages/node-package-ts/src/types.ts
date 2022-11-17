@@ -1,8 +1,15 @@
 import {
   JSONSchemaForNPMPackageJsonFiles,
 } from '@schemastore/package';
-import { ContentSource } from '@sqlpm/file-async-ts';
-import { MessagingOptions } from '@sqlpm/types-ts';
+
+import {
+  ContentSource,
+} from '@sqlpm/file-async-ts';
+
+import {
+  MessagingOptions,
+  DatabaseInformation,
+} from '@sqlpm/types-ts';
 
 /**
  * Represents an object whose key is the source of some content, and value is
@@ -13,61 +20,6 @@ import { MessagingOptions } from '@sqlpm/types-ts';
 export interface ContentSourceObject<ContentType> {
   [key: string]: ContentType
 }
-
-/**
- * Supported database platforms. The name of the database platform is also
- * the name of the directory for that platform. For postgresql sql script would
- * be in a directory {project_root}/schemas/postgresql/*
- *
- * **@remarks**
- * We intend to add 'sqlite' | 'mssql' | 'mysql' | 'mariadb' | 'snowflake'.
- *
- * **@remarks**
- * When adding a new DatabasePlatform, be sure to updated the root
- * package.json to include the new database platform schema directory.
- *
- * **@example**
- * Adding postgresql packages required the following update to `package.json`.
- * ```json
- * {
- *   // ...
- *   "workspaces": [
- *     "schemas/postgresql/*",
- *   ],
- * }
- * ```
- */
-export enum DatabasePlatform {
-  Postgresql = 'postgresql',
-}
-
-/**
-  * Provides information about the database schemas defined in a module such
-  * as the database platform the sql script is written for.
-  *
-  * **@remarks**
-  * Intend to add other attributes like schemaName and domainsCovered
-  * (business domains like person, invoice, etc.)
-  *
-  * **@interface**
-  * **@member {@link DatabaseInformation.platform}**
-  */
-export interface DatabaseInformation {
-
-  /**
-   * The database platform(s) of all sql scripts for a given package are
-   * written for. In cases where the database platforms are compatible,
-   * one of the {@link DatabasePlatform}s will be chosen to represent all
-   * compatible database platforms.
-   */
-  // eslint-disable-next-line no-use-before-define
-  platform: DatabasePlatform | DatabasePlatforms
-}
-
-/**
- * An array of {@link DatabasePlatform}.
- */
-export type DatabasePlatforms = DatabasePlatform[];
 
 /**
  * Extends the {@link JSONSchemaForNPMPackageJsonFiles} type.

@@ -46,7 +46,7 @@ describe('file mutate', () => {
     });
 
     it(`should not append or overwrite a file
-    that alread exists`, async () => {
+    that already exists`, async () => {
       const file = join(__dirname, 'somefile2.txt');
       const content = 'Hello. This is some text.';
       const content2 = 'Should not write this.';
@@ -58,10 +58,7 @@ describe('file mutate', () => {
 
       const result = await readFileString(file);
       expect(result).toEqual(content);
-
-      await expect(fileWrite(file, content2))
-        .rejects
-        .toThrow(/^EEXIST: file already exists, open '[\S]*__tests__\/somefile2.txt'$/);
+      expect(await fileWrite(file, content2)).toEqual(false);
 
       // clean up
       await fileRemove(file);

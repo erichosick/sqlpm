@@ -33,12 +33,18 @@ module.exports = {
       },
     ],
 
+    'max-len': ['warn', { code: 100, ignoreUrls: true }],
     // https://stackoverflow.com/questions/69905008/stuck-with-eslint-error-separately-loops-should-be-avoided-in-favor-of-array-it
     // https://medium.com/@paul.beynon/thanks-for-taking-the-time-to-write-the-article-i-enjoyed-it-db916026647
     'no-restricted-syntax': 'off',
 
     // Enable files that have no default export.
     'import/prefer-default-export': 'off',
+
+    // '{file}' is already declared in the upper scope...
+    // see https://stackoverflow.com/questions/63961803/eslint-says-all-enums-in-typescript-app-are-already-declared-in-the-upper-scope
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
 
   },
   settings: {
