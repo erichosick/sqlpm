@@ -36,8 +36,7 @@ export const fileWrite = async (
   path: string,
   content: string,
 ): Promise<boolean> => {
-  await writeFile(path, content, {
-  });
+  await writeFile(path, content);
 
   return true;
 };
