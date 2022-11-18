@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/node-package-ts",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "`node-package-ts` is a typescript package that provides helper function for getting information about node packages.",
   "keywords": [
     "typescript",
@@ -33,9 +33,9 @@
   },
   "dependencies": {
     "@schemastore/package": "^0.0.6",
-    "@sqlpm/file-async-ts": "^1.8.0",
+    "@sqlpm/file-async-ts": "^1.8.1",
     "@sqlpm/parse-json-ts": "^1.0.4",
-    "@sqlpm/types-ts": "^1.2.1",
+    "@sqlpm/types-ts": "^1.2.2",
     "clone": "^2.1.2",
     "glob-promise": "^5.0.0"
   }
