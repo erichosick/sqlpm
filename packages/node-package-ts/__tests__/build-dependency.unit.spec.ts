@@ -1,4 +1,5 @@
 import {
+  join,
   sep as separator,
 } from 'node:path';
 
@@ -12,8 +13,9 @@ describe('build', () => {
       const nodePackage = await buildDependency(
         __dirname,
       );
+
       expect(nodePackage?.source).toEqual({
-        absolutePath: '/Users/erichosick/Projects/sql/sqlpm/packages/node-package-ts',
+        absolutePath: join(process.cwd(), 'packages', 'node-package-ts'),
         fileName: 'package.json',
       });
 
@@ -36,7 +38,8 @@ describe('build', () => {
       }
     });
 
-    it('should return undefined if no valid directory name is provided', async () => {
+    it(`should return undefined if no valid
+      directory name is provided`, async () => {
       await expect(buildDependency(separator))
         .rejects
         .toThrow(`Unable to build package dependencies because a 'package.json' file was not found at '${separator}'.`);

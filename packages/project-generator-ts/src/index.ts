@@ -15,6 +15,133 @@ import {
 } from '@sqlpm/types-ts';
 
 /**
+ * Given a workspace and database platform, returns the directory where
+ * schema packages are created (for that database platform).
+ * * **@param workspace** - Workspace name.
+ * * **@param platform** - Database platform name
+ * * **@returns** - The directory where schema packages are created
+ * (for that database platform).
+ *
+ * **@example**
+ *
+ * Returns a directory for Postgresql.
+ *
+ * ```typescript
+ * expect(
+ *   platformDirectory(
+ *     'schemas',
+ *      DatabasePlatform.Postgresql,
+ *   ),
+ * ).toEqual('schemas/postgresql');
+ * ```
+ */
+export const platformDirectory = (
+  workspace: string,
+  platform: DatabasePlatform,
+): string => join(workspace, platform);
+
+/**
+ * Given a platform directory and package name, returns the
+ * directory where the sql package resides.
+ * * **@param platDir** - The directory created by calling
+ * {@link platformDirectory}.
+ * * **@param packageName** - The name of the json package. Most likely also
+ * the database schema name.
+ * * **@returns** - The directory where the sql package resides.
+ *
+ * **@example**
+ *
+ * Returns a directory where the universal package resides. universal is also
+ * the name of the database schema.
+ *
+ * ```typescript
+ * expect(
+ *   packageDirectory(
+ *     'schemas',
+ *      DatabasePlatform.Postgresql,
+ *     'universal',
+ *   ),
+ * ).toEqual('schemas/postgresql/universal');
+ * ```
+ */
+export const packageDirectory = (
+  platDir: string,
+  packageName: string,
+): string => join(platDir, packageName);
+
+/**
+ * Given a package directory and purpose, returns the
+ * directory where sql script is placed for the given purpose.
+ * **@example**
+ * For example, if the purpose of the database is that it is used as a readonly
+ * database, then all sql script for the read only database will be placed in
+ * this directory.
+ *
+ * * **@param pkgDir** - The directory created by calling
+ * {@link packageDirectory}
+ * * **@param purpose** - The purpose of the database.
+ * **@example**
+ * A readonly database.
+ * * **@returns** - The directory where sql script is placed for the given
+ * purpose.
+ *
+ * **@example**
+ *
+ * Returns the directory where sql script is placed for a readwrite database.
+ *
+ * ```typescript
+ * expect(
+ *   purposeDirectory(
+ *     'schemas',
+ *      DatabasePlatform.Postgresql,
+ *     'universal',
+ *      DatabasePurpose.Readwrite,
+ *   ),
+ * ).toEqual('schemas/postgresql/universal/readwrite');
+ * ```
+ */
+export const purposeDirectory = (
+  pkgDir: string,
+  purpose: DatabasePurpose,
+): string => join(pkgDir, purpose);
+
+/**
+ * Given a workspace, database platform, package name, purpose and action,
+ * returns the directory where sql script for a specific action are placed.
+ * **@example**
+ * The directory where all test sql script are placed.
+ *
+ * * **@param purposeDir** - The directory created by calling
+ * {@link purposeDirectory}
+ * * **@param action** - The action taken with the SQL script such as test
+ * **@example**
+ * Scripts in a test action directory will run when the action of 'test' is
+ * ran.
+ * * **@returns** - The directory where sql script is placed for the given
+ * action.
+ *
+ * **@example**
+ *
+ * Returns the directory where sql script is placed for the given action.
+ *
+ * ```typescript
+ * expect(
+ *   actionDirectory(
+ *     'schemas',
+ *      DatabasePlatform.Postgresql,
+ *     'universal',
+ *      DatabasePurpose.Readwrite,
+ *      RunActionDirectory.Test,
+ *   ),
+ * ).toEqual('schemas/postgresql/universal/readwrite/test');
+ * ```
+ */
+export const actionDirectory = (
+  purposeDir: string,
+  action: RunActionDirectory,
+): string => join(purposeDir, action);
+
+/**
  * Generates a list of directories that would be used as part of the
  * projects directories.
  * * **@param packageName** - The name of the folder that contains the sqlpm
@@ -45,14 +172,11 @@ export const projectDirectories = (
   const directories: string[] = [];
   for (const purpose of purposes) {
     for (const action of actions) {
-      const dir = join(
-        workspace,
-        packageName,
-        platform,
-        purpose,
-        action,
-      );
-      directories.push(dir);
+      const platDir = platformDirectory(workspace, platform);
+      const pkgDir = packageDirectory(platDir, packageName);
+      const purposeDir = purposeDirectory(pkgDir, purpose);
+      const actDir = actionDirectory(purposeDir, action);
+      directories.push(actDir);
     }
   }
 
@@ -71,7 +195,6 @@ export const projectPackageTemplate = (
   "description": "${description}",
   "keywords": [
     "sqlpm",
-    "sql-watch",
     "database schema",
     "postgresql"
   ],
@@ -135,7 +258,7 @@ COMMENT ON SCHEMA ${packageName} IS '${description}';
 
 `;
 
-export const licenseTemplate = (author: string): string => `MIT License
+export const licenseTemplate = (author: string): string => `# MIT License
 
 Copyright (c) 2022 ${author}
 
@@ -180,34 +303,33 @@ export const schemaProjectInit = async (
     directories,
   );
 
-  const packageDir = join(process.cwd(), workspace, packageName);
+  const platformDir = platformDirectory(workspace, platform);
+  const packageDir = packageDirectory(platformDir, packageName);
+
+  const absolutePackageDir = join(process.cwd(), packageDir);
 
   await fileWrite(
-    join(packageDir, 'README.md'),
+    join(absolutePackageDir, 'README.md'),
     readmeTemplate(packageName, platform, description),
   );
 
   await fileWrite(
-    join(packageDir, 'LICENSE.md'),
+    join(absolutePackageDir, 'LICENSE.md'),
     licenseTemplate(author),
   );
 
   await fileWrite(
-    join(packageDir, 'package.json'),
+    join(absolutePackageDir, 'package.json'),
     projectPackageTemplate(packageName, platform, description, author, email),
   );
 
   const sqlFilePromises = [];
 
   for (const purpose of purposes) {
+    const purposeDir = purposeDirectory(packageDir, purpose);
     for (const action of actions) {
-      const file = join(
-        packageDir,
-        platform,
-        purpose,
-        action,
-        `100_${action}.sql`,
-      );
+      const actionDir = actionDirectory(purposeDir, action);
+      const file = join(actionDir, `100_${action}.sql`);
 
       if (action === RunActionDirectory.Run) {
         sqlFilePromises.push(

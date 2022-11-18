@@ -7,7 +7,6 @@
     "file read",
     "file access"
   ],
-  "type": "module",
   "author": "Eric Hosick <erichosick@gmail.com>",
   "homepage": "https://github.com/erichosick/sqlpm/tree/main/packages/file-async-ts",
   "bugs": {

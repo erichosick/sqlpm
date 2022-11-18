@@ -8,7 +8,6 @@
     "json validator",
     "reviver"
   ],
-  "type": "module",
   "author": "Eric Hosick <erichosick@gmail.com>",
   "homepage": "https://github.com/erichosick/sqlpm/tree/main/packages/node-package-ts",
   "bugs": {

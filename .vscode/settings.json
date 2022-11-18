@@ -1,8 +1,20 @@
 {
   "cSpell.words": [
+    "allexport",
+    "codepaths",
+    "dbname",
+    "inrupt",
+    "localpassword",
+    "onnotice",
+    "PGDATABASE",
+    "PGPASSWORD",
+    "PGPORT",
+    "PGSCHEMA",
+    "PGUSER",
     "pino",
     "postrun",
     "prerun",
-    "sqlpm"
+    "sqlpm",
+    "tsbuildinfo"
   ]
 }

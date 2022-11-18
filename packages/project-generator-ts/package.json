@@ -6,7 +6,6 @@
     "sqlpm",
     "package generator"
   ],
-  "type": "module",
   "author": "Eric Hosick <erichosick@gmail.com>",
   "homepage": "https://github.com/erichosick/sqlpm/tree/main/packages/package-generator-ts",
   "bugs": {

@@ -6,11 +6,7 @@ import type {
 
 const unitTestConfig: Config = {
   preset: 'ts-jest',
-  setupFiles: [
-    './scripts/jest-setup.ts',
-    'jsdom-worker', // Mocks URL.createObject
-  ],
-  testEnvironment: 'jsdom',
+  testEnvironment: 'node',
   testMatch: [
     '**/*.unit.spec.ts',
     // Ignoring integration tests. Called out explicitly because anything

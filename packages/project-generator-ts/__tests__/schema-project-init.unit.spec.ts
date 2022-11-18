@@ -20,6 +20,10 @@ import {
   readmeTemplate,
   projectPackageTemplate,
   licenseTemplate,
+  packageDirectory,
+  platformDirectory,
+  purposeDirectory,
+  actionDirectory,
 } from '../src/index';
 
 describe('schemaProjectInit', () => {
@@ -47,20 +51,18 @@ describe('schemaProjectInit', () => {
       workspaceName,
     );
 
-    const projectDir = join(
-      process.cwd(),
+    const platDir = platformDirectory(
       workspaceName,
-      packageName,
+      DatabasePlatform.Postgresql,
     );
 
-    const purposeDir = join(
-      projectDir,
-      'postgresql',
-      'readwrite',
-    );
+    const packageDir = packageDirectory(platDir, packageName);
+    const absolutePackageDir = join(process.cwd(), packageDir);
+    const purposeDir = purposeDirectory(packageDir, DatabasePurpose.Readwrite);
+    const absolutePurposeDir = join(process.cwd(), purposeDir);
 
     expect(await (readFileString(
-      join(projectDir, 'README.md'),
+      join(absolutePackageDir, 'README.md'),
     ))).toEqual(
       readmeTemplate(
         packageName,
@@ -70,7 +72,7 @@ describe('schemaProjectInit', () => {
     );
 
     expect(await (readFileString(
-      join(projectDir, 'package.json'),
+      join(absolutePackageDir, 'package.json'),
     ))).toEqual(
       projectPackageTemplate(
         packageName,
@@ -82,21 +84,36 @@ describe('schemaProjectInit', () => {
     );
 
     expect(await (readFileString(
-      join(projectDir, 'LICENSE.md'),
+      join(absolutePackageDir, 'LICENSE.md'),
     ))).toEqual(
       licenseTemplate(author),
     );
 
+    const runActionDir = actionDirectory(
+      absolutePurposeDir,
+      RunActionDirectory.Run,
+    );
+
     expect(await (readFileString(
-      join(purposeDir, 'run', '100_run.sql'),
+      join(runActionDir, '100_run.sql'),
     ))).toEqual(sqlTemplateRun(packageName, 'run', description));
 
-    expect(await (readFileString(
-      join(purposeDir, 'test', '100_test.sql'),
-    ))).toEqual(sqlTemplate(packageName, 'test'));
+    const testActionDir = actionDirectory(
+      absolutePurposeDir,
+      RunActionDirectory.Test,
+    );
 
     expect(await (readFileString(
-      join(purposeDir, 'reset', '100_reset.sql'),
+      join(testActionDir, '100_test.sql'),
+    ))).toEqual(sqlTemplate(packageName, 'test'));
+
+    const resetActionDir = actionDirectory(
+      absolutePurposeDir,
+      RunActionDirectory.Reset,
+    );
+
+    expect(await (readFileString(
+      join(resetActionDir, '100_reset.sql'),
     ))).toEqual(sqlTemplate(packageName, 'reset'));
 
     await dirRemove(
@@ -124,32 +141,44 @@ describe('schemaProjectInit', () => {
       email,
     );
 
-    const projectDir = join(
-      process.cwd(),
+    const platDir = platformDirectory(
       workspaceName,
-      packageName,
+      DatabasePlatform.Postgresql,
     );
 
-    const purposeDir = join(
-      projectDir,
-      'postgresql',
-      'readwrite',
+    const packageDir = packageDirectory(platDir, packageName);
+    const purposeDir = purposeDirectory(packageDir, DatabasePurpose.Readwrite);
+    const absolutePurposeDir = join(process.cwd(), purposeDir);
+
+    const prerunActionDir = actionDirectory(
+      absolutePurposeDir,
+      RunActionDirectory.Prerun,
     );
 
     expect(await (readFileString(
-      join(purposeDir, 'prerun', '100_prerun.sql'),
+      join(prerunActionDir, '100_prerun.sql'),
     ))).toEqual(sqlTemplate(packageName, 'prerun'));
 
-    expect(await (readFileString(
-      join(purposeDir, 'postrun', '100_postrun.sql'),
-    ))).toEqual(sqlTemplate(packageName, 'postrun'));
+    const postrunActionDir = actionDirectory(
+      absolutePurposeDir,
+      RunActionDirectory.Postrun,
+    );
 
     expect(await (readFileString(
-      join(purposeDir, 'reset', '100_reset.sql'),
+      join(postrunActionDir, '100_postrun.sql'),
+    ))).toEqual(sqlTemplate(packageName, 'postrun'));
+
+    const resetActionDir = actionDirectory(
+      absolutePurposeDir,
+      RunActionDirectory.Reset,
+    );
+
+    expect(await (readFileString(
+      join(resetActionDir, '100_reset.sql'),
     ))).toEqual(sqlTemplate(packageName, 'reset'));
 
     await dirRemove(
-      join(process.cwd(), workspaceName, packageName),
+      join(process.cwd(), platDir),
       {
         recursive: true,
       },

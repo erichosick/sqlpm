@@ -15,12 +15,12 @@ describe('projectDirectories', () => {
     );
     expect(directories).toEqual(
       [
-        'schemas/persona/postgresql/readwrite/prerun',
-        'schemas/persona/postgresql/readwrite/run',
-        'schemas/persona/postgresql/readwrite/postrun',
-        'schemas/persona/postgresql/readwrite/seed',
-        'schemas/persona/postgresql/readwrite/test',
-        'schemas/persona/postgresql/readwrite/reset',
+        'schemas/postgresql/persona/readwrite/prerun',
+        'schemas/postgresql/persona/readwrite/run',
+        'schemas/postgresql/persona/readwrite/postrun',
+        'schemas/postgresql/persona/readwrite/seed',
+        'schemas/postgresql/persona/readwrite/test',
+        'schemas/postgresql/persona/readwrite/reset',
       ],
     );
   });
@@ -35,10 +35,10 @@ describe('projectDirectories', () => {
 
     expect(directories).toEqual(
       [
-        'schemas/persona/postgresql/readonly/run',
-        'schemas/persona/postgresql/readonly/seed',
-        'schemas/persona/postgresql/readwrite/run',
-        'schemas/persona/postgresql/readwrite/seed',
+        'schemas/postgresql/persona/readonly/run',
+        'schemas/postgresql/persona/readonly/seed',
+        'schemas/postgresql/persona/readwrite/run',
+        'schemas/postgresql/persona/readwrite/seed',
       ],
     );
   });
