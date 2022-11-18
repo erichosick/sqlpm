@@ -35,8 +35,8 @@ export type ProjectConfigurationSignature = (
    * to use in place of `package.json`.
    * * **@throws** - An error is returned if any of the package.json files found
    * are invalid. An error is returned if childPath resolves to a file.
-   * * **@returns** - An array of package.json objects: ordered as found from the
-   * child package to the parent package.
+   * * **@returns** - An array of package.json objects: ordered as found from
+   * the child package to the parent package.
    *
    * Example usage:
    *
@@ -70,5 +70,7 @@ export const projectConfiguration: ProjectConfigurationSignature = async (
   ));
 
   return (await Promise.all(promises))
-    .filter((nodePackage): nodePackage is NodePackageContentSource => !!nodePackage);
+    .filter(
+      (nodePackage): nodePackage is NodePackageContentSource => !!nodePackage,
+    );
 };

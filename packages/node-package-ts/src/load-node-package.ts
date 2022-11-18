@@ -41,7 +41,8 @@ import {
  *
  *
  * const dir = join(dirname(__dirname), 'package.json');
- * const projConfig: NodePackageContentSource | undefined = await loadNodePackage(dir);
+ * const projConfig: NodePackageContentSource | undefined =
+ *   await loadNodePackage(dir);
  * expect(projConfig).toBeDefined();
  *
  * expect(projConfig?.sourcePath)

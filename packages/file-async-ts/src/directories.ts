@@ -68,7 +68,9 @@ export const dirsCreate = async (
 ): Promise<boolean> => {
   const root = resolve(rootDir);
 
-  const createDirs = subDirectories.map((subDir) => dirCreate(join(root, subDir)));
+  const createDirs = subDirectories.map(
+    (subDir) => dirCreate(join(root, subDir)),
+  );
 
   await Promise.all(createDirs);
   return true;

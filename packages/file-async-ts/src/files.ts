@@ -123,11 +123,12 @@ export type ReadFileSignature = (
  * * **@param path** - The absolute or relative path to the file.
  *
  * * **@param [options]**
- *   * **[options.required=true]** - When `true` or `undefined`, when the file is
- *   not found an exception is thrown. When `false`, no exception is thrown and
- *   `undefined` is returned.
+ *   * **[options.required=true]** - When `true` or `undefined`, when the file
+ *   is not found an exception is thrown. When `false`, no exception is thrown
+ *   and `undefined` is returned.
  *
- * * **@throws** - Errors if the file is not found when `options.required` is `true`.
+ * * **@throws** - Errors if the file is not found when `options.required` is
+ *  `true`.
  * * **@returns** - Contents of the file as a buffer if the file existed,
  *   `undefined` when required is `false` and the file was not found.
  *
@@ -180,11 +181,12 @@ export type readFileStringSignature = (
  * * **@param path** - The absolute or relative path to the file.
  *
  * * **@param [options]**
- *   * **[options.required=true]** - When `true` or `undefined`, when the file is
- *   not found an exception is thrown. When `false`, no exception is thrown and
- *   `undefined` is returned.
+ *   * **[options.required=true]** - When `true` or `undefined`, when the file
+ *   is not found an exception is thrown. When `false`, no exception is thrown
+ *   and `undefined` is returned.
  *
- * * **@throws** - Errors if the file is not found when `options.required` is `true`.
+ * * **@throws** - Errors if the file is not found when `options.required` is
+ *   `true`.
  * * **@returns** - Contents of the file as a string if the file existed,
  *   `undefined` when required is `false` and the file was not found.
  *
@@ -346,9 +348,9 @@ export type FileContentDetailStrSignature = (
  *
  * * **@param path** -  The absolute or relative path to the file.
  * * **@param [options]**
- *   * **[options.required=true]** - When `true` or `undefined`, when the file is
- *   not found an exception is thrown. When `false`, no exception is thrown and
- *   `undefined` is returned.
+ *   * **[options.required=true]** - When `true` or `undefined`, when the file
+ *   is not found an exception is thrown. When `false`, no exception is thrown
+ *   and `undefined` is returned.
  * * **@throws** - An error is thrown if the file is not found and
  * `options.required` was set to true.
  * * **returns** - The contents of the file along with the associated path.

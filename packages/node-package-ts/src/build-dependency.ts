@@ -41,7 +41,8 @@ const buildDependencyTree = async (
   for (const nodePackage of pkg.package.dependencies) {
     if (!nodePackage.source) {
       for (const location of locations) {
-        const finalLocation = location.match(/node_module/) ? join(location, nodePackage.package.name) : location;
+        const finalLocation = location.match(/node_module/)
+          ? join(location, nodePackage.package.name) : location;
         // required false is there because a node package with sql in it will be
         // in a workspaces directory with the platform name in the path. But
         // projects that aren't sql centric may also show up. But we can't tell
