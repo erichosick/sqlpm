@@ -10,13 +10,14 @@ import {
 
 import {
   mkdir,
-  rmdir,
+  rm,
   readdir,
 } from 'fs/promises';
 
 import {
-  ReadOptions,
+  RequiredOptions,
 } from './types';
+import { pathIsDir } from './paths';
 
 /**
  * Given an absolute path, recursively creates the directory in that path.
@@ -31,29 +32,6 @@ export const dirCreate = async (
     recursive: true,
   });
   return true;
-};
-
-/**
- * Given an absolute path, removes an empty directory.
- * @param path The absolute path to the directory
- */
-export const dirRemove = async (
-  path: string,
-  options?: RmDirOptions,
-): Promise<boolean> => {
-  let removed = false;
-  try {
-    await rmdir(path, options);
-    removed = true;
-  } catch (err) {
-    const error = err as Error;
-    if (error.message.includes('ENOENT')) {
-      return false;
-    } // else {} throw the exception
-    throw (err);
-  }
-
-  return removed;
 };
 
 /**
@@ -107,7 +85,7 @@ export const dirsCreate = async (
 */
 export const dirRead = async (
   path: PathLike,
-  options?: ReadOptions,
+  options?: RequiredOptions,
 ): Promise<string[] | undefined> => {
   try {
     return await readdir(path);
@@ -117,4 +95,49 @@ export const dirRead = async (
     }
   }
   return undefined;
+};
+
+export const dirIsEmpty = async (
+  path: PathLike,
+  options?: RequiredOptions,
+): Promise<boolean> => {
+  const opts = options || { required: false };
+  try {
+    const files = await dirRead(path, opts);
+    if (files === undefined || files?.length > 0) {
+      return false;
+    }
+  } catch (err) {
+    if (undefined === options?.required || options.required) {
+      throw (err);
+    }
+  }
+  return true;
+};
+
+export interface DirRemoveOptions {
+  recursive: boolean
+}
+
+/**
+ * Given an absolute path, removes an empty directory.
+ * @param path The absolute path to the directory
+ */
+export const dirRemove = async (
+  path: string,
+  options?: DirRemoveOptions,
+): Promise<boolean> => {
+  // The new rm requires recursive to be true if we are removing a directory.
+  // However, in some cases we don't want to remove an empty directory.
+  // The options provided are checked to make sure the user explicitly
+  // calls remove recursively
+  if (
+    options?.recursive === true
+      || (await pathIsDir(path) && await dirIsEmpty(path))
+  ) {
+    await rm(path, { recursive: true });
+    return true;
+  }
+
+  return false;
 };

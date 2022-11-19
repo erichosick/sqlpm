@@ -28,14 +28,13 @@ describe('mutate directories', () => {
 
       await dirCreate(subDir); // recursively create the directory
 
-      await expect(dirRemove(dir, { recursive: false }))
-        .rejects
-        .toThrow(/^ENOTEMPTY: directory not empty, rmdir '[\S]*dir-test2'$/);
+      const removed = await dirRemove(dir, { recursive: false });
+      expect(removed).toEqual(false);
 
       expect(await dirRemove(dir, { recursive: true })).toEqual(true);
     });
 
-    it(`should error if a directory is removed that
+    it(`should error if an attempt is made to remove a directory that
       has items in it`, async () => {
       const dir = join(__dirname, 'dir-test3');
       const subDir = join(dir, 'not-empty');
@@ -45,9 +44,7 @@ describe('mutate directories', () => {
 
       await dirCreate(subDir); // recursively create the directory
 
-      await expect(dirRemove(dir))
-        .rejects
-        .toThrow(/^ENOTEMPTY: directory not empty, rmdir '[\S]*dir-test3'$/);
+      await expect(await dirRemove(dir)).toEqual(false);
 
       await dirRemove(subDir);
       await dirRemove(dir);
