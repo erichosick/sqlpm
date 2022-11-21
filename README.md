@@ -113,3 +113,8 @@ yarn lerna add {@name/existing-module} --scope={@name/new-package-name}
 # example
  yarn lerna add @sqlpm/universal-schema --scope=@sqlpm/iso-schema
 ```
+
+### Database Libraries
+
+* [node-postgres](https://github.com/brianc/node-postgres)
+* [postgres.js](https://github.com/porsager/postgres)

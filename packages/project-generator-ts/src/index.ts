@@ -228,6 +228,11 @@ export const readmeTemplate = (
 ${description}
 
 ## Usage
+
+
+## Generated
+
+This package was generated using @sqlpm/project-generator-ts.
 `;
 
 export const sqlTemplate = (
@@ -245,18 +250,21 @@ export const sqlTemplateRun = (
   packageName: string,
   action: string,
   description: string,
-): string => `
+): string => {
+  const packageNameCleaned = packageName.replace(/-/g, '_');
+  return `
 -- -----------------------------------------------------------------------------
--- ${packageName} - ${action}
+-- ${packageNameCleaned} - ${action}
 -- 
 -- -----------------------------------------------------------------------------
 
 -- SCHEMA ----------------------------------------------------------------------
 
-CREATE SCHEMA IF NOT EXISTS ${packageName};
-COMMENT ON SCHEMA ${packageName} IS '${description}';
+CREATE SCHEMA IF NOT EXISTS ${packageNameCleaned};
+COMMENT ON SCHEMA ${packageNameCleaned} IS '${description}';
 
 `;
+};
 
 export const licenseTemplate = (author: string): string => `# MIT License
 

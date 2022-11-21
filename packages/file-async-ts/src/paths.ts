@@ -8,7 +8,7 @@ import {
 import { RequiredOptions } from './types';
 
 /**
- * Given an a path, returns information about the path.
+ * Given a path, returns information about the path.
  * * **@param path** The absolute path containing a file or directory
  * * **@param options** See {@link RequiredOptions}
  * * **@throws** - Errors if the path was not found and `options.required`
@@ -40,7 +40,7 @@ export const pathStats = async (
 };
 
 /**
- * Given an a path, returns `true` if the path resolves to a directory. False
+ * Given a path, returns `true` if the path resolves to a directory. False
  * if the path resolves to a file or the path wasn't found.
  * * **@param path** The absolute path containing a potential directory.
  * * **@param options** See {@link RequiredOptions}
@@ -70,7 +70,7 @@ export const pathIsDir = async (
 };
 
 /**
- * Given an a path, returns `true` if the path resolves to a file. False
+ * Given a path, returns `true` if the path resolves to a file. False
  * if the path resolves to a directory or the path wasn't found.
  * * **@param path** The absolute path containing a potential file.
  * * **@param options** See {@link RequiredOptions}
@@ -97,4 +97,18 @@ export const pathIsFile = async (
     return stat.isFile();
   }
   return false;
+};
+
+/**
+ * Given a path, returns `true` if the paths exists (for both a file or
+ * directory) and `false` if the path does not exist.
+ * @param path The absolute path.
+ * @returns A promise that resolves to true if the path exists
+ * or false if the path does not exist.
+ */
+export const pathExists = async (
+  path: string,
+): Promise<boolean> => {
+  const stat = await pathStats(path);
+  return stat !== undefined;
 };

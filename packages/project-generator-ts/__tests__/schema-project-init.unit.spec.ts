@@ -133,9 +133,10 @@ describe('schemaProjectInit', () => {
     const workspaceName = 'schemas';
     const author = 'The Author';
     const email = 'author@email.com';
+    const databasePlatform = 'test-platform';
     await schemaProjectInit(
       packageName,
-      DatabasePlatform.Postgresql,
+      databasePlatform as DatabasePlatform.Postgresql,
       description,
       author,
       email,
@@ -143,7 +144,9 @@ describe('schemaProjectInit', () => {
 
     const platDir = platformDirectory(
       workspaceName,
-      DatabasePlatform.Postgresql,
+      // Let's not accidentally delete one of our actual platforms when
+      // running tests
+      databasePlatform as DatabasePlatform.Postgresql,
     );
 
     const packageDir = packageDirectory(platDir, packageName);

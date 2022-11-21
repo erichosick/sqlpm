@@ -108,7 +108,6 @@ export const buildDependency = async (
   // Find all the package files starting at the child root and working our way
   // up the directory structure. We do this to find any workspace packages.
   const packages = await projectConfiguration(childPath);
-
   if (packages.length !== 0) {
     // Let's find all of the potential locations where sql files could be:
     // including ones in the lerna mono repo we are working in. We will use

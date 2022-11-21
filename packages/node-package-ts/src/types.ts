@@ -177,4 +177,15 @@ export interface FilterOptions extends MessagingOptions {
    * regular expression.
    */
   exclude?: RegExp | RegExp[];
+
+  // TODO: Implement the depth option.
+  /**
+   * When provided, limits how far up the path node package dependencies are
+   * loaded from.
+   *
+   * **@example**
+   * We have a path of /a/b/c/d/e/f and set depth to 3. Only those node
+   * packages found in f, then e and finally f are returned.
+   */
+  depth?: number
 }

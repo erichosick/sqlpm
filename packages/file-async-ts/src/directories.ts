@@ -125,17 +125,28 @@ export interface DirRemoveOptions {
  */
 export const dirRemove = async (
   path: string,
-  options?: DirRemoveOptions,
+  options?: DirRemoveOptions & RequiredOptions,
 ): Promise<boolean> => {
   // The new rm requires recursive to be true if we are removing a directory.
   // However, in some cases we don't want to remove an empty directory.
   // The options provided are checked to make sure the user explicitly
   // calls remove recursively
+
+  // TODO: Testing
   if (
     options?.recursive === true
       || (await pathIsDir(path) && await dirIsEmpty(path))
   ) {
-    await rm(path, { recursive: true });
+    // force should start out false. If required is set to false, then we
+    // should not error if the directory is not found. If it is set to true,
+    // the we should error out if the folder is not found.
+    const force = (options !== undefined && options.required !== undefined)
+      ? !options.required : false;
+
+    // rm always requires recursive if the thing we are removing is a folder
+    // However, for dirRemove, we only want to delete recursively if we pass
+    // recursive=true.
+    await rm(path, { recursive: true, force });
     return true;
   }
 
