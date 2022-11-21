@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/postgresql-client-ts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "`@sqlpm/postgresql-client-ts` is a typescript library that wraps the porsager/postgres library.",
   "keywords": [
     "typescript",
@@ -31,7 +31,7 @@
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
   "dependencies": {
-    "@sqlpm/types-ts": "^1.2.0",
+    "@sqlpm/types-ts": "^1.2.3",
     "postgres": "^3.3.2"
   },
   "scripts": {

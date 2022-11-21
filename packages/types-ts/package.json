@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/types-ts",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Types shared between packages in the @sqlpm mono-repo",
   "keywords": [
     "javascript",
