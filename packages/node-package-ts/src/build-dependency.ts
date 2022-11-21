@@ -32,11 +32,14 @@ import {
  * @param pkg The current "root" package.
  * @param locations Array of paths: the locations where we will search for a
  * package.
+ * @param parentDependencies Used to check if there is a circular dependency.
+ * On the initial call, set this to am empty string.
  * @returns The "root" node package along with all resolved dependencies.
  */
 const buildDependencyTree = async (
   pkg: NodePackage,
   locations: string[],
+  parentDependencies: string,
 ): Promise<NodePackage> => {
   for (const nodePackage of pkg.package.dependencies) {
     if (!nodePackage.source) {
@@ -72,8 +75,17 @@ const buildDependencyTree = async (
   for (const childPackage of pkg.package.dependencies) {
     if (childPackage.package.dependencies) {
       if (childPackage.package.dependencies.length > 0) {
+        const childPackageName = childPackage.package.name;
+        if (parentDependencies.includes(childPackageName)) {
+          // let's add in the childPackage so we can see the loop
+          const parentDep = `${parentDependencies} -> ${childPackageName}`;
+          const errorMessage = `Circular Package Dependency! ${parentDep}`;
+          throw Error(errorMessage);
+        }
+        const parentDep = parentDependencies === ''
+          ? childPackageName : `${parentDependencies} -> ${childPackageName}`;
         // eslint-disable-next-line no-await-in-loop
-        await buildDependencyTree(childPackage, locations);
+        await buildDependencyTree(childPackage, locations, parentDep);
       } // else {} nothing to build
     } // else {} nothing to build
   }
@@ -114,7 +126,7 @@ export const buildDependency = async (
     // these locations later to build out our final sql
     const locations = await moduleLocations(packages);
     const rootPackage = nodePackageFromSource(packages[0], options);
-    const finalPackage = await buildDependencyTree(rootPackage, locations);
+    const finalPackage = await buildDependencyTree(rootPackage, locations, '');
     return finalPackage;
   }
 

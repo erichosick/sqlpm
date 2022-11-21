@@ -126,6 +126,10 @@ export enum DatabasePlatform {
   Postgresql = 'postgresql',
 }
 
+export const databasePlatformVerify = (
+  value: string,
+): boolean => Object.values<string>(DatabasePlatform).includes(value);
+
 /**
   * Provides information about the database schemas defined in a module such
   * as the database platform the sql script is written for.
@@ -177,6 +181,8 @@ export enum DatabasePurpose {
    */
   Readwrite = 'readwrite',
 }
+
+export type DatabasePurposes = DatabasePurpose[];
 
 /**
  * Defines directory names and the intent of the sql script located in the
@@ -256,6 +262,8 @@ export enum RunActionDirectory {
    */
   Reset = 'reset',
 }
+
+export type RunActionDirectories = RunActionDirectory[];
 
 // eslint-disable-next-line max-len
 export const runActionDirectoryAsArray = (): RunActionDirectory[] => Object.values(RunActionDirectory);

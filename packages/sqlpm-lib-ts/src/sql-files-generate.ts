@@ -33,6 +33,10 @@ export const packageFileNameVersion = (
   semanticVersion: string,
 ): string => semanticVersion.replace(/\./g, '-');
 
+export const packageNameToSchemaName = (
+  packageName: string,
+): string => packageName.replace(/-/g, '_');
+
 /**
  * Given a bunch of sql script (located in memory), creates files using
  * a specific naming convention and saves the sql in these files.
@@ -53,6 +57,7 @@ export const sqlFilesGenerate = async (
   childPath?: string,
 ) => {
   const finalPath = childPath || __dirname;
+
   const sqlLocations: SqlToRun[] = await sqlFindScript(
     databasePurpose,
     platform,

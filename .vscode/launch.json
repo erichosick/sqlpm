@@ -16,6 +16,16 @@
       "disableOptimisticBPs": true,
       "windows": {
         "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+      },
+      "env": {
+        "NODE_ENV": "development",
+        "PGDATABASE": "postgres",
+        "PGUSER": "postgres",
+        "PGPORT_CONTAINER": "5432",
+        "PGPORT": "5432",
+        "PGPASSWORD": "localpassword",
+        "PGPORT": "12549",
+        "PGHOST": "localhost",
       }
     }
   ]

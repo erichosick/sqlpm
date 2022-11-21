@@ -6,14 +6,8 @@ import {
 import { fakeTimers } from './support/fake-timers';
 
 describe('database mutation', () => {
-  const validConnection = connectionBuild({
-    host: 'localhost',
-    port: 12549,
-    user: 'postgres',
-    password: 'localpassword',
-    dbname: 'postgres',
-    schema: 'schema',
-  });
+  // using environment variables set when tests were called
+  const validConnection = connectionBuild();
 
   describe('databaseDrop', () => {
     it(`should not error or drop a database that does
@@ -24,7 +18,7 @@ describe('database mutation', () => {
 
     it('should error when an invalid database name is provided', async () => {
       await expect(
-        databaseDrop('invalid-name', validConnection),
+        databaseDrop('invalid-database-name-drop', validConnection),
       ).rejects.toThrow('syntax error at or near "-"');
     });
   });
@@ -67,7 +61,7 @@ describe('database mutation', () => {
 
     it('should error when an invalid database name is provided', async () => {
       await expect(
-        databaseCreate('invalid-name', validConnection),
+        databaseCreate('invalid-database-name-create', validConnection),
       ).rejects.toThrow('syntax error at or near "-"');
     });
   });

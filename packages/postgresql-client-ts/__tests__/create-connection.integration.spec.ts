@@ -4,7 +4,6 @@
 
 import {
   connectionOpen,
-  connectionBuild,
 } from '../src/index';
 
 import {
@@ -16,42 +15,34 @@ describe('createConnection', () => {
 
   describe('errors', () => {
     it('connection invalid: it should not find the host', async () => {
-      const connection = connectionBuild({
+      const connection = {
         host: 'host', // host is not valid
-        port: 12549,
+        port: 12546,
         user: 'postgres',
         password: 'localpassword',
         dbname: 'postgres',
         schema: 'schema',
-      });
-      expect(connection).toBeDefined();
+      };
 
-      const sql = connectionOpen(connection);
+      const sqlConnectionInvalid = connectionOpen(connection);
 
       let error: Error | null = null;
       try {
-        await sql`SELECT 1 as num;`;
+        await sqlConnectionInvalid`SELECT 1 as num;`;
       } catch (err: unknown) {
         // Note: err instance Of Error is false
         error = err as Error;
+      } finally {
+        sqlConnectionInvalid.end({ timeout: 1 });
       }
-
       expect(error?.message).toEqual('getaddrinfo ENOTFOUND host');
     });
   });
 
   describe('connect', () => {
-    it('connection valid', async () => {
-      const connection = connectionBuild({
-        host: 'localhost',
-        port: 12549,
-        user: 'postgres',
-        password: 'localpassword',
-        dbname: 'postgres',
-        schema: 'schema',
-      });
-      expect(connection).toBeDefined();
-      const sql = connectionOpen(connection);
+    it(`connection valid using environment variables provided when
+      this test was ran.`, async () => {
+      const sql = connectionOpen();
 
       let selectResult;
       try {

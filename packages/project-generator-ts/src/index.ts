@@ -3,6 +3,7 @@ import {
 } from 'node:path';
 
 import {
+  dirCreate,
   dirsCreate,
   fileWrite,
 } from '@sqlpm/file-async-ts';
@@ -12,7 +13,19 @@ import {
   RunActionDirectory,
   DatabasePlatform,
   runActionDirectoryAsArray,
+  DatabasePurposes,
+  RunActionDirectories,
+  databasePlatformVerify,
 } from '@sqlpm/types-ts';
+
+import {
+  parseJson,
+  VerifySignature,
+} from '@sqlpm/parse-json-ts';
+
+import {
+  packageNameToSchemaName,
+} from '@sqlpm/sqlpm-lib-ts';
 
 /**
  * Given a workspace and database platform, returns the directory where
@@ -251,7 +264,7 @@ export const sqlTemplateRun = (
   action: string,
   description: string,
 ): string => {
-  const packageNameCleaned = packageName.replace(/-/g, '_');
+  const packageNameCleaned = packageNameToSchemaName(packageName);
   return `
 -- -----------------------------------------------------------------------------
 -- ${packageNameCleaned} - ${action}
@@ -288,14 +301,173 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.`;
 
+export interface SchemaProjectSetting {
+  packageName: string
+  platform: DatabasePlatform
+  description: string
+  author: string
+  email: string
+  purposes: DatabasePurposes
+  actions: RunActionDirectories
+  workspace: string
+}
+
+const verifyInput: VerifySignature = (
+  obj: object,
+): true => {
+  if (!('packageName' in obj)) {
+    throw Error('packageName is required to generate a schema project');
+  }
+
+  if (!('platform' in obj)) {
+    throw Error('platform is required to generate a schema project');
+  } else {
+    const { platform } = obj as SchemaProjectSetting;
+    if (!databasePlatformVerify(platform)) {
+      const errorMessage = `platform '${platform}' is not a valid database platform. Supported platforms are postgresql`;
+      throw Error(errorMessage);
+    }
+  }
+
+  // if ('purposes' in obj) {
+
+  // }
+
+  return true;
+};
+
+// TODO: Use a validator like yup or joi, etc.
+export const parseSchemaProjectInit = (
+  input: string,
+): SchemaProjectSetting => {
+  const projectInit: SchemaProjectSetting = parseJson<SchemaProjectSetting>(input, { verify: verifyInput });
+
+  if (projectInit.description === undefined) {
+    projectInit.description = 'Please provide a description.';
+  }
+
+  if (projectInit.author === undefined) {
+    projectInit.author = 'Author Required';
+  }
+
+  if (projectInit.email === undefined) {
+    projectInit.email = 'email@required.com';
+  }
+
+  if (projectInit.purposes === undefined) {
+    projectInit.purposes = [DatabasePurpose.Readwrite];
+  }
+
+  if (projectInit.actions === undefined) {
+    projectInit.actions = runActionDirectoryAsArray();
+  }
+
+  if (projectInit.workspace === undefined) {
+    projectInit.workspace = 'schemas';
+  }
+
+  return projectInit;
+};
+
+// TODO: Test all of this, document, etc.
+export interface SqlpmConfigGrouping {
+  /**
+   * The name of the directory where scripts are grouped.
+   */
+
+  groupDir: string,
+  actions: RunActionDirectories,
+}
+
+// // TODO: Test all of this, document, etc.
+// export type SqlpmConfigGroupings = SqlpmConfigGrouping[];
+
+// // TODO: Test all of this, document, etc.
+// export interface SqlpmConfig {
+
+//   /**
+//    * The directory where all generated sql will be placed. The default
+//    * is `.sqlpm`.
+//    */
+//   scriptDir: string
+
+//   platform: DatabasePlatform,
+
+//   /**
+//    * One more more groupings
+//    */
+//   groups: SqlpmConfigGroupings
+
+// }
+// // TODO: Test all of this, document, etc.
+// export const sqlpmConfigTemplate = (
+//   platform: DatabasePlatform,
+// ):string => {
+//   const json: SqlpmConfig = {
+//     scriptDir: '.sqlpm',
+//     platform,
+//     groups: [
+//       {
+//         groupDir: 'build',
+//         actions: [
+//           RunActionDirectory.Prerun,
+//           RunActionDirectory.Run,
+//           RunActionDirectory.Postrun,
+//         ],
+//       },
+//       {
+//         groupDir: 'reset',
+//         actions: [
+//           RunActionDirectory.Reset,
+//         ],
+//       },
+//       {
+//         groupDir: 'test',
+//         actions: [
+//           RunActionDirectory.Test,
+//         ],
+//       },
+//     ],
+//   };
+
+//   return JSON.stringify(json);
+// };
+
+/**
+ * The typescript test template for the schema we just created.
+ * **@remarks**
+ * Don't change the spacing of this file. The output passes the linter
+ *
+ *
+ * @param packageName
+ * @returns
+ */
+export const testTemplate = (
+  packageName: string,
+):string => {
+  const schemaName = packageNameToSchemaName(packageName);
+  return `import {
+  sqlTestPackage,
+  fakeTimers,
+} from '@sqlpm/sqlpm-lib-ts';
+
+describe('${schemaName} schema', () => {
+  fakeTimers();
+  it('should successfully ', async () => {
+    await sqlTestPackage(__dirname, '${schemaName}_test');
+  });
+});
+`;
+};
+
 export const schemaProjectInit = async (
   packageName: string,
   platform: DatabasePlatform,
   description: string,
   author: string,
   email: string,
-  purposes: DatabasePurpose[] = [DatabasePurpose.Readwrite],
-  actions: RunActionDirectory[] = runActionDirectoryAsArray(),
+  purposes: DatabasePurposes = [DatabasePurpose.Readwrite],
+  actions: RunActionDirectories = runActionDirectoryAsArray(),
   workspace: string = 'schemas',
 ) => {
   const directories = projectDirectories(
@@ -316,6 +488,14 @@ export const schemaProjectInit = async (
 
   const absolutePackageDir = join(process.cwd(), packageDir);
 
+  // TODO: Test this and document and such
+  const testDir = join(absolutePackageDir, '__TEST__');
+  await dirCreate(testDir);
+  await fileWrite(
+    join(testDir, 'schema-test.integration.spec.ts'),
+    testTemplate(packageName),
+  );
+
   await fileWrite(
     join(absolutePackageDir, 'README.md'),
     readmeTemplate(packageName, platform, description),
@@ -330,6 +510,11 @@ export const schemaProjectInit = async (
     join(absolutePackageDir, 'package.json'),
     projectPackageTemplate(packageName, platform, description, author, email),
   );
+
+  // await fileWrite(
+  //   join(absolutePackageDir, '.sqlpm.config.json'),
+  //   sqlpmConfigTemplate(platform),
+  // );
 
   const sqlFilePromises = [];
 

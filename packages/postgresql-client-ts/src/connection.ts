@@ -5,14 +5,14 @@ import {
 export const connectionBuild = (
   connection: Partial<Connection> = {},
 ) => {
-  // Environment variables override connection options.
+  // connection options should override the environment variables
   const { env } = process;
-  const host = env.PGHOST || connection?.host;
-  const port = Number(env.PGPORT) || connection?.port || 5432;
-  const user = env.PGUSER || connection?.user;
-  const password = env.PGPASSWORD || connection?.password;
-  const dbname = env.PGDATABASE || connection?.dbname;
-  const schema = env.PGSCHEMA || connection?.schema;
+  const host = connection?.host || env.PGHOST;
+  const port = connection?.port || Number(env.PGPORT) || 5432;
+  const user = connection?.user || env.PGUSER;
+  const password = connection?.password || env.PGPASSWORD;
+  const dbname = connection?.dbname || env.PGDATABASE;
+  const schema = connection?.schema || env.PGSCHEMA;
 
   if (!host || !user || !password || !dbname) {
     const missingOptions = [];

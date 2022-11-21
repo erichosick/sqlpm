@@ -25,16 +25,17 @@
     "test:unit": "yarn build && jest --config=./jest.unit.config.ts",
     "test:unit:watch": "yarn build && jest --config=./jest.unit.config.ts --watch --coverage --verbose",
     "test:unit:watch:no-coverage": "jest --config=./jest.unit.config.ts --watch --verbose",
-    "test:integration": "yarn build && jest --config=./jest.integration.config.ts",
-    "test:integration:watch": "yarn build && jest --config=./jest.integration.config.ts --watch --coverage --verbose",
-    "test:integration:watch:no-coverage": "jest --config=./jest.integration.config.ts --watch --verbose",
+    "test:integration": "set -o allexport; source .env; source .env.local; yarn build && jest --config=./jest.integration.config.ts",
+    "test:integration:watch": "set -o allexport; source .env; source .env.local; yarn build && jest --config=./jest.integration.config.ts --watch --coverage --verbose",
+    "test:integration:watch:no-coverage": "set -o allexport; source .env; source .env.local; jest --config=./jest.integration.config.ts --watch --verbose",
     "publish:all": "yarn test:integration && yarn build && yarn lerna publish",
     "lerna:create": "yarn lerna create -y",
     "docker:up": "set -o allexport; source .env; source .env.local; set +o allexport; docker compose -f docker-compose.yml up",
     "docker:down": "set -o allexport; source .env; source .env.local; set +o allexport; docker compose -f docker-compose.yml down",
     "docker:build": "set -o allexport; source .env; source .env.local; set +o allexport; docker compose -f docker-compose.yml build",
     "docker:destroy": "yarn docker:down ; docker rmi $(docker images --filter \"reference=sqlpm*\" -q) -f; docker volume rm sqlpm_sqlpm_testing_db_data",
-    "tsc": "echo \"You probably don't want to run tsc at the root of this mono-repo. It creates maps and types for every ts file!\""
+    "tsc": "echo \"You probably don't want to run tsc at the root of this mono-repo. It creates maps and types for every ts file!\"",
+    "sqlpm": "TS_NODE_SKIP_IGNORE=true yarn ts-node --cwd $(pwd) ./packages/sqlpm/src/index.ts"
   },
   "workspaces": [
     "packages/*",

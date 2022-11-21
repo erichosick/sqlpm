@@ -20,7 +20,7 @@ import {
   sqlFilesGenerate,
   sqlFilesApply,
 } from '../src/index';
-import { fakeTimers } from './support/fake-timers';
+import { fakeTimers } from '../src/fake-timers';
 
 describe('sqlFilesApply', () => {
   fakeTimers();
@@ -32,12 +32,12 @@ describe('sqlFilesApply', () => {
       'node-package-with-schema-dependency',
     );
 
-    const buildDirector = 'sql-build-test2';
-    const destinationBuildFolder = join(buildDirector, 'build');
+    const scriptDirectory = 'sql-build-test2';
+    const destinationBuildFolder = join(scriptDirectory, 'build');
 
-    const destinationResetFolder = join(buildDirector, 'reset');
+    const destinationResetFolder = join(scriptDirectory, 'reset');
 
-    const cleanupFolder = join(destinationRoot, buildDirector);
+    const cleanupFolder = join(destinationRoot, scriptDirectory);
 
     // clean up any prior runs (just in case)
     await dirRemove(cleanupFolder, { recursive: true, required: false });
@@ -68,14 +68,8 @@ describe('sqlFilesApply', () => {
       destinationRoot,
     );
 
-    const connection = connectionBuild({
-      host: 'localhost',
-      port: 12549,
-      user: 'postgres',
-      password: 'localpassword',
-      dbname: 'postgres',
-      schema: 'schema',
-    });
+    // using environment variables set when tests were called
+    const connection = connectionBuild();
 
     await sqlFilesApply(
       destinationBuildFolder,

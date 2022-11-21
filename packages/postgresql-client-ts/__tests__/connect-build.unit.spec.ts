@@ -6,6 +6,13 @@ import {
 describe('connectionBuild', () => {
   describe('errors', () => {
     it('it should throw an error when no required options are set', () => {
+      delete process.env.PGHOST;
+      delete process.env.PGPORT;
+      delete process.env.PGUSER;
+      delete process.env.PGPASSWORD;
+      delete process.env.PGDATABASE;
+      delete process.env.PGSCHEMA;
+
       expect(() => { connectionBuild(); })
         .toThrow(
           // eslint-disable-next-line max-len
@@ -14,6 +21,14 @@ describe('connectionBuild', () => {
     });
 
     it('it should an error when at least one option is missing', () => {
+      // if the test is ran with variables, remove them
+      delete process.env.PGHOST;
+      delete process.env.PGPORT;
+      delete process.env.PGUSER;
+      delete process.env.PGPASSWORD;
+      delete process.env.PGDATABASE;
+      delete process.env.PGSCHEMA;
+
       expect(() => {
         connectionBuild({
           host: 'host',
@@ -79,7 +94,7 @@ describe('connectionBuild', () => {
       delete process.env.PGSCHEMA;
     });
 
-    it('it should use all environment variables, overriding options', () => {
+    it('it should use all options, overriding environment', () => {
       process.env.PGHOST = 'host2';
       process.env.PGPORT = '9999';
       process.env.PGUSER = 'user2';
@@ -97,12 +112,12 @@ describe('connectionBuild', () => {
       });
 
       expect(connection).toEqual({
-        host: 'host2',
-        port: 9999,
-        user: 'user2',
-        password: 'password2',
-        dbname: 'database2',
-        schema: 'schema2',
+        host: 'host',
+        port: 9854,
+        user: 'user',
+        password: 'password',
+        dbname: 'database',
+        schema: 'schema',
       });
     });
   });
