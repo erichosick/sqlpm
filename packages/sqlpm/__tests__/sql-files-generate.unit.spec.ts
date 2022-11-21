@@ -13,7 +13,9 @@ import {
   pathExists,
 } from '@sqlpm/file-async-ts';
 
+import { loadNodePackage } from '@sqlpm/node-package-ts';
 import {
+  packageFileNameVersion,
   sqlFilesGenerate,
 } from '../src/index';
 
@@ -46,11 +48,28 @@ describe('sqlFilesGenerate', () => {
     const exists = await pathExists(absoluteDestinationFolder);
     expect(exists).toEqual(true);
 
+    const examplePackage = await loadNodePackage(
+      join(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'schemas',
+        'postgresql',
+        'sqlpm-example',
+        'package.json',
+      ),
+    );
+
+    const version = examplePackage?.content.version;
+    expect(version).toBeDefined();
+
+    const fileNameVersion = packageFileNameVersion(version as string);
     expect(
       await pathExists(
         join(
           absoluteDestinationFolder,
-          '00010_prerun_@sqlpm-sqlpm-example-postgresql_v0-0-0.sql',
+          `00010_prerun_@sqlpm-sqlpm-example-postgresql_v${fileNameVersion}.sql`,
         ),
       ),
     ).toEqual(true);
@@ -59,7 +78,7 @@ describe('sqlFilesGenerate', () => {
       await pathExists(
         join(
           absoluteDestinationFolder,
-          '00020_run_@sqlpm-sqlpm-example-postgresql_v0-0-0.sql',
+          `00020_run_@sqlpm-sqlpm-example-postgresql_v${fileNameVersion}.sql`,
         ),
       ),
     ).toEqual(true);
@@ -68,7 +87,7 @@ describe('sqlFilesGenerate', () => {
       await pathExists(
         join(
           absoluteDestinationFolder,
-          '00030_postrun_@sqlpm-sqlpm-example-postgresql_v0-0-0.sql',
+          `00030_postrun_@sqlpm-sqlpm-example-postgresql_v${fileNameVersion}.sql`,
         ),
       ),
     ).toEqual(true);

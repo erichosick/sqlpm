@@ -26,6 +26,14 @@ import {
 } from './sql-build-script';
 
 /**
+ * Converts a semantic version into something that could be used in a file name.
+ * Replaces . with -
+ */
+export const packageFileNameVersion = (
+  semanticVersion: string,
+): string => semanticVersion.replace(/\./g, '-');
+
+/**
  * Given a bunch of sql script (located in memory), creates files using
  * a specific naming convention and saves the sql in these files.
  * @param destinationFolder The final location where all the sql script will
@@ -66,7 +74,7 @@ export const sqlFilesGenerate = async (
 
   for (const script of scripts) {
     const packageName = script.name.replace('/', '-');
-    const packageVersion = script.version.replace(/\./g, '-');
+    const packageVersion = packageFileNameVersion(script.version);
 
     // Let's increment the file numbers by 10 just in case someone wants to
     // programmatically/manually add some files after they have been generated
