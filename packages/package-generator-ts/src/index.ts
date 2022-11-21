@@ -453,7 +453,7 @@ export const testTemplate = (
 
 describe('${schemaName} schema', () => {
   fakeTimers();
-  it('should successfully ', async () => {
+  it('should successfully create schema ${schemaName}', async () => {
     await sqlTestPackage(__dirname, '${schemaName}_test');
   });
 });

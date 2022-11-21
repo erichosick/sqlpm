@@ -5,7 +5,20 @@ import type {
 } from 'jest';
 
 const integrationTestConfig: Config = {
+  moduleFileExtensions: [
+    'js',
+    'json',
+    'jsx',
+    'ts',
+    'tsx',
+    'node',
+    'yaml',
+    'yml',
+    'sql',
+  ],
   preset: 'ts-jest',
+
+  watchPathIgnorePatterns: ['<rootDir>/\\.sqlpm-test/'],
 
   // Warning: fakeTimers requires the node environment. They don't work in
   // the jsdom environment.
