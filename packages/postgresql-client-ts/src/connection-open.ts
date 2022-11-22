@@ -29,6 +29,7 @@ export const connectionOpen = (
         !notice.message.includes('already exists') // CREATE IF NOT EXIST ...
         && (notice.severity !== 'INFO')
         && (!notice.message.includes('does not exist')) // DROP IF EXISTS ...
+        && (!notice.message.includes('removing login rights'))
       ) {
         const severity = notice.severity.includes('NOTICE') ? '' : `${notice.severity}: `;
 
