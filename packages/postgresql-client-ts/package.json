@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/postgresql-client-ts",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "`@sqlpm/postgresql-client-ts` is a typescript library that wraps the porsager/postgres library.",
   "keywords": [
     "typescript",

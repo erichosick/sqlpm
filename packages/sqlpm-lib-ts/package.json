@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/sqlpm-lib-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Library package used by sqlpm",
   "keywords": [
     "package manager",
@@ -31,9 +31,9 @@
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
   "dependencies": {
-    "@sqlpm/file-async-ts": "^1.10.0",
-    "@sqlpm/node-package-ts": "^1.4.0",
-    "@sqlpm/postgresql-client-ts": "^1.1.0",
+    "@sqlpm/file-async-ts": "^1.10.1",
+    "@sqlpm/node-package-ts": "^1.4.1",
+    "@sqlpm/postgresql-client-ts": "^1.1.1",
     "@sqlpm/types-ts": "^1.2.3"
   }
 }
