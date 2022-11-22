@@ -492,7 +492,7 @@ export const schemaProjectInit = async (
   const testDir = join(absolutePackageDir, '__TEST__');
   await dirCreate(testDir);
   await fileWrite(
-    join(testDir, 'schema-test.integration.spec.ts'),
+    join(testDir, `schema-test.${platform}.spec.ts`),
     testTemplate(packageName),
   );
 

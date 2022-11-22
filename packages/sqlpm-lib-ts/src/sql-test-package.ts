@@ -21,7 +21,14 @@ export const sqlTestPackage = async (
   databaseName: string,
 ) => {
   const destinationRoot = packagePath || __dirname;
-  const scriptDirectory = '.sqlpm-test';
+  const scriptDirectory = 'sqlpm-test';
+  let errorDuringTesting = false;
+
+  const cleanupFolder = join(destinationRoot, scriptDirectory);
+
+  // Let's clean up any prior tests as they may have failed and we around
+  // the sql script so a developer can see what the issue was
+  await dirRemove(cleanupFolder, { recursive: true, required: false });
 
   // TODO: This should all be configured
   const destinationBuildFolder = join(scriptDirectory, 'build');
@@ -103,15 +110,19 @@ export const sqlTestPackage = async (
     } catch (err) {
       const error = err as Error;
 
-      // TODO: Use a real logger at some point
-      // eslint-disable-next-line no-console
-      console.log(error.message);
+      if (error.name !== 'PostgresError') {
+        // TODO: Work on logging the error
+        console.log(error.name);
+        console.log(error.message);
+      }
+      errorDuringTesting = true;
     } finally {
       await databaseDrop(databaseName, validConnection);
     }
   } finally {
-  // We need to destroy the database once the tests have run.
-    const cleanupFolder = join(destinationRoot, scriptDirectory);
-    await dirRemove(cleanupFolder, { recursive: true });
+    if (errorDuringTesting === false) {
+      // We need to destroy the database once the tests have run.
+      await dirRemove(cleanupFolder, { recursive: true, required: false });
+    }
   }
 };

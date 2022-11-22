@@ -18,16 +18,17 @@ export const sqlBuildScript = async (
     // eslint-disable-next-line no-await-in-loop
     const content = await readFileString(sqlFile.file) as string;
 
-    const header = `
+    // Add information about the sql to the footer so that line numbers are the
+    // same between the final generated script file and the sql script that was
+    // pulled from a node package.
+    const footer = `
 
 -- -----------------------------------------------------------------------------
 -- File: ${sqlFile.file}
 -- Package Name: ${sqlFile.name}
 -- Package Version: ${sqlFile.version}
 -- Run Action: ${sqlFile.runAction}
--- -----------------------------------------------------------------------------
-
-`;
+-- -----------------------------------------------------------------------------`;
 
     // Check if the sqlScript has already been loaded.
     const sqlScript = sqlToRunScripts.filter(
@@ -38,13 +39,13 @@ export const sqlBuildScript = async (
     if (sqlScript.length === 0) {
       sqlToRunScripts.push({
         ...sqlFile,
-        script: `${header}${content}`,
+        script: `${content}${footer}`,
       });
     } else if (sqlScript.length === 1) {
       // TODO: Manage the version.
       //        && script.version === sqlFile.version,
 
-      sqlScript[0].script = `${sqlScript[0].script}${header}${content}`;
+      sqlScript[0].script = `${sqlScript[0].script}${content}${footer}`;
     }
   }
 

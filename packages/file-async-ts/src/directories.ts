@@ -17,7 +17,11 @@ import {
 import {
   RequiredOptions,
 } from './types';
-import { pathIsDir } from './paths';
+
+import {
+  pathExists,
+  pathIsDir,
+} from './paths';
 
 /**
  * Given an absolute path, recursively creates the directory in that path.
@@ -133,6 +137,14 @@ export const dirRemove = async (
   // calls remove recursively
 
   // TODO: Testing
+  const required = !!(options && options.required === true);
+
+  const exists = await pathExists(path);
+
+  if (exists === false && required === false) {
+    return false;
+  }
+
   if (
     options?.recursive === true
       || (await pathIsDir(path) && await dirIsEmpty(path))

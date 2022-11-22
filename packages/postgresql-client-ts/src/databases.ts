@@ -5,6 +5,7 @@ import {
 import {
   PostgresError,
 } from 'postgres';
+
 import {
   connectionOpen,
 } from './connection-open';
