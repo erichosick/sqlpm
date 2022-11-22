@@ -60,11 +60,12 @@ const logPostgreSqlError = (file: string, error: PostgresError) => {
     message.push('');
   }
 
-  if (error.message.includes('does not exist')) {
-    message.push('');
-    message.push('It looks like an IF EXITS check is missing for a resource being dropped.');
-    message.push('');
-  }
+  // TODO: Improve the logic to give hints to user what to do
+  // if (error.message.includes('does not exist')) {
+  //   message.push('');
+  //   message.push('It looks like an IF EXITS check is missing for a resource being dropped.');
+  //   message.push('');
+  // }
 
   const verbose = false;
   if (verbose) {

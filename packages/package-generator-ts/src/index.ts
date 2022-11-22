@@ -454,7 +454,9 @@ export const testTemplate = (
 describe('${schemaName} schema', () => {
   fakeTimers();
   it('should successfully create schema ${schemaName}', async () => {
-    await sqlTestPackage(__dirname, '${schemaName}_test');
+    // To keep generated sql packages around after the test, set
+    // keepGeneratedSql to true: false by default
+    await sqlTestPackage(__dirname, '${schemaName}_test', false);
   });
 });
 `;

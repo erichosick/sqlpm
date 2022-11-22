@@ -19,6 +19,7 @@ import { sqlFilesApply } from './sql-files-apply';
 export const sqlTestPackage = async (
   packagePath: string,
   databaseName: string,
+  keepGeneratedSql: boolean = false,
 ) => {
   const destinationRoot = packagePath || __dirname;
   const scriptDirectory = 'sqlpm-test';
@@ -120,7 +121,7 @@ export const sqlTestPackage = async (
       await databaseDrop(databaseName, validConnection);
     }
   } finally {
-    if (errorDuringTesting === false) {
+    if (errorDuringTesting === false && keepGeneratedSql === false) {
       // We need to destroy the database once the tests have run.
       await dirRemove(cleanupFolder, { recursive: true, required: false });
     }
