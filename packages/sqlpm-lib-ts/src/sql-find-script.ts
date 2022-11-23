@@ -5,6 +5,7 @@ import {
 
 import {
   join,
+  parse,
 } from 'node:path';
 
 import {
@@ -62,22 +63,33 @@ export const sqlFindScript = async (
             );
 
             // eslint-disable-next-line no-await-in-loop
-            const files: string[] | undefined = await dirRead(
+            const filesUnfiltered: string[] | undefined = await dirRead(
               runDirAbsolute,
               {
                 required: false,
               },
             );
 
-            if (files) {
+            if (filesUnfiltered) {
+              // TODO: Testing
+              const sqlFiles = filesUnfiltered
+                .filter((path) => parse(path).ext === '.sql')
+                .sort();
+
               sendMsg?.debug(`Looking for sql script in ${runDirAbsolute}`);
-              if (files?.length === 0) {
+              if (sqlFiles?.length === 0) {
                 sendMsg?.debug(`No sql script found in ${runDirAbsolute}`);
               } else {
                 sendMsg?.debug(`Sql scripts found in ${runDirAbsolute}`);
               }
 
-              for (const file of files.sort()) {
+              // We need to filter away any non-sql files. For example,
+              // those pesky .DS_Store files that somehow magically show up
+              const filesFilteredAndSorted = sqlFiles
+                .filter((path) => parse(path).ext === '.sql')
+                .sort();
+
+              for (const file of filesFilteredAndSorted) {
                 const absoluteFileName = join(runDirAbsolute, file);
                 let addScript = true;
                 for (const script of scripts) {

@@ -1,5 +1,6 @@
 import {
   join,
+  parse,
 } from 'node:path';
 
 import {
@@ -25,12 +26,17 @@ export const sqlFilesApply = async (
     sourceFolder,
   );
 
-  const sqlFiles = await dirRead(absoluteSource);
+  const filesUnfiltered = await dirRead(absoluteSource);
 
   const sql = connectionOpen(connection);
 
   const applyPromises = [];
-  if (sqlFiles !== undefined) {
+  if (filesUnfiltered !== undefined) {
+  // TODO: Testing
+    const sqlFiles = filesUnfiltered
+      .filter((path) => parse(path).ext === '.sql')
+      .sort();
+
     for (const sqlFile of sqlFiles) {
       const absoluteSqlFile = join(absoluteSource, sqlFile);
       applyPromises.push(sqlApplyFromFile(absoluteSqlFile, sql));

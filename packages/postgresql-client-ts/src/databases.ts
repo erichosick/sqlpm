@@ -67,18 +67,39 @@ export const databaseDrop: DatabaseMutateSignature = async (
 ): Promise<boolean> => {
   const sql = connectionOpen(connection);
   try {
-    await sql.unsafe(`DROP DATABASE ${databaseName};`);
+    const activeConnections = await sql`
+      SELECT application_name
+      FROM pg_stat_activity
+      WHERE datname=${databaseName};
+    `;
+
+    if (activeConnections.length > 0) {
+      const connections = activeConnections.map((con) => con.application_name).join(',');
+      throw new Error(`Can not drop database ${databaseName} because it has the following connections: '${connections}'.`);
+    }
+
+    await sql.unsafe(`
+    
+    -- NOTE: We may want to consider dropping connections instead of erroring
+    -- as we've done above
+    -- SELECT pg_terminate_backend(pid)
+    -- FROM pg_stat_activity
+    -- WHERE datname='${databaseName}';
+    
+    DROP DATABASE ${databaseName};
+   `);
   } catch (err) {
     if (err instanceof PostgresError) {
       const error = err as PostgresError;
       if (error.message.includes('does not exist')) {
-        options?.sendMsg?.debug(`Unable to drop database ${databaseName} because it does not exist.`);
-
-        // We want this call to be idempotent so just ignore the already
+        options?.sendMsg?.debug(`Unable to drop database ${databaseName} (code ${error.code}) because it does not exist.`);
         return false;
-      } // else we are going to re-throw the error
-    }
+        // We want this call to be idempotent so just ignore the already
+      }
+    } // else log and return false
+
     throw (err);
+    // return false;
   } finally {
     await sql.end({ timeout: 1 });
   }

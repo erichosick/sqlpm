@@ -60,6 +60,10 @@ const logPostgreSqlError = (file: string, error: PostgresError) => {
     message.push('');
   }
 
+  if (error.code === '3F000') {
+    message.push('It looks like a schema is referenced that has not been added to the node package\'s dependencies. Try running yarn lerna add {missing_package} --scope={package_with_sql}');
+  }
+
   // TODO: Improve the logic to give hints to user what to do
   // if (error.message.includes('does not exist')) {
   //   message.push('');

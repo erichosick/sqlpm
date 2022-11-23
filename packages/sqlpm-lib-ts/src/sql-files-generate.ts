@@ -57,6 +57,15 @@ export const sqlFilesGenerate = async (
   childPath?: string,
 ) => {
   const finalPath = childPath || __dirname;
+  let inverse = false;
+
+  if (runDirectories.includes(RunActionDirectory.Reset)) {
+    if (runDirectories.length > 1) {
+      throw Error('The runDirectories option can only contain 1 run directory when RunActionDirectory.Reset is present.');
+    } else {
+      inverse = true;
+    }
+  }
 
   const sqlLocations: SqlToRun[] = await sqlFindScript(
     databasePurpose,
@@ -77,7 +86,9 @@ export const sqlFilesGenerate = async (
 
   const fileWritePromises = [];
 
-  for (const script of scripts) {
+  const finalScripts = inverse ? scripts.reverse() : scripts;
+
+  for (const script of finalScripts) {
     const packageName = script.name.replace('/', '-');
     const packageVersion = packageFileNameVersion(script.version);
 

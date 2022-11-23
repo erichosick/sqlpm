@@ -43,7 +43,9 @@ Example calls:
     .action(async (json) => {
       const input = parseSchemaProjectInit(json);
 
+      // eslint-disable-next-line no-console
       console.log('Generating package with the following options:');
+      // eslint-disable-next-line no-console
       console.log(input);
       await schemaProjectInit(
         input.packageName,

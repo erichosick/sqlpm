@@ -24,8 +24,13 @@ export const sqlTestPackage = async (
   const destinationRoot = packagePath || __dirname;
   const scriptDirectory = 'sqlpm-test';
   let errorDuringTesting = false;
-
   const cleanupFolder = join(destinationRoot, scriptDirectory);
+
+  // Uses the environment variables to get an initial connection
+  const validConnection = connectionBuild();
+
+  // CLEANUP Database amd files
+  await databaseDrop(databaseName, validConnection);
 
   // Let's clean up any prior tests as they may have failed and we around
   // the sql script so a developer can see what the issue was
@@ -75,8 +80,6 @@ export const sqlTestPackage = async (
     destinationRoot,
   );
 
-  // Uses the environment variables to get an initial connection
-  const validConnection = connectionBuild();
   try {
     try {
     // We need to create a database to run our tests in.
