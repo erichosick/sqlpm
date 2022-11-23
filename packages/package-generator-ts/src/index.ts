@@ -245,7 +245,7 @@ ${description}
 
 ## Generated
 
-This package was generated using @sqlpm/project-generator-ts.
+This package was generated using [@sqlpm/package-generator-ts](https://www.npmjs.com/package/@sqlpm/package-generator-ts).
 `;
 
 export const sqlTemplate = (

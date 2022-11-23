@@ -6,7 +6,7 @@ Used to test the sqlpm along with .
 
 ## Generated
 
-This package was generated using @sqlpm/project-generator-ts as follows:
+This package was generated [@sqlpm/package-generator-ts](https://www.npmjs.com/package/@sqlpm/package-generator-ts) as follows:
 
 ```typescript
 import {
