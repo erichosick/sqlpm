@@ -22,7 +22,7 @@ This package has:
 This package was generated as follows:
 
 ```bash
-yarn sqlpm generate '{"packageName": "universal", "platform": "postgresql", "description": "Contains resources that can be used for testing.", "author": "...", "email": ""...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
+yarn sqlpm generate '{"packageName": "universal", "platform": "postgresql", "description": "Contains resources that can be used for testing.", "author": "...", "email": "...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
 
 yarn lerna add @sqlpm/sqlpm-lib-ts --scope=@sqlpm/universal-postgresql
 

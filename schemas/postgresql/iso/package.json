@@ -1,0 +1,32 @@
+{
+  "name": "@sqlpm/iso-postgresql",
+  "version": "0.0.0",
+  "description": "contains iso data for languages, countries, etc. Date comes from places like https://datahub.io/collections/reference-data.",
+  "keywords": [
+    "sqlpm",
+    "database schema",
+    "postgresql"
+  ],
+  "author": "Eric Hosick <erichosick@gmail.com>",
+  "homepage": "https://github.com/erichosick/sqlpm/tree/main/schemas/postgresql/iso",
+  "bugs": {
+    "url": "https://github.com/erichosick/sqlpm/issues",
+    "email": "erichosick@gmail.com"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erichosick/sqlpm.git"
+  },
+  "database": {
+    "platform": "postgresql"
+  },
+  "dependencies": {
+    "@sqlpm/sqlpm-lib-ts": "^1.2.0",
+    "@sqlpm/universal-postgresql": "^0.1.1"
+  }
+}
