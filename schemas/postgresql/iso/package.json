@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/iso-postgresql",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "contains iso data for languages, countries, etc. Date comes from places like https://datahub.io/collections/reference-data.",
   "keywords": [
     "sqlpm",
