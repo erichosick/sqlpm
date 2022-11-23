@@ -1,6 +1,6 @@
 {
   "name": "sqlpm",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "SQL Package Manager",
   "keywords": [
     "package manager",
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@sqlpm/node-package-ts": "^1.4.1",
-    "@sqlpm/package-generator-ts": "^1.4.4",
+    "@sqlpm/package-generator-ts": "^1.4.5",
     "@sqlpm/sqlpm-lib-ts": "^1.0.4",
     "commander": "^9.4.1"
   }
