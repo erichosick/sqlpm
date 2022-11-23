@@ -20,7 +20,7 @@ describe('createConnection', () => {
         port: 12546,
         user: 'postgres',
         password: 'localpassword',
-        dbname: 'postgres',
+        database: 'postgres',
         schema: 'schema',
       };
 

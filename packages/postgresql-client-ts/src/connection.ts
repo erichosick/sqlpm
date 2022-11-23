@@ -11,15 +11,15 @@ export const connectionBuild = (
   const port = connection?.port || Number(env.PGPORT) || 5432;
   const user = connection?.user || env.PGUSER;
   const password = connection?.password || env.PGPASSWORD;
-  const dbname = connection?.dbname || env.PGDATABASE;
+  const database = connection?.database || env.PGDATABASE;
   const schema = connection?.schema || env.PGSCHEMA;
 
-  if (!host || !user || !password || !dbname) {
+  if (!host || !user || !password || !database) {
     const missingOptions = [];
     if (!host) { missingOptions.push('host'); }
     if (!user) { missingOptions.push('user'); }
     if (!password) { missingOptions.push('password'); }
-    if (!dbname) { missingOptions.push('database'); }
+    if (!database) { missingOptions.push('database'); }
 
     // eslint-disable-next-line max-len
     const errorMessage = `Connection missing required options: ${missingOptions.join(', ')}. Required options can be set with environment variables or via the connection parameter`;
@@ -27,7 +27,7 @@ export const connectionBuild = (
   }
 
   return {
-    host, port, user, password, dbname, schema,
+    host, port, user, password, database, schema,
   };
 };
 
@@ -39,7 +39,7 @@ export const connectionUri = (
   connection: Partial<Connection> = {},
 ): string => {
   const con = connection;
-  return `postgresql://${con.user}:${con.password}@${con.host}:${con.port}/${con.dbname}${connectionParams(con)}`;
+  return `postgresql://${con.user}:${con.password}@${con.host}:${con.port}/${con.database}${connectionParams(con)}`;
 };
 
 export const connectionUriNoPwd = (
@@ -47,5 +47,5 @@ export const connectionUriNoPwd = (
 
 ):string => {
   const con = connection;
-  return `postgresql://${con.user}:*****@${con.host}:${con.port}/${con.dbname}${connectionParams(con)}`;
+  return `postgresql://${con.user}:*****@${con.host}:${con.port}/${con.database}${connectionParams(con)}`;
 };

@@ -75,7 +75,7 @@ export const databaseDrop: DatabaseMutateSignature = async (
 
     if (activeConnections.length > 0) {
       const connections = activeConnections.map((con) => con.application_name).join(',');
-      throw new Error(`Can not drop database ${databaseName} because it has the following connections: '${connections}'.`);
+      throw new Error(`Can not drop database ${databaseName} because it has the following active connections: '${connections}'.`);
     }
 
     await sql.unsafe(`

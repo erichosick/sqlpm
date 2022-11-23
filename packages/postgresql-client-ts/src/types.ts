@@ -30,7 +30,7 @@ export interface Connection {
   /** The database name of the connection. The PGDATABASE environment variable
    * overrides this value.
    */
-  dbname: string,
+   database: string,
 
   /** An optional schema to default to in the database. The PGSCHEMA environment
    * variable overrides this value. Note: At the time of writing this code,

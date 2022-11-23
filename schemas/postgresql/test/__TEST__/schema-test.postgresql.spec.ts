@@ -7,7 +7,8 @@ describe('test schema', () => {
   fakeTimers();
   it('should successfully test the test schema', async () => {
     // To keep generated sql packages around after the test, set
-    // keepGeneratedSql to true: false by default
-    await sqlTestPackage(__dirname, 'test_test', false);
+    // keepGenerated to true: false by default as seen below.
+    const result = await sqlTestPackage(__dirname, 'test_test', false);
+    expect(result).toEqual(true);
   });
 });

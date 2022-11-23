@@ -10,6 +10,9 @@ describe('sqlTestPackage', () => {
   fakeTimers();
 
   it('should test a package', async () => {
-    await sqlTestPackage(__dirname, 'empty_database_test');
+    // To keep generated sql packages amd database around after the test, set
+    // keepGenerated to true: false by default as seen below.
+    const result = await sqlTestPackage(__dirname, 'empty_database_test', false);
+    expect(result).toEqual(true);
   });
 });

@@ -365,6 +365,7 @@ const verifyInput: VerifySignature = (
 export const parseSchemaProjectInit = (
   input: string,
 ): SchemaProjectSetting => {
+  // eslint-disable-next-line max-len
   const projectInit: SchemaProjectSetting = parseJson<SchemaProjectSetting>(input, { verify: verifyInput });
 
   if (projectInit.description === undefined) {
@@ -404,60 +405,6 @@ export interface SqlpmConfigGrouping {
   actions: RunActionDirectories,
 }
 
-// // TODO: Test all of this, document, etc.
-// export type SqlpmConfigGroupings = SqlpmConfigGrouping[];
-
-// // TODO: Test all of this, document, etc.
-// export interface SqlpmConfig {
-
-//   /**
-//    * The directory where all generated sql will be placed. The default
-//    * is `.sqlpm`.
-//    */
-//   scriptDir: string
-
-//   platform: DatabasePlatform,
-
-//   /**
-//    * One more more groupings
-//    */
-//   groups: SqlpmConfigGroupings
-
-// }
-// // TODO: Test all of this, document, etc.
-// export const sqlpmConfigTemplate = (
-//   platform: DatabasePlatform,
-// ):string => {
-//   const json: SqlpmConfig = {
-//     scriptDir: '.sqlpm',
-//     platform,
-//     groups: [
-//       {
-//         groupDir: 'build',
-//         actions: [
-//           RunActionDirectory.Prerun,
-//           RunActionDirectory.Run,
-//           RunActionDirectory.Postrun,
-//         ],
-//       },
-//       {
-//         groupDir: 'reset',
-//         actions: [
-//           RunActionDirectory.Reset,
-//         ],
-//       },
-//       {
-//         groupDir: 'test',
-//         actions: [
-//           RunActionDirectory.Test,
-//         ],
-//       },
-//     ],
-//   };
-
-//   return JSON.stringify(json);
-// };
-
 /**
  * The typescript test template for the schema we just created.
  * **@remarks**
@@ -479,9 +426,10 @@ export const testTemplate = (
 describe('${schemaName} schema', () => {
   fakeTimers();
   it('should successfully create schema ${schemaName}', async () => {
-    // To keep generated sql packages around after the test, set
-    // keepGeneratedSql to true: false by default
-    await sqlTestPackage(__dirname, '${schemaName}_test', false);
+    // To keep generated sql packages amd database around after the test, set
+    // keepGenerated to true: false by default as seen below.
+    const result = await sqlTestPackage(__dirname, '${schemaName}_test', false);
+    expect(result).toEqual(true);
   });
 });
 `;

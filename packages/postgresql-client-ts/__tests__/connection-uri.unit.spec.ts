@@ -15,7 +15,7 @@ describe('connection', () => {
         port: 9999,
         user: 'user2',
         password: 'password2',
-        dbname: 'database2',
+        database: 'database2',
       });
 
       expect(connectionUri(connection))
@@ -29,7 +29,7 @@ describe('connection', () => {
         port: 9998,
         user: 'user3',
         password: 'password3',
-        dbname: 'database3',
+        database: 'database3',
         schema: 'schema3',
       });
 
@@ -47,7 +47,7 @@ describe('connection', () => {
         port: 9997,
         user: 'user4',
         password: 'password4',
-        dbname: 'database4',
+        database: 'database4',
         schema: 'schema4',
       });
 

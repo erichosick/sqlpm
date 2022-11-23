@@ -30,21 +30,28 @@ export const sqlFilesApply = async (
 
   const sql = connectionOpen(connection);
 
-  const applyPromises = [];
-  if (filesUnfiltered !== undefined) {
-  // TODO: Testing
-    const sqlFiles = filesUnfiltered
-      .filter((path) => parse(path).ext === '.sql')
-      .sort();
-
-    for (const sqlFile of sqlFiles) {
-      const absoluteSqlFile = join(absoluteSource, sqlFile);
-      applyPromises.push(sqlApplyFromFile(absoluteSqlFile, sql));
-    }
-  } // else {} nothing to do
-
   try {
-    await Promise.all(applyPromises);
+    // await Promise.all(applyPromises);
+
+    if (filesUnfiltered !== undefined) {
+    // TODO: Testing
+      const sqlFiles = filesUnfiltered
+        .filter((path) => parse(path).ext === '.sql')
+        .sort();
+
+      for (const sqlFile of sqlFiles) {
+        const absoluteSqlFile = join(absoluteSource, sqlFile);
+        // NOTE: Had logic that generated an array of promises then did
+        // await Promise.all(applyPromises); but it looks like they start the
+        // task immediately. So, there is no known execution order.
+        // https://stackoverflow.com/questions/30823653
+        // See https://bigcodenerd.org/resolving-promises-sequentially-javascript/
+        // generators section. This may be an option.
+
+        // eslint-disable-next-line no-await-in-loop
+        await sqlApplyFromFile(absoluteSqlFile, sql);
+      }
+    } // else {} nothing to do
   } finally {
     await sql.end({ timeout: 1 });
   }

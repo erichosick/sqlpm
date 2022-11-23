@@ -51,7 +51,7 @@ describe('connectionBuild', () => {
         port: 9855,
         user: 'user',
         password: 'password',
-        dbname: 'database',
+        database: 'database',
         schema: 'schema',
       });
       expect(connection).toEqual({
@@ -59,7 +59,7 @@ describe('connectionBuild', () => {
         port: 9855,
         user: 'user',
         password: 'password',
-        dbname: 'database',
+        database: 'database',
         schema: 'schema',
       });
     });
@@ -70,7 +70,7 @@ describe('connectionBuild', () => {
         host: 'host',
         user: 'user',
         password: 'password',
-        dbname: 'database',
+        database: 'database',
       });
 
       expect(connection).toEqual({
@@ -78,7 +78,7 @@ describe('connectionBuild', () => {
         port: 5432,
         user: 'user',
         password: 'password',
-        dbname: 'database',
+        database: 'database',
         schema: undefined,
       });
     });
@@ -107,7 +107,7 @@ describe('connectionBuild', () => {
         port: 9854,
         user: 'user',
         password: 'password',
-        dbname: 'database',
+        database: 'database',
         schema: 'schema',
       });
 
@@ -116,7 +116,7 @@ describe('connectionBuild', () => {
         port: 9854,
         user: 'user',
         password: 'password',
-        dbname: 'database',
+        database: 'database',
         schema: 'schema',
       });
     });
