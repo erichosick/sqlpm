@@ -86,34 +86,33 @@ export const sqlTestPackage = async (
         dbName: databaseName,
       };
 
-      try {
-        // build the schema
-        await sqlFilesApply(
-          destinationBuildFolder,
-          newConnection,
-          destinationRoot,
-        );
+      // build the schema
+      await sqlFilesApply(
+        destinationBuildFolder,
+        newConnection,
+        destinationRoot,
+      );
 
-        // run the tests
-        await sqlFilesApply(
-          destinationTestFolder,
-          newConnection,
-          destinationRoot,
-        );
-      } finally {
-        // tear down the entire thing
-        await sqlFilesApply(
-          destinationResetFolder,
-          newConnection,
-          destinationRoot,
-        );
-      }
+      // run the tests
+      await sqlFilesApply(
+        destinationTestFolder,
+        newConnection,
+        destinationRoot,
+      );
+      // tear down the entire thing
+      await sqlFilesApply(
+        destinationResetFolder,
+        newConnection,
+        destinationRoot,
+      );
     } catch (err) {
       const error = err as Error;
 
       if (error.name !== 'PostgresError') {
         // TODO: Work on logging the error
+        // eslint-disable-next-line no-console
         console.log(error.name);
+        // eslint-disable-next-line no-console
         console.log(error.message);
       }
       errorDuringTesting = true;

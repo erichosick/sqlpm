@@ -53,6 +53,10 @@ export const platformDirectory = (
   platform: DatabasePlatform,
 ): string => join(workspace, platform);
 
+export const packageNameToDirectoryName = (
+  packageName: string,
+): string => packageName.replace(/_/g, '-');
+
 /**
  * Given a platform directory and package name, returns the
  * directory where the sql package resides.
@@ -80,7 +84,7 @@ export const platformDirectory = (
 export const packageDirectory = (
   platDir: string,
   packageName: string,
-): string => join(platDir, packageName);
+): string => join(platDir, packageNameToDirectoryName(packageName));
 
 /**
  * Given a package directory and purpose, returns the
@@ -196,14 +200,21 @@ export const projectDirectories = (
   return directories;
 };
 
+export const packageNameCreate = (
+  packageName: string,
+  platform: DatabasePlatform,
+): string => `${packageNameToDirectoryName(packageName)}-${platform}`;
+
 export const projectPackageTemplate = (
   packageName: string,
   platform: DatabasePlatform,
   description: string,
   author: string,
   email: string,
-): string => `{
-  "name": "@sqlpm/${packageName}-${platform}",
+): string => {
+  const packageNameFinal = packageNameCreate(packageName, platform);
+  return `{
+  "name": "@sqlpm/${packageNameFinal}",
   "version": "0.0.0",
   "description": "${description}",
   "keywords": [
@@ -212,7 +223,7 @@ export const projectPackageTemplate = (
     "postgresql"
   ],
   "author": "${author} <${email}>",
-  "homepage": "https://github.com/erichosick/sqlpm/tree/main/packages/schemas/${packageName}-${platform}",
+  "homepage": "https://github.com/erichosick/sqlpm/tree/main/packages/schemas/${packageNameFinal}",
   "bugs": {
     "url": "https://github.com/erichosick/sqlpm/issues",
     "email": "${email}"
@@ -231,6 +242,7 @@ export const projectPackageTemplate = (
   }
 }
 `;
+};
 
 export const readmeTemplate = (
   packageName: string,
