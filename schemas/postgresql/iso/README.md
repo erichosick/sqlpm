@@ -28,5 +28,4 @@ yarn lerna add @sqlpm/sqlpm-lib-ts --scope=@sqlpm/iso-postgresql
 
 # Add the universal schema dependency
 yarn lerna add @sqlpm/universal-postgresql --scope=@sqlpm/iso-postgresql
-
 ```
