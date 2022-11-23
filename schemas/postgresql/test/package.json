@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/test-postgresql",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Contains resources that can be used for testing.",
   "keywords": [
     "sqlpm",
