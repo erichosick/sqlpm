@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS iso.language_alpha2 (
   CONSTRAINT country_alpha2_label_key UNIQUE(label)
 );
 
-COMMENT ON TABLE iso.language_alpha2 IS 'ISO 639-1 two character langauge codes. Source Source https://datahub.io/core/language-codes#data-cli';
+COMMENT ON TABLE iso.language_alpha2 IS 'ISO 639-1 two character language codes. Source Source https://datahub.io/core/language-codes#data-cli';
 COMMENT ON COLUMN iso.language_alpha2.language_alpha2_id IS 'A unique 2 character id for the lanugage code as defined by the ISO 639 specification.';
 COMMENT ON COLUMN iso.language_alpha2.label IS 'The english label of the alpha2 code as defined by the ISO 639 specification.';
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS iso.country_alpha2 (
   CONSTRAINT language_alpha2_pkey PRIMARY KEY (country_alpha2_id),
   CONSTRAINT language_alpha2_label_key UNIQUE(label)
 );
-COMMENT ON TABLE iso.country_alpha2 IS 'ISO 639-1 two character langauge codes. Source Source https://datahub.io/core/language-codes#data-cli';
+COMMENT ON TABLE iso.country_alpha2 IS 'ISO 639-1 two character language codes. Source Source https://datahub.io/core/language-codes#data-cli';
 COMMENT ON COLUMN iso.country_alpha2.country_alpha2_id IS 'A unique 2 character id for the lanugage code as defined by the ISO 639 specification.';
 COMMENT ON COLUMN iso.country_alpha2.label IS 'The english label of the alpha2 code as defined by the ISO 639 specification.';
 
