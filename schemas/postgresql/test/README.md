@@ -19,4 +19,10 @@ This package has:
 
 ## Generated
 
-This package was generated using [@sqlpm/package-generator-ts](https://www.npmjs.com/package/@sqlpm/package-generator-ts).
+This package was generated as follows:
+
+```bash
+yarn sqlpm generate '{"packageName": "test", "platform": "postgresql", "description": "Contains resources that can be used for testing.", "author": "...", "email": ""...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
+
+yarn lerna add @sqlpm/sqlpm-lib-ts --scope=@sqlpm/test-postgresql
+```
