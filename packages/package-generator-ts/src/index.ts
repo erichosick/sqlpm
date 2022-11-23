@@ -223,7 +223,7 @@ export const projectPackageTemplate = (
     "postgresql"
   ],
   "author": "${author} <${email}>",
-  "homepage": "https://github.com/erichosick/sqlpm/tree/main/packages/schemas/${packageNameFinal}",
+  "homepage": "https://github.com/erichosick/sqlpm/tree/main/schemas/postgresql/${packageName}",
   "bugs": {
     "url": "https://github.com/erichosick/sqlpm/issues",
     "email": "${email}"

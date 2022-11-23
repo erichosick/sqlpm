@@ -8,7 +8,7 @@
     "postgresql"
   ],
   "author": "Eric Hosick <erichosick@gmail.com>",
-  "homepage": "https://github.com/erichosick/sqlpm/tree/main/packages/schemas/sqlpm-example-postgresql",
+  "homepage": "https://github.com/erichosick/sqlpm/tree/main/schemas/postgresql/sqlpm-example-postgresql",
   "bugs": {
     "url": "https://github.com/erichosick/sqlpm/issues",
     "email": "erichosick@gmail.com"
