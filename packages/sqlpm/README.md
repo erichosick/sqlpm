@@ -6,10 +6,6 @@ SQL Package Manager
 
 ```bash
 
-yarn sqlpm generate '{"packageName": "lib-domain", "platform": "postgresql", "description": "A library of reusable Postgresql domains placed in the lib schema", "author": "Eric Hosick", "email": "erichosick@gmail.com", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
-yarn lerna add @sqlpm/sqlpm-lib-ts --scope=@sqlpm/domain-lib-postgresql
-
-
 yarn sqlpm generate '{"packageName": "universal", "platform": "postgresql", "description": "", "author": "Eric Hosick", "email": "erichosick@gmail.com", "purposes": ["readwrite"], "actions": ["prerun", "run", "test", "reset"]}'
 
 yarn lerna add @sqlpm/sqlpm-lib-ts --scope=@sqlpm/universal-postgresql
