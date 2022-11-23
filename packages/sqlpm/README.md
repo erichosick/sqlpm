@@ -12,7 +12,7 @@ SQL Package manager is a package manager for sql. We plan on supporting differen
 
 ## How Does It Work
 
-We leverage the existing javascript community and their approach to package management. Sqlpm packages are installed using a traditional javascript package manager such as [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/) or [pnpm](https://pnpm.io/). Applying the sql located in the package to a Postgresql database instance is done using Sql Package Manager (Work in Progress).
+We leverage the existing javascript community and their approach to package management. Sqlpm packages are installed using a traditional javascript package manager such as [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/) or [pnpm](https://pnpm.io/). Applying the sql located in the package to a Postgresql database instance can be done by using Sql Package Manager (Work in Progress).
 
 **Features**
 
