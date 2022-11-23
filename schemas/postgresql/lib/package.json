@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/lib-postgresql",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A library of reusable Postgresql domains.",
   "keywords": [
     "sqlpm",
