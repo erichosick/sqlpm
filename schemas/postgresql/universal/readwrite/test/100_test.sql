@@ -4,6 +4,14 @@
 -- universal - test
 -- -----------------------------------------------------------------------------
 
+/* Copyright (c) 2022 Eric Hosick All Rights Reserved */
+
+-- -----------------------------------------------------------------------------
+-- sql share schema tests
+-- NOTE: For multi tenant, the account schema is required. So, tests need to
+-- move after the account schema
+-- -----------------------------------------------------------------------------
+
 -- -- Setting Permissions
 
 -- DO $$
