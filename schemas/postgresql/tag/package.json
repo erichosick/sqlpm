@@ -28,6 +28,6 @@
   "dependencies": {
     "@sqlpm/iso-postgresql": "^1.1.0",
     "@sqlpm/sqlpm-lib-ts": "^1.3.0",
-    "@sqlpm/universal-postgresql": "^0.1.4"
+    "@sqlpm/universal-postgresql": "^1.1.0"
   }
 }
