@@ -1,0 +1,33 @@
+{
+  "name": "@sqlpm/persona-postgresql",
+  "version": "0.0.0",
+  "description": "support users, persona entities, companies, etc.",
+  "keywords": [
+    "sqlpm",
+    "database schema",
+    "postgresql"
+  ],
+  "author": "Eric Hosick <erichosick@gmail.com>",
+  "homepage": "https://github.com/erichosick/sqlpm/tree/main/schemas/postgresql/persona",
+  "bugs": {
+    "url": "https://github.com/erichosick/sqlpm/issues",
+    "email": "erichosick@gmail.com"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erichosick/sqlpm.git"
+  },
+  "database": {
+    "platform": "postgresql"
+  },
+  "dependencies": {
+    "@sqlpm/sqlpm-lib-ts": "^1.2.2",
+    "@sqlpm/tag-postgresql": "^1.0.0",
+    "@sqlpm/universal-postgresql": "^1.0.0"
+  }
+}

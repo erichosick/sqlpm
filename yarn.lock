@@ -1631,6 +1631,15 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@sqlpm/universal-postgresql@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@sqlpm/universal-postgresql/-/universal-postgresql-0.1.4.tgz#56cacf362d084779a09700491f56a7d8887b2028"
+  integrity sha512-pKMK9TkbNMXIbQyizsk/0/zO3mqbmu3wF6r7X6aWqfKCpRjwefLBPAxPcyrQNfVUnO/MUQmqzKobleRFZc3Dkg==
+  dependencies:
+    "@sqlpm/lib-postgresql" "^1.2.3"
+    "@sqlpm/sqlpm-lib-ts" "^1.2.1"
+    "@sqlpm/test-postgresql" "^1.2.3"
+
 "@tootallnate/once@2":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
