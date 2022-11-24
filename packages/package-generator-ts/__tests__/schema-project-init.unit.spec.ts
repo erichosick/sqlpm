@@ -106,7 +106,7 @@ describe('schemaProjectInit', () => {
 
     expect(await (readFileString(
       join(testActionDir, '100_test.sql'),
-    ))).toEqual(sqlTemplate(packageName, 'test'));
+    ))).toEqual(sqlTemplate(packageName, 'test', author));
 
     const resetActionDir = actionDirectory(
       absolutePurposeDir,
@@ -161,7 +161,7 @@ describe('schemaProjectInit', () => {
 
     expect(await (readFileString(
       join(prerunActionDir, '100_prerun.sql'),
-    ))).toEqual(sqlTemplate(packageName, 'prerun'));
+    ))).toEqual(sqlTemplate(packageName, 'prerun', author));
 
     const postrunActionDir = actionDirectory(
       absolutePurposeDir,
@@ -170,7 +170,7 @@ describe('schemaProjectInit', () => {
 
     expect(await (readFileString(
       join(postrunActionDir, '100_postrun.sql'),
-    ))).toEqual(sqlTemplate(packageName, 'postrun'));
+    ))).toEqual(sqlTemplate(packageName, 'postrun', author));
 
     const resetActionDir = actionDirectory(
       absolutePurposeDir,

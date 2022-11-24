@@ -276,7 +276,10 @@ This package was generated using [@sqlpm/package-generator-ts](https://www.npmjs
 export const sqlTemplate = (
   packageName: string,
   action: string,
-): string => `-- -----------------------------------------------------------------------------
+  author: string,
+): string => `/* Copyright (c) 2022 ${author} All Rights Reserved. See LICENSE.md. */
+
+-- -----------------------------------------------------------------------------
 -- ${packageName} - ${action}
 -- -----------------------------------------------------------------------------
 
@@ -533,7 +536,7 @@ export const schemaProjectInit = async (
         sqlFilePromises.push(
           fileWrite(
             file,
-            sqlTemplate(packageName, action),
+            sqlTemplate(packageName, action, author),
           ),
         );
       }
