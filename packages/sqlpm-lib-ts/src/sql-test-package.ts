@@ -35,11 +35,10 @@ export const sqlTestPackage = async (
 ): Promise<boolean> => {
   let result = true;
   const keepGenerated = options?.keepGenerated ? options?.keepGenerated : false;
-  const destinationRoot = packagePath || __dirname;
   const scriptDirectory = 'sqlpm-test';
+  const destinationRoot = join(packagePath || __dirname, scriptDirectory);
   let errorDuringTesting = false;
-  const cleanupFolder = join(destinationRoot, scriptDirectory);
-
+  const cleanupFolder = join(destinationRoot);
   // Uses the environment variables to get an initial connection
   const primaryConnection = connectionBuild();
   const newConnection = {
@@ -58,7 +57,7 @@ export const sqlTestPackage = async (
   await databaseCreate(databaseName, primaryConnection);
 
   // TODO: This should all be configured
-  const destinationBuildFolder = join(scriptDirectory, 'build');
+  const destinationBuildFolder = join('build');
   await sqlFilesGenerate(
     databaseName,
     destinationBuildFolder,
@@ -73,7 +72,7 @@ export const sqlTestPackage = async (
     destinationRoot,
   );
 
-  const destinationResetFolder = join(scriptDirectory, 'reset');
+  const destinationResetFolder = join('reset');
   await sqlFilesGenerate(
     databaseName,
     destinationResetFolder,
@@ -86,7 +85,7 @@ export const sqlTestPackage = async (
     destinationRoot,
   );
 
-  const destinationTestFolder = join(scriptDirectory, 'test');
+  const destinationTestFolder = join('test');
   await sqlFilesGenerate(
     databaseName,
     destinationTestFolder,
