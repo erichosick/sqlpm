@@ -24,6 +24,7 @@ import {
   platformDirectory,
   purposeDirectory,
   actionDirectory,
+  sqlTemplateReset,
 } from '../src/index';
 
 describe('schemaProjectInit', () => {
@@ -114,7 +115,7 @@ describe('schemaProjectInit', () => {
 
     expect(await (readFileString(
       join(resetActionDir, '100_reset.sql'),
-    ))).toEqual(sqlTemplate(packageName, 'reset'));
+    ))).toEqual(sqlTemplateReset(packageName, 'reset', author));
 
     await dirRemove(
       join(process.cwd(), workspaceName),
@@ -178,7 +179,7 @@ describe('schemaProjectInit', () => {
 
     expect(await (readFileString(
       join(resetActionDir, '100_reset.sql'),
-    ))).toEqual(sqlTemplate(packageName, 'reset'));
+    ))).toEqual(sqlTemplateReset(packageName, 'reset', author));
 
     await dirRemove(
       join(process.cwd(), platDir),
