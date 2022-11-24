@@ -6,11 +6,23 @@ import {
   connectionBuild,
   databaseCreate,
   databaseDrop,
+  DatabaseDropOptions,
 } from '@sqlpm/postgresql-client-ts';
 import { DatabasePlatform, DatabasePurpose, RunActionDirectory } from '@sqlpm/types-ts';
 import { dirRemove } from '@sqlpm/file-async-ts';
 import { sqlFilesGenerate } from './sql-files-generate';
 import { sqlFilesApply } from './sql-files-apply';
+
+export interface SqlTestPackageOptions extends DatabaseDropOptions{
+
+  /**
+   * When true, any assets generated during the test are kept around including
+   * the database and SQL scripts. When false, the assets are removed unless
+   * the test errored. Default is false.
+   */
+  keepGenerated?: boolean;
+
+}
 
 /**
  * The path to the child most package.json file.
@@ -19,9 +31,10 @@ import { sqlFilesApply } from './sql-files-apply';
 export const sqlTestPackage = async (
   packagePath: string,
   databaseName: string,
-  keepGenerated: boolean = false,
+  options?: SqlTestPackageOptions,
 ): Promise<boolean> => {
   let result = true;
+  const keepGenerated = options?.keepGenerated ? options?.keepGenerated : false;
   const destinationRoot = packagePath || __dirname;
   const scriptDirectory = 'sqlpm-test';
   let errorDuringTesting = false;
@@ -35,7 +48,7 @@ export const sqlTestPackage = async (
   };
 
   // CLEANUP Database amd files
-  await databaseDrop(databaseName, primaryConnection);
+  await databaseDrop(databaseName, primaryConnection, options);
 
   // Let's clean up any prior tests as they may have failed and we around
   // the sql script so a developer can see what the issue was
@@ -119,7 +132,7 @@ export const sqlTestPackage = async (
       result = false;
     } finally {
       if (errorDuringTesting === false && keepGenerated === false) {
-        await databaseDrop(databaseName, primaryConnection);
+        await databaseDrop(databaseName, primaryConnection, options);
       }
     }
   } finally {

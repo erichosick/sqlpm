@@ -15,17 +15,13 @@ RUN echo "shared_preload_libraries = 'pg_cron'" >> /usr/share/postgresql/14/post
 # will also need to change the database name here.
 RUN echo "cron.database_name = 'postgres'" >> /usr/share/postgresql/14/postgresql.conf.sample
 
+
 # Install http extension
+# https://github.com/pramsey/pgsql-http#installation
+# see https://tech.mizuki.io/post/3/
+# https://hub.docker.com/r/supabase/postgres
+RUN apt -y install postgresql-server-dev-14 libcurl4-openssl-dev make g++
+
 RUN apt -y install build-essential git
 
-# for curl-config
-RUN apt -y install libcurl4-openssl-dev
-RUN apt -y install libpq-dev
-
-# We are prompted with:
-#   What do you want to do about modified configuration file createcluster.conf? 
-#   We prefer 2. keep the local version currently installed
-# but added noninteractive to stop prompt and hopefully Prefer 2 is selected
-# (note: when using apt -y install dialog, the default was 2)
-RUN DEBIAN_FRONTEND=noninteractive apt -y install postgresql-server-dev-all
 RUN cd /tmp; git clone https://github.com/pramsey/pgsql-http.git; cd pgsql-http; make; make install

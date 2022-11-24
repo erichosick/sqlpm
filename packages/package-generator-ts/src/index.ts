@@ -446,7 +446,11 @@ describe('${schemaName} schema', () => {
   it('should successfully create schema ${schemaName}', async () => {
     // To keep generated sql packages amd database around after the test, set
     // keepGenerated to true: false by default as seen below.
-    const result = await sqlTestPackage(__dirname, '${schemaName}_test', false);
+    const result = await sqlTestPackage(
+      __dirname,
+      '${schemaName}_test',
+      { keepGenerated: false }
+    );
     expect(result).toEqual(true);
   });
 });

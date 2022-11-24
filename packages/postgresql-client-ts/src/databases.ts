@@ -60,11 +60,25 @@ export const databaseCreate: DatabaseMutateSignature = async (
   return true;
 };
 
+export interface DatabaseDropOptions extends MessagingOptions {
+
+  /**
+   * When true, any active connections are dropped before the database is
+   * dropped. When, false, the database will not drop if there are active
+   * connections. Useful when the database includes extensions like pg_cron.
+   * Default is false.
+   */
+   closeActiveConnections?: boolean;
+
+}
+
 export const databaseDrop: DatabaseMutateSignature = async (
   databaseName: string,
   connection: Connection,
-  options?: MessagingOptions,
+  options?: DatabaseDropOptions,
 ): Promise<boolean> => {
+  const closeActiveConnections = options?.closeActiveConnections
+    ? options.closeActiveConnections : false;
   const sql = connectionOpen(connection);
   try {
     const activeConnections = await sql`
@@ -74,8 +88,16 @@ export const databaseDrop: DatabaseMutateSignature = async (
     `;
 
     if (activeConnections.length > 0) {
-      const connections = activeConnections.map((con) => con.application_name).join(',');
-      throw new Error(`Can not drop database ${databaseName} because it has the following active connections: '${connections}'.`);
+      if (closeActiveConnections) {
+        await sql`
+        SELECT pg_terminate_backend(pid)
+        FROM pg_stat_activity
+        WHERE datname=${databaseName};
+       `;
+      } else {
+        const connections = activeConnections.map((con) => con.application_name).join(',');
+        throw new Error(`Can not drop database ${databaseName} because it has the following active connections: '${connections}'.`);
+      }
     }
 
     await sql.unsafe(`
