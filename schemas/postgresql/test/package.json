@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/test-postgresql",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Contains resources that can be used for testing.",
   "keywords": [
     "sqlpm",
@@ -26,6 +26,6 @@
     "platform": "postgresql"
   },
   "dependencies": {
-    "@sqlpm/sqlpm-lib-ts": "^1.2.1"
+    "@sqlpm/sqlpm-lib-ts": "^1.2.2"
   }
 }
