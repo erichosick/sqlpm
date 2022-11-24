@@ -27,9 +27,10 @@ describe('sqlFilesGenerate', () => {
       'node-package-with-schema-dependency',
     );
 
-    const buildDirector = 'sql-build-test';
-    const destinationFolder = join(buildDirector, 'build');
+    const destinationFolder = join('build');
+    const databaseName = 'sqlpm-test-db-02';
     await sqlFilesGenerate(
+      databaseName,
       destinationFolder,
       DatabasePurpose.Readwrite,
       DatabasePlatform.Postgresql,
@@ -42,7 +43,11 @@ describe('sqlFilesGenerate', () => {
       testDir,
     );
 
-    const absoluteDestinationFolder = join(testDir, destinationFolder);
+    const absoluteDestinationFolder = join(
+      testDir,
+      databaseName,
+      destinationFolder,
+    );
 
     // It should have create the destination folder
     const exists = await pathExists(absoluteDestinationFolder);
@@ -93,7 +98,7 @@ describe('sqlFilesGenerate', () => {
     ).toEqual(true);
 
     // clean up
-    const cleanupFolder = join(testDir, buildDirector);
+    const cleanupFolder = join(testDir, databaseName);
     await dirRemove(cleanupFolder, { recursive: true });
   });
 });

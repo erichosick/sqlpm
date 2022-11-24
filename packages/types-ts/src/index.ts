@@ -151,6 +151,28 @@ export interface DatabaseInformation {
    */
   // eslint-disable-next-line no-use-before-define
   platform: DatabasePlatform | DatabasePlatforms
+
+  /**
+   * When a value is provided, causes Sql package manager to create a new
+   * database within the same postgresql cluster using the active connection
+   * database. Sql package manager then points at the new database and applies
+   * the sql schema to that packages database. Rolling back the schema will
+   * also cause the database to be removed?
+   *
+   * **@example**
+   * pg_cron can only run in a single database.
+   * (see https://github.com/citusdata/pg_cron/issues/89)
+   * Setting `packageDatabase: 'pg_cron'` will cause the sql script in the
+   * pg_cron package to execute in that database along with any of the
+   * dependencies. A package that depends on pg_cron will still run it's
+   * sql in the active connection.
+   */
+  packageDatabase?: {
+    databaseName: string,
+    // deleteDbOnRollback?: boolean
+    // connection - optional. By default the active connection is used meaning
+    // the database will be created in the same cluster
+  }
 }
 
 /**

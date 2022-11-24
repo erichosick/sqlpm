@@ -6,4 +6,4 @@ npm-debug.log
 coverage
 **/yarn-error.log
 **/_karma_webpack_
-**/sqlpm-test
+**/sqlpm-test*

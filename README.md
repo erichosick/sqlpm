@@ -1,6 +1,6 @@
 # sqlpm
 
-A bare-bones `lerna` mono-repo project.
+A `lerna` mono-repo project.
 
 * Tech stack:
   * eslint

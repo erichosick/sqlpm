@@ -16,11 +16,12 @@ import {
 // TODO: Pass the sql client that we will use to this.
 
 export const sqlFilesApply = async (
+  databaseName: string,
   sourceFolder: string,
   connection: Connection,
   sourceRoot?: string,
 ) => {
-  const finalRoot = sourceRoot || __dirname;
+  const finalRoot = join(sourceRoot || __dirname, databaseName);
   const absoluteSource = join(
     finalRoot,
     sourceFolder,

@@ -1,5 +1,5 @@
 {
-  "name": "node-package-with-schema-dependency",
+  "name": "node-package-with-package-database",
   "version": "0.0.0",
   "description": "A package that has no schema dependencies",
   "license": "MIT",
@@ -8,6 +8,8 @@
     "@sqlpm/sqlpm-example-postgresql": "^0.0.0"
   },
   "sqlpm": {
-    "databaseName": "pg_cron"
+    "packageDatabase": {
+      "databaseName": "db_cron"
+    }
   }
 }

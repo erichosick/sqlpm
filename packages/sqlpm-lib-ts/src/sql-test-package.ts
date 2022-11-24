@@ -60,6 +60,7 @@ export const sqlTestPackage = async (
   // TODO: This should all be configured
   const destinationBuildFolder = join(scriptDirectory, 'build');
   await sqlFilesGenerate(
+    databaseName,
     destinationBuildFolder,
     DatabasePurpose.Readwrite,
     DatabasePlatform.Postgresql,
@@ -74,6 +75,7 @@ export const sqlTestPackage = async (
 
   const destinationResetFolder = join(scriptDirectory, 'reset');
   await sqlFilesGenerate(
+    databaseName,
     destinationResetFolder,
     DatabasePurpose.Readwrite,
     DatabasePlatform.Postgresql,
@@ -86,6 +88,7 @@ export const sqlTestPackage = async (
 
   const destinationTestFolder = join(scriptDirectory, 'test');
   await sqlFilesGenerate(
+    databaseName,
     destinationTestFolder,
     DatabasePurpose.Readwrite,
     DatabasePlatform.Postgresql,
@@ -101,6 +104,7 @@ export const sqlTestPackage = async (
     try {
       // build the schema
       await sqlFilesApply(
+        databaseName,
         destinationBuildFolder,
         newConnection,
         destinationRoot,
@@ -108,12 +112,14 @@ export const sqlTestPackage = async (
 
       // run the tests
       await sqlFilesApply(
+        databaseName,
         destinationTestFolder,
         newConnection,
         destinationRoot,
       );
       // tear down the entire thing
       await sqlFilesApply(
+        databaseName,
         destinationResetFolder,
         newConnection,
         destinationRoot,

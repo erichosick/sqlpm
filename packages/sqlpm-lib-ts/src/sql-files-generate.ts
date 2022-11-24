@@ -40,6 +40,8 @@ export const packageNameToSchemaName = (
 /**
  * Given a bunch of sql script (located in memory), creates files using
  * a specific naming convention and saves the sql in these files.
+ * @param databaseName - The name of the postgresql database the sql files
+ * will run on.
  * @param destinationFolder The final location where all the sql script will
  * be placed.
  * @param databasePurpose
@@ -49,6 +51,7 @@ export const packageNameToSchemaName = (
  * @param childPath
  */
 export const sqlFilesGenerate = async (
+  databaseName: string,
   destinationFolder: string,
   databasePurpose: DatabasePurpose | string,
   platform: DatabasePlatform,
@@ -56,7 +59,7 @@ export const sqlFilesGenerate = async (
   options?: MessagingOptions,
   childPath?: string,
 ) => {
-  const finalPath = childPath || __dirname;
+  const finalPath = join(childPath || __dirname, databaseName);
   let inverse = false;
 
   if (runDirectories.includes(RunActionDirectory.Reset)) {

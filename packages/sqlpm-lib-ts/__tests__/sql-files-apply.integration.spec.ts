@@ -32,17 +32,19 @@ describe('sqlFilesApply', () => {
       'node-package-with-schema-dependency',
     );
 
-    const scriptDirectory = 'sql-build-test2';
-    const destinationBuildFolder = join(scriptDirectory, 'build');
+    const databaseName = 'sqlpm-test-db-01';
 
-    const destinationResetFolder = join(scriptDirectory, 'reset');
+    const destinationBuildFolder = join('build');
 
-    const cleanupFolder = join(destinationRoot, scriptDirectory);
+    const destinationResetFolder = join('reset');
+
+    const cleanupFolder = join(destinationRoot, databaseName);
 
     // clean up any prior runs (just in case)
     await dirRemove(cleanupFolder, { recursive: true, required: false });
 
     await sqlFilesGenerate(
+      databaseName,
       destinationBuildFolder,
       DatabasePurpose.Readwrite,
       DatabasePlatform.Postgresql,
@@ -58,6 +60,7 @@ describe('sqlFilesApply', () => {
     // Since this is a reset, we need to change the order that the files
     // are generated starting from the top node and working down.
     await sqlFilesGenerate(
+      databaseName,
       destinationResetFolder,
       DatabasePurpose.Readwrite,
       DatabasePlatform.Postgresql,
@@ -72,6 +75,7 @@ describe('sqlFilesApply', () => {
     const connection = connectionBuild();
 
     await sqlFilesApply(
+      databaseName,
       destinationBuildFolder,
       connection,
       destinationRoot,
@@ -91,6 +95,7 @@ describe('sqlFilesApply', () => {
     expect(schemaExists[0].schema_exits).toEqual('1');
 
     await sqlFilesApply(
+      databaseName,
       destinationResetFolder,
       connection,
       destinationRoot,
