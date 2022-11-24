@@ -50,7 +50,7 @@ const logPostgreSqlError = (file: string, error: PostgresError) => {
 
   if (error.code === '2BP01') {
     message.push('');
-    message.push('Did you add all the sql resources created by your reset sql ddl?');
+    message.push('Did you add all the sql resources created by the package to your reset sql?');
     message.push('');
   }
 

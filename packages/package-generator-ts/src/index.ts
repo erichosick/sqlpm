@@ -276,10 +276,8 @@ This package was generated using [@sqlpm/package-generator-ts](https://www.npmjs
 export const sqlTemplate = (
   packageName: string,
   action: string,
-): string => `
--- -----------------------------------------------------------------------------
+): string => `-- -----------------------------------------------------------------------------
 -- ${packageName} - ${action}
--- 
 -- -----------------------------------------------------------------------------
 
 `;
@@ -291,8 +289,7 @@ export const sqlTemplateRun = (
   author: string,
 ): string => {
   const packageNameCleaned = packageNameToSchemaName(packageName);
-  return `
-/* Copyright (c) 2022 ${author} All Rights Reserved. See LICENSE.md. */
+  return `/* Copyright (c) 2022 ${author} All Rights Reserved. See LICENSE.md. */
 
 -- -----------------------------------------------------------------------------
 -- ${packageNameCleaned} - ${action}
@@ -308,19 +305,14 @@ COMMENT ON SCHEMA ${packageNameCleaned} IS '${description}';
 export const sqlTemplateReset = (
   packageName: string,
   action: string,
-  description: string,
   author: string,
 ): string => {
   const packageNameCleaned = packageNameToSchemaName(packageName);
-  return `
-/* Copyright (c) 2022 ${author} All Rights Reserved. See LICENSE.md. */
+  return `/* Copyright (c) 2022 ${author} All Rights Reserved. See LICENSE.md. */
 
 -- -----------------------------------------------------------------------------
 -- ${packageNameCleaned} - ${action}
 -- -----------------------------------------------------------------------------
-
--- SCHEMA ----------------------------------------------------------------------
-
 
 DROP SCHEMA IF EXISTS ${packageNameCleaned};
 `;
@@ -533,7 +525,7 @@ export const schemaProjectInit = async (
         sqlFilePromises.push(
           fileWrite(
             file,
-            sqlTemplate(packageName, action),
+            sqlTemplateReset(packageName, action, author),
           ),
         );
       } else {
