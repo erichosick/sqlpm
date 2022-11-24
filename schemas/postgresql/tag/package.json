@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/tag-postgresql",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "support tagging including domains and hierarchical tags via ltree (https://www.postgresql.org/docs/14/ltree.html).",
   "keywords": [
     "sqlpm",
