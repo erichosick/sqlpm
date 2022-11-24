@@ -27,7 +27,7 @@ export interface ContentSourceObject<ContentType> {
  * **@type**
  * * **@member {@link PkgJSONSchemaExt.name}** - name is now required
  * * **@member {@link PkgJSONSchemaExt.version}** - version is now required
- * * **@member {@link PkgJSONSchemaExt.database}** - Addition of property
+ * * **@member {@link PkgJSONSchemaExt.sqlpm}** - Addition of property
  *
  * **@example**
  * Update to `package.json` file.
@@ -35,7 +35,7 @@ export interface ContentSourceObject<ContentType> {
  * ```json
  * {
  *   // ...
- *   "database": {
+ *   "sqlpm": {
  *     "platform": 'postgresql'
  *   }
  * }
@@ -54,10 +54,10 @@ export type PkgJSONSchemaExt = JSONSchemaForNPMPackageJsonFiles & {
   version: string;
 
   /**
-   * Information about the database used within the package.
+   * Information about the Sql package manager used within the package.
    * See {@link DatabaseInformation}.
    */
-  database?: DatabaseInformation;
+  sqlpm?: DatabaseInformation;
 };
 
 /**
@@ -102,7 +102,7 @@ export interface NodePackageSource {
  * * **@member {@link NodePackageMetadata.name}**
  * * **@member {@link NodePackageMetadata.version}**
  * * **@member {@link NodePackageMetadata.dependencies}**
- * * **@member {@link NodePackageMetadata.database}**
+ * * **@member {@link NodePackageMetadata.sqlpm}**
  *
 */
 export interface NodePackageMetadata {
@@ -125,9 +125,9 @@ export interface NodePackageMetadata {
   dependencies: NodePackages;
 
   /**
-   * Database information {@link DatabaseInformation}
+   * Sql Package manager information {@link DatabaseInformation}
    */
-  database?: DatabaseInformation
+   sqlpm?: DatabaseInformation
 
 }
 

@@ -112,7 +112,7 @@ describe('nodePackageFromSource', () => {
           dependencies: {
             '@sqlpm/types': '^0.0.9',
           },
-          database: {
+          sqlpm: {
             platform: DatabasePlatform.Postgresql,
           },
         },
@@ -128,7 +128,7 @@ describe('nodePackageFromSource', () => {
           name: '@sqlpm/types',
           version: '0.0.8',
           dependencies: [],
-          database: {
+          sqlpm: {
             platform: 'postgresql',
           },
         },

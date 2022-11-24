@@ -38,10 +38,10 @@ export const sqlPackagesGetInverted = (
       }
     } // else {} there are no dependencies for this NodePackage
 
-    if (currentNode.package.database) {
-      const platforms = Array.isArray(currentNode.package.database.platform)
-        ? currentNode.package.database.platform
-        : [currentNode.package.database.platform];
+    if (currentNode.package.sqlpm) {
+      const platforms = Array.isArray(currentNode.package.sqlpm.platform)
+        ? currentNode.package.sqlpm.platform
+        : [currentNode.package.sqlpm.platform];
 
       if (platforms.includes(platform)) {
         packages.push(currentNode);

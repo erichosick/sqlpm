@@ -82,7 +82,7 @@ export const nodePackageFromSource = (
       version: content.version,
       dependencies: dependentNodePackages,
       // add a database property if one exists
-      ...(content.database && { database: content.database }),
+      ...(content.sqlpm && { sqlpm: content.sqlpm }),
     },
   };
   return result;

@@ -50,7 +50,7 @@ const buildDependencyTree = async (
         // in a workspaces directory with the platform name in the path. But
         // projects that aren't sql centric may also show up. But we can't tell
         // if they are sql centric until we can open the package and see if
-        // currentNode.package.database exists.
+        // currentNode.package.sqlpm exists.
         // eslint-disable-next-line no-await-in-loop
         const localPackage = await loadNodePackage(
           join(finalLocation, 'package.json'),
@@ -65,7 +65,7 @@ const buildDependencyTree = async (
           // Pull the version out of the package itself
           nodePackage.package.version = localPackage.content.version;
           nodePackage.package.dependencies = packageDetail.package.dependencies;
-          nodePackage.package.database = packageDetail.package.database;
+          nodePackage.package.sqlpm = packageDetail.package.sqlpm;
           break;
         }
       }

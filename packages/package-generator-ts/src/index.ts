@@ -237,7 +237,7 @@ export const projectPackageTemplate = (
     "type": "git",
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
-  "database": {
+  "sqlpm": {
     "platform": "${platform}"
   }
 }

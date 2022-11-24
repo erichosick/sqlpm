@@ -47,7 +47,7 @@ export const sqlFindScript = async (
     if (sqlPackages.length === 0) {
       const message = `
       No packages found under root package '${rootPackage.package.name}' located at '${rootPackage.source?.absolutePath}' that are a sqlpm node package. Verify that:
-      1. If the '${rootPackage.package.name}' package is to be used by sqlpm, then make sure { "database": { "platform": "postgresql" } } is part of your package.json file.
+      1. If the '${rootPackage.package.name}' package is to be used by sqlpm, then make sure { "sqlpm": { "platform": "postgresql" } } is part of your package.json file.
       2. For mono-repo, did you add your schema workspace to  { "workspaces": [ ... ], } in your mono-repo root package and that the workspace directory in workspaces actually exists in your project.
       `;
       sendMsg?.warn(message);
