@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/logging-postgresql",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "contains features around logging, notifications, and notices.",
   "keywords": [
     "sqlpm",
@@ -26,9 +26,9 @@
     "platform": "postgresql"
   },
   "dependencies": {
-    "@sqlpm/persona-postgresql": "^1.0.2",
-    "@sqlpm/sqlpm-lib-ts": "^1.2.2",
-    "@sqlpm/tag-postgresql": "^1.0.2",
-    "@sqlpm/universal-postgresql": "^1.0.1"
+    "@sqlpm/persona-postgresql": "^1.0.3",
+    "@sqlpm/sqlpm-lib-ts": "^1.2.3",
+    "@sqlpm/tag-postgresql": "^1.0.3",
+    "@sqlpm/universal-postgresql": "^1.0.2"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/iso-postgresql",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "contains iso data for languages, countries, etc. Date comes from places like https://datahub.io/collections/reference-data.",
   "keywords": [
     "sqlpm",
@@ -26,7 +26,7 @@
     "platform": "postgresql"
   },
   "dependencies": {
-    "@sqlpm/sqlpm-lib-ts": "^1.2.2",
-    "@sqlpm/universal-postgresql": "^1.0.1"
+    "@sqlpm/sqlpm-lib-ts": "^1.2.3",
+    "@sqlpm/universal-postgresql": "^1.0.2"
   }
 }
