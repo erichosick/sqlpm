@@ -1,6 +1,6 @@
 {
   "name": "sqlpm",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "SQL Package Manager",
   "keywords": [
     "package manager",
@@ -31,9 +31,9 @@
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
   "dependencies": {
-    "@sqlpm/node-package-ts": "^1.5.0",
-    "@sqlpm/package-generator-ts": "^1.7.0",
-    "@sqlpm/sqlpm-lib-ts": "^1.3.0",
+    "@sqlpm/node-package-ts": "^1.6.0",
+    "@sqlpm/package-generator-ts": "^1.8.0",
+    "@sqlpm/sqlpm-lib-ts": "^1.4.0",
     "commander": "^9.4.1"
   }
 }
