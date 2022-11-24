@@ -31,5 +31,4 @@ yarn lerna add @sqlpm/test-postgresql --scope=@sqlpm/universal-postgresql
 
 # Add the library schema dependency
 yarn lerna add @sqlpm/lib-postgresql --scope=@sqlpm/universal-postgresql
-
 ```
