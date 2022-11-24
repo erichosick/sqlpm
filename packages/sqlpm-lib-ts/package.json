@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/sqlpm-lib-ts",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Library package used by sqlpm",
   "keywords": [
     "package manager",
