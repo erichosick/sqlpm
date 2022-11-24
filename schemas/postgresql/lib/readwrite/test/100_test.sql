@@ -1,3 +1,9 @@
+/* Copyright (c) 2022 Eric Hosick All Rights Reserved. See LICENSE.md. */
+
+-- -----------------------------------------------------------------------------
+-- lib - test
+-- -----------------------------------------------------------------------------
+
 DO $$
 DECLARE d_exception_thrown boolean = false;
 BEGIN

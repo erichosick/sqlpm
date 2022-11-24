@@ -288,19 +288,41 @@ export const sqlTemplateRun = (
   packageName: string,
   action: string,
   description: string,
+  author: string,
 ): string => {
   const packageNameCleaned = packageNameToSchemaName(packageName);
   return `
+/* Copyright (c) 2022 ${author} All Rights Reserved. See LICENSE.md. */
+
 -- -----------------------------------------------------------------------------
 -- ${packageNameCleaned} - ${action}
--- 
 -- -----------------------------------------------------------------------------
 
 -- SCHEMA ----------------------------------------------------------------------
 
 CREATE SCHEMA IF NOT EXISTS ${packageNameCleaned};
 COMMENT ON SCHEMA ${packageNameCleaned} IS '${description}';
+`;
+};
 
+export const sqlTemplateReset = (
+  packageName: string,
+  action: string,
+  description: string,
+  author: string,
+): string => {
+  const packageNameCleaned = packageNameToSchemaName(packageName);
+  return `
+/* Copyright (c) 2022 ${author} All Rights Reserved. See LICENSE.md. */
+
+-- -----------------------------------------------------------------------------
+-- ${packageNameCleaned} - ${action}
+-- -----------------------------------------------------------------------------
+
+-- SCHEMA ----------------------------------------------------------------------
+
+
+DROP SCHEMA IF EXISTS ${packageNameCleaned};
 `;
 };
 
@@ -497,18 +519,25 @@ export const schemaProjectInit = async (
     const purposeDir = purposeDirectory(packageDir, purpose);
     for (const action of actions) {
       const actionDir = actionDirectory(purposeDir, action);
-      const file = join(actionDir, `100_${action}.sql`);
+      let file = join(actionDir, `100_${action}.sql`);
 
       if (action === RunActionDirectory.Run) {
+        file = join(actionDir, '100_create_resources.sql');
         sqlFilePromises.push(
           fileWrite(
             file,
-            sqlTemplateRun(packageName, action, description),
+            sqlTemplateRun(packageName, action, description, author),
+          ),
+        );
+      } else if (action === RunActionDirectory.Reset) {
+        sqlFilePromises.push(
+          fileWrite(
+            file,
+            sqlTemplate(packageName, action),
           ),
         );
       } else {
         sqlFilePromises.push(
-
           fileWrite(
             file,
             sqlTemplate(packageName, action),

@@ -1,12 +1,12 @@
+/* Copyright (c) 2022 Eric Hosick All Rights Reserved. See LICENSE.md. */
 
 -- -----------------------------------------------------------------------------
 -- iso_seed_alpha2 - run
--- 
 -- -----------------------------------------------------------------------------
 
 -- SCHEMA ----------------------------------------------------------------------
 
-/* Copyright (c) 2022 Eric Hosick All Rights Reserved */
+/* Copyright (c) 2022 Eric Hosick All Rights Reserved. See LICENSE.md. */
 
 WITH import (doc) AS (
   VALUES ('

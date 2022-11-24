@@ -1,3 +1,9 @@
+/* Copyright (c) 2022 Eric Hosick All Rights Reserved. See LICENSE.md. */
+
+-- -----------------------------------------------------------------------------
+-- lib - reset
+-- -----------------------------------------------------------------------------
+
 DROP DOMAIN IF EXISTS lib.sql_identifier_lower;
 DROP DOMAIN IF EXISTS lib.sql_identifier;
 DROP DOMAIN IF EXISTS lib.color_hex;

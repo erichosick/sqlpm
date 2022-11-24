@@ -1,4 +1,8 @@
-/* Copyright (c) 2022 Eric Hosick All Rights Reserved */
+/* Copyright (c) 2022 Eric Hosick All Rights Reserved. See LICENSE.md. */
+
+-- -----------------------------------------------------------------------------
+-- universal - prerun
+-- -----------------------------------------------------------------------------
 
 -- When true, where required, tables will contain a mult-tenant column used to
 -- assign an owner to that column named tenant_persona_id
