@@ -95,8 +95,8 @@ describe('schemaProjectInit', () => {
     );
 
     expect(await (readFileString(
-      join(runActionDir, '100_run.sql'),
-    ))).toEqual(sqlTemplateRun(packageName, 'run', description));
+      join(runActionDir, '100_create_resources.sql'),
+    ))).toEqual(sqlTemplateRun(packageName, 'run', description, author));
 
     const testActionDir = actionDirectory(
       absolutePurposeDir,

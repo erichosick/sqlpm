@@ -70,7 +70,7 @@ describe('sqlpm', () => {
         name: '@sqlpm/sqlpm-example-postgresql',
         runAction: 'run',
         version: `${examplePackage?.content.version}`,
-        file: `${process.cwd()}/schemas/postgresql/sqlpm-example/readwrite/run/100_run.sql`,
+        file: `${process.cwd()}/schemas/postgresql/sqlpm-example/readwrite/run/100_create_resources.sql`,
       },
       {
         name: '@sqlpm/sqlpm-example-postgresql',
