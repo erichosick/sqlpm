@@ -9,17 +9,6 @@
 CREATE SCHEMA IF NOT EXISTS lib;
 COMMENT ON SCHEMA lib IS 'A library of reusable Postgresql domains placed in the lib schema';
 
-
--- -----------------------------------------------------------------------------
--- lib_domain - run
--- 
--- -----------------------------------------------------------------------------
-
--- SCHEMA ----------------------------------------------------------------------
-
-CREATE SCHEMA IF NOT EXISTS lib;
-COMMENT ON SCHEMA lib IS 'A library of reusable Postgresql domains';
-
 -- EXTENSIONS ------------------------------------------------------------------
 
 -- NOTE: Only superuser can create a LEAKPROOF function
