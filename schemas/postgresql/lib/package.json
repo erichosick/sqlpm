@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/lib-postgresql",
-  "version": "1.2.6",
+  "version": "1.3.0",
   "description": "A library of reusable Postgresql domains.",
   "keywords": [
     "sqlpm",
@@ -27,7 +27,7 @@
     "platform": "postgresql"
   },
   "dependencies": {
-    "@sqlpm/sqlpm-lib-ts": "^1.2.3",
-    "@sqlpm/test-postgresql": "^1.2.5"
+    "@sqlpm/sqlpm-lib-ts": "^1.3.0",
+    "@sqlpm/test-postgresql": "^1.3.0"
   }
 }
