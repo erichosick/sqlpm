@@ -76,6 +76,12 @@ yarn build:watch
 yarn publish:all
 ```
 
+### Testing
+
+See `package.json` for testing options.
+
+* sql - Run `yarn test:postgresql:watch` for CI/CD against schema.
+
 ### Pushing Changes
 
 ```bash
@@ -96,7 +102,7 @@ yarn publish:all
 # select correct version bump
 ```
 
-### Adding a New Project
+### Adding a New Package
 
 ```bash
 # Add a new project
@@ -104,6 +110,14 @@ yarn lerna:create {@name/new-package-name}  # @example yarn lerna:create @sqlpm/
 
 # Link it to other projects
 yarn lerna add {@name/existing-module} --scope={@name/new-package-name}
+```
+
+### Adding a New Schema
+
+SQL Schema pac
+
+```bash
+yarn sqlpm generate '{"packageName": "lib", "platform": "postgresql", "description": "domains, types, etc.", "author": "Eric Hosick", "email": "erichosick@gmail.com", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
 ```
 
 ### Linking To Another Project

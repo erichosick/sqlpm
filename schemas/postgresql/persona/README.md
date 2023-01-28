@@ -19,7 +19,7 @@ This package has:
 
 ## Generated
 
-This package was generated as follows:
+This package was generated form the root of this repository as follows:
 
 ```bash
 yarn sqlpm generate '{"packageName": "persona", "platform": "postgresql", "description": "support users, persona entities, companies, etc.", "author": "Eric Hosick", "email": "erichosick@gmail.com", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'

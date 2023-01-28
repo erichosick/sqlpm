@@ -19,7 +19,7 @@ This package has:
 
 ## Generated
 
-This package was generated as follows:
+This package was generated form the root of this repository as follows:
 
 ```bash
 yarn sqlpm generate '{"packageName": "test", "platform": "postgresql", "description": "Contains resources that can be used for testing.", "author": "...", "email": "...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'

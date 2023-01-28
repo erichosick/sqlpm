@@ -19,7 +19,7 @@ This package has:
 
 ## Generated
 
-This package was generated as follows:
+This package was generated form the root of this repository as follows:
 
 ```bash
 yarn sqlpm generate '{"packageName": "iso", "platform": "postgresql", "description": "contains iso data for languages, countries, etc. Date comes from places like https://datahub.io/collections/reference-data.", "author": "...", "email": "...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'

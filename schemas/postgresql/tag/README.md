@@ -19,7 +19,7 @@ This package has:
 
 ## Generated
 
-This package was generated as follows:
+This package was generated form the root of this repository as follows:
 
 ```bash
 yarn sqlpm generate '{"packageName": "tag", "platform": "postgresql", "description": "support tagging including domains and hierarchical tags via ltree (https://www.postgresql.org/docs/14/ltree.html).", "author": "...", "email": "...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
