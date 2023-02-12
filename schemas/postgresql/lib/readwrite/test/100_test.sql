@@ -60,6 +60,31 @@ BEGIN
   );
 
 
+  -- lib.key_uuid_nullable -----------------------------------------------------
+
+  -- supports null
+  PERFORM '0e366936-9e20-11ed-9810-02d6856f817b'::lib.key_uuid_nullable,
+    NULL::lib.key_uuid_nullable;
+
+  -- lib.key_str_36 -------------------------------------------------------------
+
+  PERFORM 'rj343343'::lib.key_str_36;
+
+  PERFORM test.it_should_exception('
+    CREATE TABLE test.temp(rw lib.key_str_36);
+    INSERT INTO test.temp VALUES (NULL);',
+    'a id_str_36 can not be null',
+    'domain lib.key_str_36 does not allow null values'
+  );
+
+  PERFORM test.it_should_exception('
+    CREATE TABLE test.temp(rw lib.key_str_36);
+    INSERT INTO test.temp VALUES (REPEAT(''-'', 36 + 1));',
+    'a id_str_36 can not have a length greater than 36',
+    'value too long for type character varying(36)'
+  );
+
+
   -- lib.key_str_64 -------------------------------------------------------------
 
   PERFORM 'rj343343'::lib.key_str_64;
@@ -77,6 +102,25 @@ BEGIN
     'a id_str_64 can not have a length greater than 64',
     'value too long for type character varying(64)'
   );
+
+  -- lib.key_str_128 -------------------------------------------------------------
+
+  PERFORM 'rj343343'::lib.key_str_128;
+
+  PERFORM test.it_should_exception('
+    CREATE TABLE test.temp(rw lib.key_str_128);
+    INSERT INTO test.temp VALUES (NULL);',
+    'a id_str_128 can not be null',
+    'domain lib.key_str_128 does not allow null values'
+  );
+
+  PERFORM test.it_should_exception('
+    CREATE TABLE test.temp(rw lib.key_str_128);
+    INSERT INTO test.temp VALUES (REPEAT(''-'', 128 + 1));',
+    'a id_str_128 can not have a length greater than 128',
+    'value too long for type character varying(128)'
+  );
+
 
   -- lib.key_symbol -------------------------------------------------------------
 

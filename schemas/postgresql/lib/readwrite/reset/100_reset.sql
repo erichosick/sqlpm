@@ -12,8 +12,10 @@ DROP DOMAIN IF EXISTS lib.sql_identifier;
 -- Identifier and Key Domains ------------------------------------------
 
 DROP DOMAIN IF EXISTS lib.key_uuid;
+DROP DOMAIN IF EXISTS lib.key_uuid_nullable;
 DROP DOMAIN IF EXISTS lib.key_str_36;
 DROP DOMAIN IF EXISTS lib.key_str_64;
+DROP DOMAIN IF EXISTS lib.key_str_128;
 DROP DOMAIN IF EXISTS lib.key_symbol;
 DROP DOMAIN IF EXISTS lib.key_bigint;
 DROP DOMAIN IF EXISTS lib.key_int;

@@ -22,8 +22,10 @@ This package has:
 Domains for primary and foreign keys.
 
 * **lib.key_uuid**
+* **lib.key_uuid_nullable**
 * **lib.key_str_36**
 * **lib.key_str_64**
+* **lib.key_str_128**
 * **lib.key_symbol**
 * **lib.key_bigint**
 * **lib.key_int**

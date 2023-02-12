@@ -55,6 +55,15 @@ COMMENT ON DOMAIN lib.key_uuid IS 'A key column domain of type uuid used to uniq
 -- -----------------------------------------------------------------------------
 
 DO $$ BEGIN
+  CREATE DOMAIN lib.key_uuid_nullable AS uuid;
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+COMMENT ON DOMAIN lib.key_uuid_nullable IS 'An optional key column domain of type uuid used as a foreign key that references a column of domain lib.key_uuid.';
+
+-- -----------------------------------------------------------------------------
+
+DO $$ BEGIN
   CREATE DOMAIN lib.key_str_36 AS varchar(36) NOT NULL;
 EXCEPTION
     WHEN duplicate_object THEN null;
@@ -69,6 +78,15 @@ EXCEPTION
     WHEN duplicate_object THEN null;
 END $$;
 COMMENT ON DOMAIN lib.key_str_64 IS 'A key column domain of type string of up to 64 characters used to uniquely identifies a row of data within a table. Values in this domain are mandatory.';
+
+-- -----------------------------------------------------------------------------
+
+DO $$ BEGIN
+  CREATE DOMAIN lib.key_str_128 AS varchar(128) NOT NULL;
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+COMMENT ON DOMAIN lib.key_str_128 IS 'A key column domain of type string of up to 128 characters used to uniquely identifies a row of data within a table. Values in this domain are mandatory.';
 
 
 -- -----------------------------------------------------------------------------
@@ -401,3 +419,12 @@ EXCEPTION
     WHEN duplicate_object THEN null;
 END $$;
 COMMENT ON DOMAIN lib.frequency_8_8 IS 'A frequency (say average number of times an event occurred each second, etc.) with 8 digits of precision and maximum of 99,999,999.99999999.';
+
+-- -----------------------------------------------------------------------------
+
+DO $$ BEGIN
+  CREATE DOMAIN lib.seconds_16_8 AS decimal(16,8) NOT NULL;
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+COMMENT ON DOMAIN lib.seconds_16_8 IS 'A time value in seconds with 8 digits of precision and maximum of 99,999,999.99999999.';
