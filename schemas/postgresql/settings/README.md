@@ -13,7 +13,6 @@ This package has:
 * **versioned** - Versioning is used and supported via [lerna](https://lerna.js.org/).
 * **dependencies** - The dependency features of the javascript package manager are leveraged. [Sql Package Manager](https://github.com/erichosick/sqlpm) projects can depend on other projects.
 
-
 ## Usage
 
 // TODO

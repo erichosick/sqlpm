@@ -32,4 +32,4 @@ With **sqlpm**, SQL scripts are stored within a JavaScript package. You can find
 
 ### Dependencies
 
-**sqlpm** leverages the dependency features of JavaScript package managers. This means that you can create dependencies between different **sqlpm** projects. With this, you can manage and organize your SQL scripts in a more efficient manner.
+**sqlpm** leverages the dependency features of JavaScript package managers. This means that you can create dependencies between different **sqlpm** projects. With this, you can manage and organize your SQL scripts in a more efficient manner .
