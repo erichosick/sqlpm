@@ -27,14 +27,16 @@ BEGIN
   
   d_setting_value = CURRENT_SETTING(p_setting_name, true);
   
-  IF d_setting_value IS NULL THEN
+  -- NOTE: calling SET_CONFIG to set a value of NULL results in a empty string
+  -- when that setting is read. So, we need to check for ''.
+  IF NULLIF(d_setting_value, '') IS NULL THEN
     RETURN p_default_value;
   END IF;
   
   IF d_setting_value = 'true' OR d_setting_value = 'false' THEN
     RETURN d_setting_value::boolean;
   ELSE
-    RAISE EXCEPTION 'The setting %s did not contain a boolean value. Possible values are true or false.', p_setting_name;
+    RAISE EXCEPTION 'The setting % contained a non boolean value (''%''). Possible values are true or false.', p_setting_name, d_setting_value;
   END IF;
 END;
 $$ LANGUAGE plpgsql;
@@ -50,5 +52,3 @@ Example: SELECT settings.get_boolean(''my_setting'', true, null);
 Exceptions:
   - If the setting value is not a boolean, then an exception is raised.
 ';
-
-

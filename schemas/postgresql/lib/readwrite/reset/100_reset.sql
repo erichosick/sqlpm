@@ -66,4 +66,8 @@ DROP DOMAIN IF EXISTS lib.description;
 DROP DOMAIN IF EXISTS lib.frequency_8_4;
 DROP DOMAIN IF EXISTS lib.frequency_8_8;
 
+-- Time -------------------------------------------------------------------
+
+DROP DOMAIN IF EXISTS lib.seconds_16_8;
+
 DROP SCHEMA lib;

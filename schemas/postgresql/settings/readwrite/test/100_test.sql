@@ -27,6 +27,13 @@ BEGIN
     RAISE EXCEPTION 'settings.get_boolean should have been false when overide is false: ignoring the default';
   END IF;
 
+  PERFORM SET_CONFIG('my.test.empty_value', NULL, false);
+
+  IF NOT (settings.get_boolean('my.test.empty_value') = false) THEN
+    RAISE EXCEPTION 'my.test.empty_value should have been set to an empty string meaning the default of false is returned';
+  END IF;
+
+
   -- value set
 
   SET my.test.bvalue = true;
