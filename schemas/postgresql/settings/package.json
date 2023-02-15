@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/settings-postgresql",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "contains helper functions for using PostgreSQL configuration settings",
   "keywords": [
     "sqlpm",
