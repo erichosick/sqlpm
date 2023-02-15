@@ -1,0 +1,31 @@
+{
+  "name": "@sqlpm/settings-postgresql",
+  "version": "0.0.0",
+  "description": "contains helper functions for using PostgreSQL configuration settings",
+  "keywords": [
+    "sqlpm",
+    "database schema",
+    "postgresql"
+  ],
+  "author": "Eric Hosick <erichosick@mail.com>",
+  "homepage": "https://github.com/erichosick/sqlpm/tree/main/schemas/postgresql/settings",
+  "bugs": {
+    "url": "https://github.com/erichosick/sqlpm/issues",
+    "email": "erichosick@mail.com"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erichosick/sqlpm.git"
+  },
+  "sqlpm": {
+    "platform": "postgresql"
+  },
+  "dependencies": {
+    "@sqlpm/test-postgresql": "^1.4.0"
+  }
+}
