@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/universal-postgresql",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "",
   "keywords": [
     "sqlpm",
@@ -26,8 +26,8 @@
     "platform": "postgresql"
   },
   "dependencies": {
-    "@sqlpm/lib-postgresql": "^1.5.1",
+    "@sqlpm/lib-postgresql": "^1.5.2",
     "@sqlpm/sqlpm-lib-ts": "^1.4.1",
-    "@sqlpm/test-postgresql": "^1.4.0"
+    "@sqlpm/test-postgresql": "^1.4.1"
   }
 }
