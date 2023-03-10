@@ -1,35 +1,38 @@
 # `sqlpm`
 
-**sqlpm** is the ultimate SQL Package Manager.
+`sqlpm` is a package manager for SQL.
 
-## Attention: Alpha Version
+## Alpha Version
 
-Please note that this project is still in its early stages of development and is considered an alpha version. However, if you have stumbled upon it, we would love to hear your feedback and thoughts. You can reach one of the authors by checking the package.json file.
+Please note that this project is still in its early stages of development and is considered an alpha version.
+
+If you have stumbled upon it, we would love to hear your feedback and thoughts. You can reach one of the authors by checking the `package.json` file.
 
 ## Introduction
 
-sqlpm is a package manager specifically designed for SQL databases. Our goal is to support multiple database platforms, and currently, we support:
+`sqlpm` is a source code package manager for SQL. `sqlpm` gives SQL access to programming tools other languages have such as:
 
-* PostgreSQL
+* [Semantic versioning](https://en.wikipedia.org/wiki/Software_versioning#Semantic_versioning)
+* Behavior and test driven development
+* Reusable installable sql packages
+* Package dependency
+* Support for multiple SQL flavors
+* Works especially well with mono-repos
 
 ## How it Works
 
-**sqlpm** leverages the power of the JavaScript community and its approach to package management. You can install **sqlpm** packages using popular JavaScript package managers such as npm, yarn, or pnpm. Once installed, you can apply the SQL scripts located in the package to your PostgreSQL database instance by using **sqlpm** (work in progress).
+`sqlpm` leverages existing JavaScript development tools to manage SQL source-code:
 
-## Key Features of **sqlpm**
+* [yarn](https://yarnpkg.com/) ([npm](https://www.npmjs.com/), [pnpm](https://pnpm.js.org/), etc.) for package management
+* [jest](https://jestjs.io/) ([Mocha]( https://mochajs.org/), [Karma](https://karma-runner.github.io/), etc.), for testing
+* [Lerna](https://lerna.js.org/) ([Semantic Release](https://semantic-release.gitbook.io/), [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog), etc.) for semantic versioning
+* [Lerna](https://lerna.js.org/) for mono-repo
+* Sqlpm for package dependency
 
-### SQL Definitions
+## Usage
 
-With **sqlpm**, SQL scripts are stored within a JavaScript package. You can find the SQL scripts in the [schemas]<https://github.com/erichosick/sqlpm/tree/main/schemas)> folder of the **sqlpm** repository. (see [lib](https://github.com/erichosick/sqlpm/tree/main/schemas/postgresql/lib) for our first package).
+TODO
 
-### Testing with BDD/TDD
+## SQL Packages
 
-**sqlpm** supports testing using the jest testing framework, and the tests are written in SQL. You can run tests in a behavior-driven development (BDD) mode with the command yarn `test:postgresql:watch`.
-
-### Versioning
-
-**sqlpm** uses versioning and supports it through lerna. This allows you to keep track of changes and updates to your SQL scripts.
-
-### Dependencies
-
-**sqlpm** leverages the dependency features of JavaScript package managers. This means that you can create dependencies between different **sqlpm** projects. With this, you can manage and organize your SQL scripts in a more efficient manner .
+Although not specific to `sqlpm`, we've have started to create some SQL packages ourselves located in the [schemas](https://github.com/erichosick/sqlpm/tree/main/schemas) folder of the `sqlpm` mono-repo. (see [persona](https://github.com/erichosick/sqlpm/tree/main/schemas/postgresql/persona) for an example `sqlpm` package).

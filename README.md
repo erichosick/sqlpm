@@ -60,10 +60,12 @@ Development requirements:
 # init all the projects
 yarn
 
+# packages development
+
 # continuously run tests
 yarn test:unit:watch
 
-# build any distributables and run unit tests
+# build any distributable and run unit tests
 yarn test:unit
 
 # build javascript library from typescript library
@@ -74,6 +76,19 @@ yarn build:watch
 
 # publish all packages that have changed to npmjs.com
 yarn publish:all
+
+# schema development (postgresql)
+
+# spin up database
+yarn docker:up
+
+# run schema tests one time
+
+yarn test:postgresql
+
+# watch and run schema tests change
+yarn test:postgresql:watch
+
 ```
 
 ### Testing
@@ -117,7 +132,7 @@ yarn lerna add {@name/existing-module} --scope={@name/new-package-name}
 SQL Schema pac
 
 ```bash
-yarn sqlpm generate '{"packageName": "lib", "platform": "postgresql", "description": "domains, types, etc.", "author": "Eric Hosick", "email": "erichosick@gmail.com", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
+yarn sqlpm generate '{"packageName": "lib", "platform": "postgresql", "description": "domains, types, etc.", "author": "${your_name}", "email": "${your_email}", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
 ```
 
 ### Linking To Another Project
