@@ -9,13 +9,13 @@ import {
 } from '@sqlpm/file-async-ts';
 
 import {
-  DatabasePurpose,
+  DatabaseAccessMode,
   RunActionDirectory,
-  DatabasePlatform,
+  DatabaseSystem,
   runActionDirectoryAsArray,
-  DatabasePurposes,
+  DatabaseAccessModes,
   RunActionDirectories,
-  databasePlatformVerify,
+  databaseSystemVerify,
 } from '@sqlpm/types-ts';
 
 import {
@@ -28,12 +28,12 @@ import {
 } from '@sqlpm/sqlpm-lib-ts';
 
 /**
- * Given a workspace and database platform, returns the directory where
- * schema packages are created (for that database platform).
+ * Given a workspace and database system, returns the directory where
+ * schema packages are created (for that database system).
  * * **@param workspace** - Workspace name.
- * * **@param platform** - Database platform name
+ * * **@param databaseSystem** - Database system name
  * * **@returns** - The directory where schema packages are created
- * (for that database platform).
+ * (for that database system).
  *
  * **@example**
  *
@@ -41,27 +41,27 @@ import {
  *
  * ```typescript
  * expect(
- *   platformDirectory(
+ *   databaseSystemDirectory(
  *     'schemas',
- *      DatabasePlatform.Postgresql,
+ *      DatabaseSystem.Postgresql,
  *   ),
  * ).toEqual('schemas/postgresql');
  * ```
  */
-export const platformDirectory = (
+export const databaseSystemDirectory = (
   workspace: string,
-  platform: DatabasePlatform,
-): string => join(workspace, platform);
+  databaseSystem: DatabaseSystem,
+): string => join(workspace, databaseSystem);
 
 export const packageNameToDirectoryName = (
   packageName: string,
 ): string => packageName.replace(/_/g, '-');
 
 /**
- * Given a platform directory and package name, returns the
+ * Given a database system directory and package name, returns the
  * directory where the sql package resides.
  * * **@param platDir** - The directory created by calling
- * {@link platformDirectory}.
+ * {@link databaseSystemDirectory}.
  * * **@param packageName** - The name of the json package. Most likely also
  * the database schema name.
  * * **@returns** - The directory where the sql package resides.
@@ -75,7 +75,7 @@ export const packageNameToDirectoryName = (
  * expect(
  *   packageDirectory(
  *     'schemas',
- *      DatabasePlatform.Postgresql,
+ *      DatabaseSystem.Postgresql,
  *     'universal',
  *   ),
  * ).toEqual('schemas/postgresql/universal');
@@ -110,20 +110,20 @@ export const packageDirectory = (
  * expect(
  *   purposeDirectory(
  *     'schemas',
- *      DatabasePlatform.Postgresql,
+ *      DatabaseSystem.Postgresql,
  *     'universal',
- *      DatabasePurpose.Readwrite,
+ *      DatabaseAccessMode.ReadWrite,
  *   ),
  * ).toEqual('schemas/postgresql/universal/readwrite');
  * ```
  */
 export const purposeDirectory = (
   pkgDir: string,
-  purpose: DatabasePurpose,
+  purpose: DatabaseAccessMode,
 ): string => join(pkgDir, purpose);
 
 /**
- * Given a workspace, database platform, package name, purpose and action,
+ * Given a workspace, database system, package name, purpose and action,
  * returns the directory where sql script for a specific action are placed.
  * **@example**
  * The directory where all test sql script are placed.
@@ -145,9 +145,9 @@ export const purposeDirectory = (
  * expect(
  *   actionDirectory(
  *     'schemas',
- *      DatabasePlatform.Postgresql,
+ *      DatabaseSystem.Postgresql,
  *     'universal',
- *      DatabasePurpose.Readwrite,
+ *      DatabaseAccessMode.ReadWrite,
  *      RunActionDirectory.Test,
  *   ),
  * ).toEqual('schemas/postgresql/universal/readwrite/test');
@@ -163,11 +163,11 @@ export const actionDirectory = (
  * projects directories.
  * * **@param packageName** - The name of the folder that contains the sqlpm
  * package.
- * * **@param platform** - The database platform this package supports.
+ * * **@param databaseSystem** - The database system this package supports.
  * * **@param description** - A description of the package used in the
  * package.json file and the description of the database schema.
  * * **@param purposes** - One or more database purposes. A directory will be
- * generated for each purpose. See {@link DatabasePurpose}.
+ * generated for each purpose. See {@link DatabaseAccessMode}.
  * * **@param actions ** - One or more sqlpm action directories: each one with a
  * specific meaning. See {@link RunActionDirectory}
  * * **@param workspace** - The workspace where all sqlpm projects are located.
@@ -181,15 +181,15 @@ export const actionDirectory = (
  */
 export const projectDirectories = (
   packageName: string,
-  platform: DatabasePlatform,
-  purposes: DatabasePurpose[] = [DatabasePurpose.Readwrite],
+  databaseSystem: DatabaseSystem,
+  purposes: DatabaseAccessMode[] = [DatabaseAccessMode.ReadWrite],
   actions: RunActionDirectory[] = runActionDirectoryAsArray(),
   workspace: string = 'schemas',
 ) => {
   const directories: string[] = [];
   for (const purpose of purposes) {
     for (const action of actions) {
-      const platDir = platformDirectory(workspace, platform);
+      const platDir = databaseSystemDirectory(workspace, databaseSystem);
       const pkgDir = packageDirectory(platDir, packageName);
       const purposeDir = purposeDirectory(pkgDir, purpose);
       const actDir = actionDirectory(purposeDir, action);
@@ -202,17 +202,17 @@ export const projectDirectories = (
 
 export const packageNameCreate = (
   packageName: string,
-  platform: DatabasePlatform,
-): string => `${packageNameToDirectoryName(packageName)}-${platform}`;
+  databaseSystem: DatabaseSystem,
+): string => `${packageNameToDirectoryName(packageName)}-${databaseSystem}`;
 
 export const projectPackageTemplate = (
   packageName: string,
-  platform: DatabasePlatform,
+  databaseSystem: DatabaseSystem,
   description: string,
   author: string,
   email: string,
 ): string => {
-  const packageNameFinal = packageNameCreate(packageName, platform);
+  const packageNameFinal = packageNameCreate(packageName, databaseSystem);
   return `{
   "name": "@sqlpm/${packageNameFinal}",
   "version": "0.0.0",
@@ -238,7 +238,7 @@ export const projectPackageTemplate = (
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
   "sqlpm": {
-    "platform": "${platform}"
+    "databaseSystem": "${databaseSystem}"
   }
 }
 `;
@@ -246,9 +246,9 @@ export const projectPackageTemplate = (
 
 export const readmeTemplate = (
   packageName: string,
-  platform: DatabasePlatform,
+  databaseSystem: DatabaseSystem,
   description: string,
-): string => `# **${packageName}-${platform}**
+): string => `# **${packageName}-${databaseSystem}**
 
 ${description}
 
@@ -346,11 +346,11 @@ SOFTWARE.
 
 export interface SchemaProjectSetting {
   packageName: string
-  platform: DatabasePlatform
+  databaseSystem: DatabaseSystem
   description: string
   author: string
   email: string
-  purposes: DatabasePurposes
+  purposes: DatabaseAccessModes
   actions: RunActionDirectories
   workspace: string
 }
@@ -362,12 +362,12 @@ const verifyInput: VerifySignature = (
     throw Error('packageName is required to generate a schema project');
   }
 
-  if (!('platform' in obj)) {
-    throw Error('platform is required to generate a schema project');
+  if (!('databaseSystem' in obj)) {
+    throw Error('databaseSystem is required to generate a schema project');
   } else {
-    const { platform } = obj as SchemaProjectSetting;
-    if (!databasePlatformVerify(platform)) {
-      const errorMessage = `platform '${platform}' is not a valid database platform. Supported platforms are postgresql`;
+    const { databaseSystem } = obj as SchemaProjectSetting;
+    if (!databaseSystemVerify(databaseSystem)) {
+      const errorMessage = `database system '${databaseSystem}' is not a valid database system. Supported database systems are postgresql`;
       throw Error(errorMessage);
     }
   }
@@ -399,7 +399,7 @@ export const parseSchemaProjectInit = (
   }
 
   if (projectInit.purposes === undefined) {
-    projectInit.purposes = [DatabasePurpose.Readwrite];
+    projectInit.purposes = [DatabaseAccessMode.ReadWrite];
   }
 
   if (projectInit.actions === undefined) {
@@ -459,17 +459,17 @@ describe('${schemaName} schema', () => {
 
 export const schemaProjectInit = async (
   packageName: string,
-  platform: DatabasePlatform,
+  databaseSystem: DatabaseSystem,
   description: string,
   author: string,
   email: string,
-  purposes: DatabasePurposes = [DatabasePurpose.Readwrite],
+  purposes: DatabaseAccessModes = [DatabaseAccessMode.ReadWrite],
   actions: RunActionDirectories = runActionDirectoryAsArray(),
   workspace: string = 'schemas',
 ) => {
   const directories = projectDirectories(
     packageName,
-    platform,
+    databaseSystem,
     purposes,
     actions,
     workspace,
@@ -480,8 +480,8 @@ export const schemaProjectInit = async (
     directories,
   );
 
-  const platformDir = platformDirectory(workspace, platform);
-  const packageDir = packageDirectory(platformDir, packageName);
+  const databaseSystemDir = databaseSystemDirectory(workspace, databaseSystem);
+  const packageDir = packageDirectory(databaseSystemDir, packageName);
 
   const absolutePackageDir = join(process.cwd(), packageDir);
 
@@ -489,13 +489,13 @@ export const schemaProjectInit = async (
   const testDir = join(absolutePackageDir, '__TEST__');
   await dirCreate(testDir);
   await fileWrite(
-    join(testDir, `schema-test.${platform}.spec.ts`),
+    join(testDir, `schema-test.${databaseSystem}.spec.ts`),
     testTemplate(packageName),
   );
 
   await fileWrite(
     join(absolutePackageDir, 'README.md'),
-    readmeTemplate(packageName, platform, description),
+    readmeTemplate(packageName, databaseSystem, description),
   );
 
   await fileWrite(
@@ -505,12 +505,18 @@ export const schemaProjectInit = async (
 
   await fileWrite(
     join(absolutePackageDir, 'package.json'),
-    projectPackageTemplate(packageName, platform, description, author, email),
+    projectPackageTemplate(
+      packageName,
+      databaseSystem,
+      description,
+      author,
+      email,
+    ),
   );
 
   // await fileWrite(
   //   join(absolutePackageDir, '.sqlpm.config.json'),
-  //   sqlpmConfigTemplate(platform),
+  //   sqlpmConfigTemplate(databaseSystem),
   // );
 
   const sqlFilePromises = [];

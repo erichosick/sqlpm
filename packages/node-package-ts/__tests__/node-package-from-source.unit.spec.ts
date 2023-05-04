@@ -1,5 +1,5 @@
 import {
-  DatabasePlatform,
+  DatabaseSystem,
 } from '@sqlpm/types-ts';
 
 import {
@@ -113,7 +113,7 @@ describe('nodePackageFromSource', () => {
             '@sqlpm/types': '^0.0.9',
           },
           sqlpm: {
-            platform: DatabasePlatform.Postgresql,
+            databaseSystem: DatabaseSystem.Postgresql,
           },
         },
       };
@@ -129,7 +129,7 @@ describe('nodePackageFromSource', () => {
           version: '0.0.8',
           dependencies: [],
           sqlpm: {
-            platform: 'postgresql',
+            databaseSystem: 'postgresql',
           },
         },
       });

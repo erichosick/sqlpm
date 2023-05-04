@@ -23,7 +23,7 @@
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
   "sqlpm": {
-    "platform": "postgresql"
+    "databaseSystem": "postgresql"
   },
   "dependencies": {
     "@sqlpm/lib-postgresql": "^1.5.2",

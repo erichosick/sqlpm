@@ -3,8 +3,8 @@ import {
 } from 'node:path';
 
 import {
-  DatabasePlatform,
-  DatabasePurpose,
+  DatabaseSystem,
+  DatabaseAccessMode,
   RunActionDirectory,
 } from '@sqlpm/types-ts';
 
@@ -21,7 +21,7 @@ import {
   projectPackageTemplate,
   licenseTemplate,
   packageDirectory,
-  platformDirectory,
+  databaseSystemDirectory,
   purposeDirectory,
   actionDirectory,
   sqlTemplateReset,
@@ -39,11 +39,11 @@ describe('schemaProjectInit', () => {
     const email = 'author@email.com';
     await schemaProjectInit(
       packageName,
-      DatabasePlatform.Postgresql,
+      DatabaseSystem.Postgresql,
       description,
       author,
       email,
-      [DatabasePurpose.Readwrite],
+      [DatabaseAccessMode.ReadWrite],
       [
         RunActionDirectory.Run,
         RunActionDirectory.Reset,
@@ -52,14 +52,14 @@ describe('schemaProjectInit', () => {
       workspaceName,
     );
 
-    const platDir = platformDirectory(
+    const platDir = databaseSystemDirectory(
       workspaceName,
-      DatabasePlatform.Postgresql,
+      DatabaseSystem.Postgresql,
     );
 
     const packageDir = packageDirectory(platDir, packageName);
     const absolutePackageDir = join(process.cwd(), packageDir);
-    const purposeDir = purposeDirectory(packageDir, DatabasePurpose.Readwrite);
+    const purposeDir = purposeDirectory(packageDir, DatabaseAccessMode.ReadWrite);
     const absolutePurposeDir = join(process.cwd(), purposeDir);
 
     expect(await (readFileString(
@@ -67,7 +67,7 @@ describe('schemaProjectInit', () => {
     ))).toEqual(
       readmeTemplate(
         packageName,
-        DatabasePlatform.Postgresql,
+        DatabaseSystem.Postgresql,
         description,
       ),
     );
@@ -77,7 +77,7 @@ describe('schemaProjectInit', () => {
     ))).toEqual(
       projectPackageTemplate(
         packageName,
-        DatabasePlatform.Postgresql,
+        DatabaseSystem.Postgresql,
         description,
         author,
         email,
@@ -134,24 +134,27 @@ describe('schemaProjectInit', () => {
     const workspaceName = 'schemas';
     const author = 'The Author';
     const email = 'author@email.com';
-    const databasePlatform = 'test-platform';
+    const databaseSystem = 'test-system';
     await schemaProjectInit(
       packageName,
-      databasePlatform as DatabasePlatform.Postgresql,
+      databaseSystem as DatabaseSystem.Postgresql,
       description,
       author,
       email,
     );
 
-    const platDir = platformDirectory(
+    const platDir = databaseSystemDirectory(
       workspaceName,
-      // Let's not accidentally delete one of our actual platforms when
+      // Let's not accidentally delete one of our actual database platforms when
       // running tests
-      databasePlatform as DatabasePlatform.Postgresql,
+      databaseSystem as DatabaseSystem.Postgresql,
     );
 
     const packageDir = packageDirectory(platDir, packageName);
-    const purposeDir = purposeDirectory(packageDir, DatabasePurpose.Readwrite);
+    const purposeDir = purposeDirectory(
+      packageDir,
+      DatabaseAccessMode.ReadWrite,
+    );
     const absolutePurposeDir = join(process.cwd(), purposeDir);
 
     const prerunActionDir = actionDirectory(

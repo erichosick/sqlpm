@@ -8,7 +8,7 @@ import {
 
 import {
   MessagingOptions,
-  DatabasePlatform,
+  DatabaseSystem,
 } from '@sqlpm/types-ts';
 
 /**
@@ -20,13 +20,13 @@ import {
  * This is the order that the sql scripts would then execute.
  *
  * * **@param rootPackage** -
- * * **@param platform** -
+ * * **@param databaseSystem** -
  * * **@param options** -  See {@link MessagingOptions}
  * * **@returns**
  */
 export const sqlPackagesGetInverted = (
   rootPackage: NodePackage,
-  platform: DatabasePlatform,
+  databaseSystem: DatabaseSystem,
   options?: MessagingOptions,
 ): NodePackages => {
   const packages: NodePackages = [];
@@ -39,11 +39,11 @@ export const sqlPackagesGetInverted = (
     } // else {} there are no dependencies for this NodePackage
 
     if (currentNode.package.sqlpm) {
-      const platforms = Array.isArray(currentNode.package.sqlpm.platform)
-        ? currentNode.package.sqlpm.platform
-        : [currentNode.package.sqlpm.platform];
+      const systems = Array.isArray(currentNode.package.sqlpm.databaseSystem)
+        ? currentNode.package.sqlpm.databaseSystem
+        : [currentNode.package.sqlpm.databaseSystem];
 
-      if (platforms.includes(platform)) {
+      if (systems.includes(databaseSystem)) {
         packages.push(currentNode);
       }
     }

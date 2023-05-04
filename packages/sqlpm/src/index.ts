@@ -49,7 +49,7 @@ Example calls:
       console.log(input);
       await schemaProjectInit(
         input.packageName,
-        input.platform,
+        input.databaseSystem,
         input.description,
         input.author,
         input.email,

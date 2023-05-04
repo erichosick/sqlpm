@@ -7,8 +7,8 @@ import {
 } from '@sqlpm/node-package-ts';
 
 import {
-  DatabasePlatform,
-  DatabasePurpose,
+  DatabaseSystem,
+  DatabaseAccessMode,
   RunActionDirectory,
 } from '@sqlpm/types-ts';
 
@@ -35,8 +35,8 @@ describe('sqlpm', () => {
     );
 
     const sql: SqlToRun[] = await sqlFindScript(
-      DatabasePurpose.Readwrite,
-      DatabasePlatform.Postgresql,
+      DatabaseAccessMode.ReadWrite,
+      DatabaseSystem.Postgresql,
       [
         RunActionDirectory.Prerun,
         RunActionDirectory.Run,
@@ -89,8 +89,8 @@ describe('sqlpm', () => {
     );
 
     const sql: SqlToRun[] = await sqlFindScript(
-      DatabasePurpose.Readwrite,
-      DatabasePlatform.Postgresql,
+      DatabaseAccessMode.ReadWrite,
+      DatabaseSystem.Postgresql,
       [
         RunActionDirectory.Prerun,
         RunActionDirectory.Run,
@@ -104,8 +104,8 @@ describe('sqlpm', () => {
 
   it('should error if no package.json file is found in the child path', async () => {
     await expect(sqlFindScript(
-      DatabasePurpose.Readwrite,
-      DatabasePlatform.Postgresql,
+      DatabaseAccessMode.ReadWrite,
+      DatabaseSystem.Postgresql,
       [
         RunActionDirectory.Prerun,
         RunActionDirectory.Run,

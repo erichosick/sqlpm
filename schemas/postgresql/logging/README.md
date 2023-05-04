@@ -22,7 +22,7 @@ This package has:
 This package was generated form the root of this repository as follows:
 
 ```bash
-yarn sqlpm generate '{"packageName": "logging", "platform": "postgresql", "description": "contains features around logging, notifications, and notices.", "author": "...", "email": "...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
+yarn sqlpm generate '{"packageName": "logging", "databaseSystem": "postgresql", "description": "contains features around logging, notifications, and notices.", "author": "...", "email": "...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
 
 yarn lerna add @sqlpm/sqlpm-lib-ts --scope=@sqlpm/logging-postgresql
 

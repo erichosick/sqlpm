@@ -47,9 +47,9 @@ const buildDependencyTree = async (
         const finalLocation = location.match(/node_module/)
           ? join(location, nodePackage.package.name) : location;
         // required false is there because a node package with sql in it will be
-        // in a workspaces directory with the platform name in the path. But
-        // projects that aren't sql centric may also show up. But we can't tell
-        // if they are sql centric until we can open the package and see if
+        // in a workspaces directory with the database system name in the path.
+        // But projects that aren't sql centric may also show up. But we can't
+        // tell if they are sql centric until we can open the package and see if
         // currentNode.package.sqlpm exists.
         // eslint-disable-next-line no-await-in-loop
         const localPackage = await loadNodePackage(

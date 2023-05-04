@@ -87,7 +87,7 @@ Domains for scalar part of currency. Currency type is defined in the [iso schema
 This package was generated from the root of the mono-repo as follows:
 
 ```bash
-yarn sqlpm generate '{"packageName": "lib", "platform": "postgresql", "description": "A library of reusable Postgresql domains.", "author": "...", "email": "...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
+yarn sqlpm generate '{"packageName": "lib", "databaseSystem": "postgresql", "description": "A library of reusable Postgresql domains.", "author": "...", "email": "...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
 
 # Add sql testing dependency
 yarn lerna add @sqlpm/sqlpm-lib-ts --scope=@sqlpm/lib-postgresql

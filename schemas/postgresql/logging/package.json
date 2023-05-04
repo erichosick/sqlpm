@@ -23,7 +23,7 @@
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
   "sqlpm": {
-    "platform": "postgresql"
+    "databaseSystem": "postgresql"
   },
   "dependencies": {
     "@sqlpm/persona-postgresql": "^1.1.7",

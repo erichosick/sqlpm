@@ -100,16 +100,16 @@ export interface MessagingOptions {
 }
 
 /**
- * Supported database platforms. The name of the database platform is also
- * the name of the directory for that platform. For postgresql sql script would
- * be in a directory {project_root}/schemas/postgresql/*
+ * Supported database systems. The name of the database system is also
+ * the name of the directory for that database system. For postgresql sql script
+ * would be in a directory {project_root}/schemas/postgresql/*
  *
  * **@remarks**
  * We intend to add 'sqlite' | 'mssql' | 'mysql' | 'mariadb' | 'snowflake'.
  *
  * **@remarks**
- * When adding a new DatabasePlatform, be sure to updated the root
- * package.json to include the new database platform schema directory.
+ * When adding a new DatabaseSystem, be sure to updated the root
+ * package.json to include the new database system schema directory.
  *
  * **@example**
  * Adding postgresql packages required the following update to `package.json`.
@@ -122,35 +122,35 @@ export interface MessagingOptions {
  * }
  * ```
  */
-export enum DatabasePlatform {
+export enum DatabaseSystem {
   Postgresql = 'postgresql',
 }
 
-export const databasePlatformVerify = (
+export const databaseSystemVerify = (
   value: string,
-): boolean => Object.values<string>(DatabasePlatform).includes(value);
+): boolean => Object.values<string>(DatabaseSystem).includes(value);
 
 /**
   * Provides information about the database schemas defined in a module such
-  * as the database platform the sql script is written for.
+  * as the database system the sql script is written for.
   *
   * **@remarks**
   * Intend to add other attributes like schemaName and domainsCovered
   * (business domains like person, invoice, etc.)
   *
   * **@interface**
-  * **@member {@link DatabaseInformation.platform}**
+  * **@member {@link DatabaseInformation.databaseSystem}**
   */
 export interface DatabaseInformation {
 
   /**
-   * The database platform(s) of all sql scripts for a given package are
-   * written for. In cases where the database platforms are compatible,
-   * one of the {@link DatabasePlatform}s will be chosen to represent all
-   * compatible database platforms.
+   * The database system(s) of all sql scripts for a given package are
+   * written for. In cases where the database systems are compatible,
+   * one of the {@link DatabaseSystem}s will be chosen to represent all
+   * compatible database systems.
    */
   // eslint-disable-next-line no-use-before-define
-  platform: DatabasePlatform | DatabasePlatforms
+  databaseSystem: DatabaseSystem | DatabaseSystems
 
   /**
    * When a value is provided, causes Sql package manager to create a new
@@ -176,19 +176,19 @@ export interface DatabaseInformation {
 }
 
 /**
- * An array of {@link DatabasePlatform}.
+ * An array of {@link DatabaseSystem}.
  */
-export type DatabasePlatforms = DatabasePlatform[];
+export type DatabaseSystems = DatabaseSystem[];
 
 /**
  * The primary purpose of the database. For example, readwrite, readonly,
  * replication, etc.
  *
  * **@enum**
- * * **@members - {@link DatabasePurpose.Readonly}**
- * * **@members - {@link DatabasePurpose.Readwrite}**
+ * * **@members - {@link DatabaseAccessMode.Readonly}**
+ * * **@members - {@link DatabaseAccessMode.ReadWrite}**
  */
-export enum DatabasePurpose {
+export enum DatabaseAccessMode {
 
   /**
    * The database is a readonly database. Tables, indexes etc. are all
@@ -201,10 +201,10 @@ export enum DatabasePurpose {
    * optimized for inserts and updates. Roles are mostly setup for data
    * mutations.
    */
-  Readwrite = 'readwrite',
+  ReadWrite = 'readwrite',
 }
 
-export type DatabasePurposes = DatabasePurpose[];
+export type DatabaseAccessModes = DatabaseAccessMode[];
 
 /**
  * Defines directory names and the intent of the sql script located in the

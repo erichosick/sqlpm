@@ -23,6 +23,6 @@
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
   "sqlpm": {
-    "platform": "postgresql"
+    "databaseSystem": "postgresql"
   }
 }

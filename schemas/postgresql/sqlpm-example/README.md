@@ -10,8 +10,8 @@ This package was generated [@sqlpm/package-generator-ts](https://www.npmjs.com/p
 
 ```typescript
 import {
-  DatabasePlatform,
-  DatabasePurpose,
+  DatabaseSystem,
+  DatabaseAccessMode,
 } from '@sqlpm/types-ts';
 
 import {
@@ -21,12 +21,12 @@ import {
 (async () => {
   await schemaProjectInit(
     'sqlpm-example',
-    DatabasePlatform.Postgresql,
+    DatabaseSystem.Postgresql,
 
     'Used to test the sqlpm along with .',
     'Eric Hosick',
     'erichosick@gmail.com',
-    [DatabasePurpose.Readwrite, DatabasePurpose.Readonly],
+    [DatabaseAccessMode.ReadWrite, DatabaseAccessMode.Readonly],
   );
 })();
 

@@ -22,7 +22,7 @@ This package has:
 This package was generated form the root of this repository as follows:
 
 ```bash
-yarn sqlpm generate '{"packageName": "iso", "platform": "postgresql", "description": "contains iso data for languages, countries, etc. Date comes from places like https://datahub.io/collections/reference-data.", "author": "...", "email": "...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
+yarn sqlpm generate '{"packageName": "iso", "databaseSystem": "postgresql", "description": "contains iso data for languages, countries, etc. Date comes from places like https://datahub.io/collections/reference-data.", "author": "...", "email": "...", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
 
 yarn lerna add @sqlpm/sqlpm-lib-ts --scope=@sqlpm/iso-postgresql
 

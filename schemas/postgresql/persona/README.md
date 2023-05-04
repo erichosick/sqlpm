@@ -22,7 +22,7 @@ This package has:
 This package was generated form the root of this repository as follows:
 
 ```bash
-yarn sqlpm generate '{"packageName": "persona", "platform": "postgresql", "description": "support users, persona entities, companies, etc.", "author": "Eric Hosick", "email": "erichosick@gmail.com", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
+yarn sqlpm generate '{"packageName": "persona", "databaseSystem": "postgresql", "description": "support users, persona entities, companies, etc.", "author": "Eric Hosick", "email": "erichosick@gmail.com", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
 
 yarn lerna add @sqlpm/sqlpm-lib-ts --scope=@sqlpm/persona-postgresql
 

@@ -36,7 +36,7 @@ export interface ContentSourceObject<ContentType> {
  * {
  *   // ...
  *   "sqlpm": {
- *     "platform": 'postgresql'
+ *     "databaseSystem": 'postgresql'
  *   }
  * }
  * ```

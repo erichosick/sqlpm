@@ -3,8 +3,8 @@ import {
 } from 'node:path';
 
 import {
-  DatabasePlatform,
-  DatabasePurpose,
+  DatabaseSystem,
+  DatabaseAccessMode,
   RunActionDirectory,
 } from '@sqlpm/types-ts';
 
@@ -46,8 +46,8 @@ describe('sqlFilesApply', () => {
     await sqlFilesGenerate(
       databaseName,
       destinationBuildFolder,
-      DatabasePurpose.Readwrite,
-      DatabasePlatform.Postgresql,
+      DatabaseAccessMode.ReadWrite,
+      DatabaseSystem.Postgresql,
       [
         RunActionDirectory.Prerun,
         RunActionDirectory.Run,
@@ -62,8 +62,8 @@ describe('sqlFilesApply', () => {
     await sqlFilesGenerate(
       databaseName,
       destinationResetFolder,
-      DatabasePurpose.Readwrite,
-      DatabasePlatform.Postgresql,
+      DatabaseAccessMode.ReadWrite,
+      DatabaseSystem.Postgresql,
       [
         RunActionDirectory.Reset,
       ],

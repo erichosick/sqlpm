@@ -1,5 +1,5 @@
 import {
-  DatabasePlatform, DatabasePurpose, RunActionDirectory,
+  DatabaseSystem, DatabaseAccessMode, RunActionDirectory,
 } from '@sqlpm/types-ts';
 
 import {
@@ -11,7 +11,7 @@ describe('projectDirectories', () => {
     given a schema and database purpose`, () => {
     const directories = projectDirectories(
       'persona',
-      DatabasePlatform.Postgresql,
+      DatabaseSystem.Postgresql,
     );
     expect(directories).toEqual(
       [
@@ -28,8 +28,8 @@ describe('projectDirectories', () => {
   it('should generate a subset of folders', () => {
     const directories = projectDirectories(
       'persona',
-      DatabasePlatform.Postgresql,
-      [DatabasePurpose.Readonly, DatabasePurpose.Readwrite],
+      DatabaseSystem.Postgresql,
+      [DatabaseAccessMode.Readonly, DatabaseAccessMode.ReadWrite],
       [RunActionDirectory.Run, RunActionDirectory.Seed],
     );
 

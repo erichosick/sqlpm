@@ -1,28 +1,31 @@
 import {
-  DatabasePlatform,
-  DatabasePurpose,
+  DatabaseSystem,
+  DatabaseAccessMode,
   RunActionDirectory,
 } from '@sqlpm/types-ts';
 
 import {
   actionDirectory,
   packageDirectory,
-  platformDirectory,
+  databaseSystemDirectory,
   purposeDirectory,
 } from '../src/index';
 
 describe('schemaProjectInit', () => {
   it('should create the correct directories', () => {
-    const platformDir = platformDirectory(
+    const databaseSystemDir = databaseSystemDirectory(
       'schemas',
-      DatabasePlatform.Postgresql,
+      DatabaseSystem.Postgresql,
     );
-    expect(platformDir).toEqual('schemas/postgresql');
+    expect(databaseSystemDir).toEqual('schemas/postgresql');
 
-    const packageDir = packageDirectory(platformDir, 'universal');
+    const packageDir = packageDirectory(databaseSystemDir, 'universal');
     expect(packageDir).toEqual('schemas/postgresql/universal');
 
-    const purposeDir = purposeDirectory(packageDir, DatabasePurpose.Readwrite);
+    const purposeDir = purposeDirectory(
+      packageDir,
+      DatabaseAccessMode.ReadWrite,
+    );
     expect(purposeDir).toEqual('schemas/postgresql/universal/readwrite');
 
     const actionDir = actionDirectory(purposeDir, RunActionDirectory.Test);

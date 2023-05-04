@@ -8,7 +8,7 @@ import {
   databaseDrop,
   DatabaseDropOptions,
 } from '@sqlpm/postgresql-client-ts';
-import { DatabasePlatform, DatabasePurpose, RunActionDirectory } from '@sqlpm/types-ts';
+import { DatabaseSystem, DatabaseAccessMode, RunActionDirectory } from '@sqlpm/types-ts';
 import { dirRemove } from '@sqlpm/file-async-ts';
 import { sqlFilesGenerate } from './sql-files-generate';
 import { sqlFilesApply } from './sql-files-apply';
@@ -61,8 +61,8 @@ export const sqlTestPackage = async (
   await sqlFilesGenerate(
     databaseName,
     destinationBuildFolder,
-    DatabasePurpose.Readwrite,
-    DatabasePlatform.Postgresql,
+    DatabaseAccessMode.ReadWrite,
+    DatabaseSystem.Postgresql,
     [
       RunActionDirectory.Prerun,
       RunActionDirectory.Run,
@@ -76,8 +76,8 @@ export const sqlTestPackage = async (
   await sqlFilesGenerate(
     databaseName,
     destinationResetFolder,
-    DatabasePurpose.Readwrite,
-    DatabasePlatform.Postgresql,
+    DatabaseAccessMode.ReadWrite,
+    DatabaseSystem.Postgresql,
     [
       RunActionDirectory.Reset,
     ],
@@ -89,8 +89,8 @@ export const sqlTestPackage = async (
   await sqlFilesGenerate(
     databaseName,
     destinationTestFolder,
-    DatabasePurpose.Readwrite,
-    DatabasePlatform.Postgresql,
+    DatabaseAccessMode.ReadWrite,
+    DatabaseSystem.Postgresql,
     [
       RunActionDirectory.Seed,
       RunActionDirectory.Test,

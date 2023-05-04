@@ -132,7 +132,7 @@ yarn lerna add {@name/existing-module} --scope={@name/new-package-name}
 SQL Schema pac
 
 ```bash
-yarn sqlpm generate '{"packageName": "lib", "platform": "postgresql", "description": "domains, types, etc.", "author": "${your_name}", "email": "${your_email}", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
+yarn sqlpm generate '{"packageName": "lib", "databaseSystem": "postgresql", "description": "domains, types, etc.", "author": "${your_name}", "email": "${your_email}", "purposes": ["readwrite"], "actions": ["run", "test", "reset"]}'
 ```
 
 ### Linking To Another Project

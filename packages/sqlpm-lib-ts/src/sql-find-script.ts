@@ -10,8 +10,8 @@ import {
 
 import {
   MessagingOptions,
-  DatabasePlatform,
-  DatabasePurpose,
+  DatabaseSystem,
+  DatabaseAccessMode,
   RunActionDirectory,
 } from '@sqlpm/types-ts';
 
@@ -25,8 +25,8 @@ import {
 import { sqlPackagesGetInverted } from './sql-packages-get-inverted';
 
 export const sqlFindScript = async (
-  databasePurpose: DatabasePurpose | string,
-  platform: DatabasePlatform,
+  databaseAccessMode: DatabaseAccessMode | string,
+  databaseSystem: DatabaseSystem,
   runDirectories: RunActionDirectory[],
   options?: MessagingOptions,
   childPath?: string,
@@ -42,12 +42,12 @@ export const sqlFindScript = async (
   };
   const rootPackage = await buildDependency(finalPath, finalOptions);
   if (rootPackage !== undefined) {
-    const sqlPackages = sqlPackagesGetInverted(rootPackage, platform);
+    const sqlPackages = sqlPackagesGetInverted(rootPackage, databaseSystem);
 
     if (sqlPackages.length === 0) {
       const message = `
       No packages found under root package '${rootPackage.package.name}' located at '${rootPackage.source?.absolutePath}' that are a sqlpm node package. Verify that:
-      1. If the '${rootPackage.package.name}' package is to be used by sqlpm, then make sure { "sqlpm": { "platform": "postgresql" } } is part of your package.json file.
+      1. If the '${rootPackage.package.name}' package is to be used by sqlpm, then make sure { "sqlpm": { "databaseSystem": "postgresql" } } is part of your package.json file.
       2. For mono-repo, did you add your schema workspace to  { "workspaces": [ ... ], } in your mono-repo root package and that the workspace directory in workspaces actually exists in your project.
       `;
       sendMsg?.warn(message);
@@ -58,7 +58,7 @@ export const sqlFindScript = async (
           if (sqlPackage.source?.absolutePath) {
             const runDirAbsolute = join(
               sqlPackage.source.absolutePath,
-              databasePurpose,
+              databaseAccessMode,
               runDirectory,
             );
 

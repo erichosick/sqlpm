@@ -3,8 +3,8 @@ import {
 } from 'node:path';
 
 import {
-  DatabasePlatform,
-  DatabasePurpose,
+  DatabaseSystem,
+  DatabaseAccessMode,
   MessagingOptions,
   RunActionDirectory,
 } from '@sqlpm/types-ts';
@@ -44,8 +44,8 @@ export const packageNameToSchemaName = (
  * will run on.
  * @param destinationFolder The final location where all the sql script will
  * be placed.
- * @param databasePurpose
- * @param platform
+ * @param DatabaseAccessMode
+ * @param databaseSystem
  * @param runDirectories
  * @param options
  * @param childPath
@@ -53,8 +53,8 @@ export const packageNameToSchemaName = (
 export const sqlFilesGenerate = async (
   databaseName: string,
   destinationFolder: string,
-  databasePurpose: DatabasePurpose | string,
-  platform: DatabasePlatform,
+  databaseAccessMode: DatabaseAccessMode | string,
+  databaseSystem: DatabaseSystem,
   runDirectories: RunActionDirectory[],
   options?: MessagingOptions,
   childPath?: string,
@@ -71,8 +71,8 @@ export const sqlFilesGenerate = async (
   }
 
   const sqlLocations: SqlToRun[] = await sqlFindScript(
-    databasePurpose,
-    platform,
+    databaseAccessMode,
+    databaseSystem,
     runDirectories,
     options,
     finalPath,
