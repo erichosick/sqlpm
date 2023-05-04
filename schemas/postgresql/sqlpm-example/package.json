@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/sqlpm-example-postgresql",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Used to test the sqlpm along with .",
   "keywords": [
     "sqlpm",
