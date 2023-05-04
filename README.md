@@ -57,6 +57,7 @@ Development requirements:
 
 ```bash
 
+# Within the sqlpm directory
 # init all the projects
 yarn
 
@@ -67,6 +68,9 @@ yarn test:unit:watch
 
 # build any distributable and run unit tests
 yarn test:unit
+
+# A specific file
+yarn test:unit ./packages/node-package-ts/__tests__/build-dependency.unit.spec.ts
 
 # build javascript library from typescript library
 yarn build

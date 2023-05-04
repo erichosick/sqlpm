@@ -38,6 +38,7 @@ const integrationTestConfig: Config = {
   fakeTimers: {
     enableGlobally: true,
   },
+  setupFilesAfterEnv: ['jest-expect-message'],
 };
 
 export default integrationTestConfig;
