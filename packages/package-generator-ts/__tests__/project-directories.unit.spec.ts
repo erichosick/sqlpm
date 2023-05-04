@@ -29,7 +29,7 @@ describe('projectDirectories', () => {
     const directories = projectDirectories(
       'persona',
       DatabaseSystem.Postgresql,
-      [DatabaseAccessMode.Readonly, DatabaseAccessMode.ReadWrite],
+      [DatabaseAccessMode.ReadOnly, DatabaseAccessMode.ReadWrite],
       [RunActionDirectory.Run, RunActionDirectory.Seed],
     );
 

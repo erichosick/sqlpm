@@ -26,7 +26,7 @@ import {
     'Used to test the sqlpm along with .',
     'Eric Hosick',
     'erichosick@gmail.com',
-    [DatabaseAccessMode.ReadWrite, DatabaseAccessMode.Readonly],
+    [DatabaseAccessMode.ReadWrite, DatabaseAccessMode.ReadOnly],
   );
 })();
 

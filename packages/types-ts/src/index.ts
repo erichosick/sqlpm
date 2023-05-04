@@ -185,7 +185,7 @@ export type DatabaseSystems = DatabaseSystem[];
  * replication, etc.
  *
  * **@enum**
- * * **@members - {@link DatabaseAccessMode.Readonly}**
+ * * **@members - {@link DatabaseAccessMode.ReadOnly}**
  * * **@members - {@link DatabaseAccessMode.ReadWrite}**
  */
 export enum DatabaseAccessMode {
@@ -194,7 +194,7 @@ export enum DatabaseAccessMode {
    * The database is a readonly database. Tables, indexes etc. are all
    * optimized for querying. Roles are mostly setup for data querying.
    */
-  Readonly = 'readonly',
+  ReadOnly = 'readonly',
 
   /**
    * The database is a readwrite database. Tables, indexes etc. are all
