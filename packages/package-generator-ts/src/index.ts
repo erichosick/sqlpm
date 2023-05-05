@@ -3,6 +3,10 @@ import {
 } from 'node:path';
 
 import {
+  isValidEnumValue,
+} from '@sqlpm/enum-ts';
+
+import {
   dirCreate,
   dirsCreate,
   fileWrite,
@@ -15,7 +19,6 @@ import {
   runActionDirectoryAsArray,
   DatabaseAccessModes,
   RunActionDirectories,
-  databaseSystemVerify,
 } from '@sqlpm/types-ts';
 
 import {
@@ -366,15 +369,11 @@ const verifyInput: VerifySignature = (
     throw Error('databaseSystem is required to generate a schema project');
   } else {
     const { databaseSystem } = obj as SchemaProjectSetting;
-    if (!databaseSystemVerify(databaseSystem)) {
+    if (!isValidEnumValue(DatabaseSystem, databaseSystem)) {
       const errorMessage = `database system '${databaseSystem}' is not a valid database system. Supported database systems are postgresql`;
       throw Error(errorMessage);
     }
   }
-
-  // if ('purposes' in obj) {
-
-  // }
 
   return true;
 };
@@ -519,7 +518,7 @@ export const schemaProjectInit = async (
   //   sqlpmConfigTemplate(databaseSystem),
   // );
 
-  const sqlFilePromises = [];
+  const sqlFilePromises: Promise<boolean>[] = [];
 
   for (const purpose of purposes) {
     const purposeDir = purposeDirectory(packageDir, purpose);

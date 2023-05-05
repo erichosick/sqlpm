@@ -126,10 +126,6 @@ export enum DatabaseSystem {
   Postgresql = 'postgresql',
 }
 
-export const databaseSystemVerify = (
-  value: string,
-): boolean => Object.values<string>(DatabaseSystem).includes(value);
-
 /**
   * Provides information about the database schemas defined in a module such
   * as the database system the sql script is written for.

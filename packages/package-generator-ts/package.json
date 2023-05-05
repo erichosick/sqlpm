@@ -30,6 +30,7 @@
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
   "dependencies": {
+    "@sqlpm/enum-ts": "^1.0.1",
     "@sqlpm/file-async-ts": "^1.10.1",
     "@sqlpm/parse-json-ts": "^1.0.4",
     "@sqlpm/sqlpm-lib-ts": "^1.5.1",
