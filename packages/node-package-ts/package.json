@@ -23,6 +23,9 @@
   "files": [
     "src"
   ],
+  "scripts": {
+    "upgrade:latest": "yarn upgrade --latest"
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"

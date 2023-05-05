@@ -174,8 +174,8 @@ expect(dependencies).toEqual([{
 
 ## **nodePackageFromSource** - Convert Node Package Data and Filter Depencencies
 
-After loading a node package, convert the node package into an easy to
-manipulate data object. During conversion, filter dependencies.
+Converts a loaded node package into an easy-to-manipulate data object.
+During conversion, dependencies can be filtered.
 **@param contentSource** The source (file name) and package.json content.
 **@returns A {@link NodePackage} with, optionally, filtered dependencies.
 **@example**

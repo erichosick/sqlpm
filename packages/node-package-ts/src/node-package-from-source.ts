@@ -13,8 +13,8 @@ import {
 import { nodePackagesFromDependency } from './node-package-from-dependency';
 
 /**
- * After loading a node package, convert the node package into an easy to
- * manipulate data object. During conversion, filter dependencies.
+ * Converts a loaded node package into an easy-to-manipulate data object.
+ * During conversion, dependencies can be filtered.
  * **@param contentSource {@link NodePackageContentSource }** Contains
  * the source (file name) and package.json content.
  *

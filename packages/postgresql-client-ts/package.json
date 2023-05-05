@@ -35,6 +35,7 @@
     "postgres": "^3.3.2"
   },
   "scripts": {
-    "ts-node:cwd": "yarn ts-node --cwd $(pwd) ./src/index.ts"
+    "ts-node:cwd": "yarn ts-node --cwd $(pwd) ./src/index.ts",
+    "upgrade:latest": "yarn upgrade --latest"
   }
 }

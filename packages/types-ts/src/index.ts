@@ -1,3 +1,7 @@
+// -----------------------------------------------------------------------------
+// Logging and Messaging Types
+// -----------------------------------------------------------------------------
+
 /**
  * Defines potential messaging/logging levels
  */
@@ -98,6 +102,10 @@ export interface MessagingOptions {
    */
   sendMsg?: StructuredMessenger,
 }
+
+// -----------------------------------------------------------------------------
+// DatabaseSystem Types
+// -----------------------------------------------------------------------------
 
 /**
  * Supported database systems. The name of the database system is also
@@ -283,5 +291,23 @@ export enum RunActionDirectory {
 
 export type RunActionDirectories = RunActionDirectory[];
 
-// eslint-disable-next-line max-len
-export const runActionDirectoryAsArray = (): RunActionDirectory[] => Object.values(RunActionDirectory);
+export const runActionDirectoryAsArray = (): RunActionDirectory[] => {
+  return Object.values(RunActionDirectory);
+};
+
+// -----------------------------------------------------------------------------
+// Generate Settings Type
+// -----------------------------------------------------------------------------
+
+export enum SettingFileType {
+  Javascript = 'js',
+  // TODO: Json = 'json',
+  // TODO: Typescript = 'ts',
+}
+
+export interface SqlpmGenerateSettings {
+  databaseSystem: DatabaseSystem;
+  fileType: SettingFileType;
+  environment?: string;
+  fileLocation?: string;
+}
