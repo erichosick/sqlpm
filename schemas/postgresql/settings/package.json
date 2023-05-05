@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/settings-postgresql",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "contains helper functions for using PostgreSQL configuration settings",
   "keywords": [
     "sqlpm",
@@ -26,6 +26,6 @@
     "databaseSystem": "postgresql"
   },
   "dependencies": {
-    "@sqlpm/test-postgresql": "^1.5.1"
+    "@sqlpm/test-postgresql": "^1.5.2"
   }
 }

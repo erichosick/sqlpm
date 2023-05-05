@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/persona-postgresql",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "support users, persona entities, companies, etc.",
   "keywords": [
     "sqlpm",
@@ -26,8 +26,8 @@
     "databaseSystem": "postgresql"
   },
   "dependencies": {
-    "@sqlpm/sqlpm-lib-ts": "^1.5.1",
-    "@sqlpm/tag-postgresql": "^1.2.1",
-    "@sqlpm/universal-postgresql": "^1.2.1"
+    "@sqlpm/sqlpm-lib-ts": "^1.5.2",
+    "@sqlpm/tag-postgresql": "^1.2.2",
+    "@sqlpm/universal-postgresql": "^1.2.2"
   }
 }
