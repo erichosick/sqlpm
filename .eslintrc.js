@@ -17,6 +17,10 @@ module.exports = {
     'jest', // fix - expect undefined no-undef
   ],
   rules: {
+    // In cases where we want to include dev dependencies in test code
+    'import/no-extraneous-dependencies': [
+      'off', { devDependencies: ['**/*.test.js', '**/*.spec.js'] },
+    ],
     // In cases where the number of lines becomes > max-len. We should be able
     // to format the code as needed.
     'arrow-body-style': 'off',

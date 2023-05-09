@@ -1,0 +1,49 @@
+{
+  "command": {
+    "name": "sqlpm",
+    "description": "A package manager and migration tool for SQL.",
+    "help": "\n\n  Example calls:\n  \n  $ sqlpm generate-package <json>\n",
+    "errors": {
+      "missingPackage": "Missing package.json in sqlpm project"
+    }
+  },
+  "generatePackage": {
+    "messages": {
+      "generating": "Generating sqlpm package with the following options:"
+    },
+    "command": "generate-package",
+    "description": "Generates a new database schema package",
+    "argument": "A JSON object containing the configuration for generating the package, including packageName, databaseSystem, description, author, email, purposes, and actions.",
+    "help": "\nExample generate:\n\nThis example generates a sqlpm package and a PostgreSQL schema named 'core'. The package is designed to handle SQL DDL for a read-write instance and includes the necessary configuration and actions.\n\n```json\n{\n  \"packageName\": \"core\",\n  \"databaseSystem\": \"postgresql\",\n  \"description\": \"domains, types, etc.\",\n  \"author\": \"${your_name}\",\n  \"email\": \"${your_email}\",\n  \"purposes\": [\n    \"readwrite\"\n  ],\n  \"actions\": [\n    \"run\",\n    \"test\",\n    \"reset\"\n  ]\n}\n```"
+  },
+  "generateSettings": {
+    "messages": {
+      "generating": "Generates a SQL package manager settings file"
+    },
+    "command": "generate-settings",
+    "description": "Generates a settings file for sqlpm",
+    "help": "\nExample usage:\n\n$ sqlpm generate-settings -e development -d PostgreSQL -f json\nThis will generate a PostgreSQL developer settings file as a JSON file in the current directory.",
+    "options": {
+      "dbSystem": {
+        "flags": "-d, --databaseSystem <system>",
+        "description": "Choose the database system: postgresql or sqlite (default: \"postgresql\")",
+        "default": "postgresql"
+      },
+      "fileType": {
+        "flags": "-f, --fileType <type>",
+        "description": "Choose the settings file type: json, ts, or js (default: \"js\")",
+        "default": "js"
+      },
+      "environment": {
+        "flags": "-e, --environment <environment>",
+        "description": "Choose the environment the settings file is covering: production, staging, or development (default: \"development\")",
+        "default": "development"
+      },
+      "fileLocation": {
+        "flags": "-l, --fileLocation [location]",
+        "description": "Choose the location where generated file(s) are placed (default: \".\")",
+        "default": "."
+      }
+    }
+  }
+}

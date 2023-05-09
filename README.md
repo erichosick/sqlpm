@@ -142,7 +142,7 @@ yarn sqlpm generate '{"packageName": "lib", "databaseSystem": "postgresql", "des
 ### Linking To Another Project
 
 ```bash
-yarn lerna add {@name/existing-module} --scope={@name/new-package-name}
+yarn lerna add @name/link-to-package --scope=@name/package-to-contain-link
 # example
  yarn lerna add @sqlpm/universal-schema --scope=@sqlpm/iso-schema
 ```

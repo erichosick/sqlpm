@@ -23,7 +23,9 @@
     "src"
   ],
   "scripts": {
-    "upgrade:latest": "yarn upgrade --latest"
+    "upgrade:latest": "yarn upgrade --latest",
+    "sqlpm": "TS_NODE_SKIP_IGNORE=true yarn ts-node --cwd $(pwd) ./src/index.ts",
+    "sqlpm2": "yarn ts-node --cwd $(pwd) ./src/index.ts"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
@@ -34,9 +36,13 @@
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
   "dependencies": {
+    "@sqlpm/enum-ts": "^1.0.1",
     "@sqlpm/node-package-ts": "^1.7.3",
     "@sqlpm/package-generator-ts": "^1.9.3",
     "@sqlpm/sqlpm-lib-ts": "^1.5.3",
-    "commander": "^9.4.1"
+    "@sqlpm/types-ts": "^1.3.3",
+    "commander": "^10.0.1",
+    "i18next": "^22.4.15",
+    "i18next-fs-backend": "^2.1.1"
   }
 }
