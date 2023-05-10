@@ -24,6 +24,7 @@ const unitTestConfig: Config = {
     './packages/**/src/*.ts',
   ],
   setupFilesAfterEnv: ['jest-expect-message'],
+  globalSetup: './jest-global-setup-unit.ts'
 };
 
 export default unitTestConfig;

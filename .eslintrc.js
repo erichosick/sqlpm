@@ -17,6 +17,10 @@ module.exports = {
     'jest', // fix - expect undefined no-undef
   ],
   rules: {
+    // Some of us like underscores.
+    'no-underscore-dangle': [
+      'allow',
+    ],
     // In cases where we want to include dev dependencies in test code
     'import/no-extraneous-dependencies': [
       'off', { devDependencies: ['**/*.test.js', '**/*.spec.js'] },
