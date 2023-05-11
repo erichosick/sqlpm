@@ -18,7 +18,7 @@ describe('enumToString', () => {
   });
 
   it('should return an empty string if the enumeration is empty', () => {
-    enum EmptyEnum {}
+    enum EmptyEnum { }
 
     const result = enumToString(EmptyEnum);
     expect(

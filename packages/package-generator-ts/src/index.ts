@@ -433,7 +433,7 @@ export interface SqlpmConfigGrouping {
  */
 export const testTemplate = (
   packageName: string,
-):string => {
+): string => {
   const schemaName = packageNameToSchemaName(packageName);
   return `import {
   sqlTestPackage,

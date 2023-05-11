@@ -65,7 +65,7 @@ describe('generatePackageCommand', () => {
     });
 
     it('TODO: should add help text to the generate package subcommand', () => {
-    // can not figure out how to display a subcommand's help.
+      // can not figure out how to display a subcommand's help.
     });
   });
 

@@ -1,7 +1,6 @@
 import { mocked } from 'jest-mock';
 import { loadNodePackage } from '@sqlpm/node-package-ts';
 import command from '../src/command';
-import * as common from '../src/locales/en/common.json';
 
 import silenceStdout from './silence-stdout';
 
@@ -44,23 +43,4 @@ describe('commander-sqlpm', () => {
     processExitSpy.mockRestore();
   });
 
-  test('should throw error if package is undefined', async () => {
-    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-    const processExitSpy = jest.spyOn(process, 'exit').mockImplementation();
-
-    mockedLoadNodePackage.mockResolvedValue(undefined);
-
-    await command();
-
-    expect(mockedLoadNodePackage).toHaveBeenCalled();
-    // expect(mockedT).toHaveBeenCalled();
-
-    expect(consoleSpy).toHaveBeenCalledWith(
-      new Error(common.command.errors.missingPackage),
-    );
-    expect(processExitSpy).toHaveBeenCalledWith(1);
-
-    consoleSpy.mockRestore();
-    processExitSpy.mockRestore();
-  });
 });

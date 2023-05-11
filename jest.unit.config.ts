@@ -23,8 +23,7 @@ const unitTestConfig: Config = {
   collectCoverageFrom: [
     './packages/**/src/*.ts',
   ],
-  setupFilesAfterEnv: ['jest-expect-message'],
-  globalSetup: './jest-global-setup-unit.ts'
+  setupFilesAfterEnv: ['jest-expect-message']
 };
 
 export default unitTestConfig;

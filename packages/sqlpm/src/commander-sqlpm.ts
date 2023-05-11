@@ -1,4 +1,4 @@
-import commander from 'commander';
+import commander, { CommanderError } from 'commander';
 import {
   join,
 } from 'node:path';
@@ -15,18 +15,16 @@ function errorColor(str: string) {
   // Add ANSI escape codes to display text in red.
   return `\x1b[31m${str}\x1b[0m`;
 }
-export default async function commanderSqlpm(): Promise<void> {
-  const pkg = await loadNodePackage(join(__dirname, '..', 'package.json'));
 
-  if (pkg === undefined) {
-    throw Error(t('command.errors.missingPackage'));
-  }
+export const commanderBuildSqlpm = async (): Promise<commander.Command> => {
+  const pkg = await loadNodePackage(join(__dirname, '..', 'package.json'));
+  const version = pkg?.content.version || 'unknown';
 
   const program: commander.Command = new commander.Command();
   program
     .name(t('command.name'))
     .description(t('command.description'))
-    .version(pkg?.content.version)
+    .version(version)
     .addHelpText('after', t('command.help'))
     .configureOutput({
       // Even though this doesn't seem to do anything, adding the following
@@ -40,6 +38,26 @@ export default async function commanderSqlpm(): Promise<void> {
     ;
   generatePackageCommand(program);
   // actionGenerateSettings(program);
-  // program.exitOverride();
-  program.parse(process.argv); // Override the default exit behavior;
+
+  program.exitOverride(); // Override the default exit behavior;
+  return program;
 }
+
+
+const commanderSqlpm = async (): Promise<void> => {
+  const program = await commanderBuildSqlpm();
+  await program.parseAsync(process.argv)
+    .catch((err) => {
+      if (err instanceof CommanderError) {
+        if (err.code !== 'commander.helpDisplayed'
+          && err.code !== 'commander.help') {
+          throw err;
+        } // else do nothing as commander will have shown the help
+      } else {
+        throw err;
+      }
+    })
+}
+
+export default commanderSqlpm;
+
