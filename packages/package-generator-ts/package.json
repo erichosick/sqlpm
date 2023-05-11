@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/package-generator-ts",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "description": "Library to generate sql package manager (sqlpm) packages.",
   "keywords": [
     "sqlpm",
@@ -30,7 +30,7 @@
     "url": "git+https://github.com/erichosick/sqlpm.git"
   },
   "dependencies": {
-    "@sqlpm/enum-ts": "^1.0.1",
+    "@sqlpm/enum-ts": "^1.0.2",
     "@sqlpm/file-async-ts": "^1.10.1",
     "@sqlpm/parse-json-ts": "^1.0.4",
     "@sqlpm/sqlpm-lib-ts": "^1.5.3",
