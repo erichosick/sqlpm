@@ -1,6 +1,6 @@
 {
   "name": "@sqlpm/enum-ts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "``@sqlpm/file-async-ts` is a typescript library applying the facade pattern to asynchronous file access.",
   "keywords": [
     "typescript",
