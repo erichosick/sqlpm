@@ -17,12 +17,16 @@ describe('commanderBuildSqlpm', () => {
     expect(program.helpInformation())
       .toContain('Commands:\n');
     expect(program.helpInformation())
-      .toContain('generate-package <json>');
-    expect(program.helpInformation())
-      .toContain('Generates a new database schema package\n');
-    expect(program.helpInformation())
       .toContain('help [command]');
     expect(program.helpInformation())
       .toContain('display help for command');
+    expect(program.helpInformation())
+      .toContain('generate-package <json>');
+    expect(program.helpInformation())
+      .toContain('Generates a new database schema package\n');
+    // expect(program.helpInformation())
+    //   .toContain('generate-settings [options]');
+    // expect(program.helpInformation())
+    //   .toContain('Generates a settings file for sqlpm\n');
   });
 });

@@ -6,7 +6,7 @@ import {
 } from '@sqlpm/package-generator-ts';
 import t from './i18';
 
-export async function actionGeneratePackage(json: string) {
+export const actionGeneratePackage = async (json: string) => {
   const input = parseSchemaProjectInit(json);
 
   console.log(t('generatePackage.messages.generating'));
@@ -23,9 +23,9 @@ export async function actionGeneratePackage(json: string) {
   );
 }
 
-export default function generatePackageCommand(
+const generatePackageCommand = (
   program: commander.Command,
-) {
+) => {
   program
     .command(t('generatePackage.command'))
     .action(actionGeneratePackage)
@@ -33,3 +33,5 @@ export default function generatePackageCommand(
     .argument('<json>', t('generatePackage.argument'))
     .addHelpText('after', t('generatePackage.help'));
 }
+
+export default generatePackageCommand;

@@ -64,8 +64,23 @@ describe('generatePackageCommand', () => {
         .toBe(common.generatePackage.argument);
     });
 
-    it('TODO: should add help text to the generate package subcommand', () => {
-      // can not figure out how to display a subcommand's help.
+    it('should add help text to the generate package subcommand', () => {
+      const helpInformation = commandFound?.helpInformation();
+
+      expect(helpInformation)
+        .toContain(`Usage:  generate-package [options] <json>\n`);
+      expect(helpInformation)
+        .toContain(`Generates a new database schema package\n`);
+      expect(helpInformation)
+        .toContain(`A JSON object containing the configuration for generating the\n`);
+      expect(helpInformation)
+        .toContain(`package, including packageName, databaseSystem, description,\n`);
+      expect(helpInformation)
+        .toContain(`author, email, purposes, and actions.\n`);
+      expect(helpInformation)
+        .toContain(`-h, --help`);
+      expect(helpInformation)
+        .toContain(`display help for command`);
     });
   });
 

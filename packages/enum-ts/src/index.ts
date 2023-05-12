@@ -24,9 +24,9 @@
  * }
  * ```
  */
-export function isValidEnumValue<
+export const isValidEnumValue = <
   T extends Record<string, string>
->(enumObj: T, value: any): value is T[keyof T] {
+>(enumObj: T, value: any): value is T[keyof T] => {
   return Object.values(enumObj).includes(value);
 }
 
@@ -48,8 +48,8 @@ export function isValidEnumValue<
  * @see {@link isValidEnumValue}
  */
 
-export function enumToString<T extends Record<string, string>>(
+export const enumToString = <T extends Record<string, string>>(
   enumObj: T,
-): string {
+): string => {
   return Object.values(enumObj).join(',');
 }

@@ -1,6 +1,6 @@
 import commanderSqlpm from './commander-sqlpm';
 
-export default async function command() {
+const command = async () => {
   await commanderSqlpm()
     .catch((err) => {
       // eslint-disable-next-line no-console
@@ -11,3 +11,5 @@ export default async function command() {
       process.exit(0);
     });
 }
+
+export default command;
