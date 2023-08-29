@@ -160,7 +160,7 @@ WITH import (doc) AS (
     "language_alpha2_id": "el"
   },
   {
-    "label": "label",
+    "label": "English",
     "language_alpha2_id": "en"
   },
   {
